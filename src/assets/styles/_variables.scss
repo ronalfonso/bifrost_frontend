@@ -1,0 +1,246 @@
+:root {
+  --background: rgb(248, 248, 248);
+  --background-components: rgb(255, 255, 255);
+  --primary: rgb(62, 95, 138);
+  --primary-r: 62;
+  --primary-g: 95;
+  --primary-b: 138;
+  --secondary: rgb(169, 169, 169);
+  --secondary-r: 169;
+  --secondary-g: 169;
+  --secondary-b: 169;
+  --help: rgba(156, 39, 179, 1);
+  --help-r: 165;
+  --help-g: 39;
+  --help-b: 179;
+  --info: rgb(0, 208, 189);
+  --info-r: 0;
+  --info-g: 208;
+  --info-b: 189;
+  --success: rgb(104, 159, 56);
+  --success-r: 104;
+  --success-g: 159;
+  --success-b: 56;
+  --warning: rgb(255, 143, 0);
+  --warning-r: 255;
+  --warning-g: 143;
+  --warning-b: 0;
+  --danger: rgb(211, 47, 47);
+  --danger-r: 211;
+  --danger-g: 47;
+  --danger-b: 47;
+  --font-color: rgb(71, 75, 88);
+  --sidebar-color: rgb(255, 255, 255);
+  //--sidebar-color: rgb(173, 184, 213);
+  --opacity-navbar: 1;
+  --background-image: '../../../assets/img/background_dashboard.png';
+  --color-navbar: rgb(123, 0, 153);
+  --color-navbar-r: 123;
+  --color-navbar-g: 0;
+  --color-navbar-b: 153;
+  --black: 0;
+  --white: 255;
+}
+
+//============= Size Screen ============= border-left: 5px solid $success_message_color;
+$phone: 400px;
+$phone-wide:   480px;
+$phablet:      560px;
+$tablet-small: 640px;
+$tablet:       768px;
+$tablet-wide:  1024px;
+$desktop:      1248px;
+$desktop-wide: 1440px;
+$color-prueba: #3e5f8a;
+
+//============= App Colors Definiions Ligth Theme =============
+
+
+$white: rgba(var(--white), var(--white), var(--white), 1);;
+$white_secondary: rgba(var(--white), var(--white), var(--white), 0.87);
+$white_tertiary: rgba(var(--white), var(--white), var(--white), 0.1);
+$black_primary: rgba(var(--black), var(--black), var(--black), 0.86);
+$black_secondary: rgba(var(--black), var(--black), var(--black), 0.6);
+$black_secondary_hover: rgba(var(--black), var(--black), var(--black), 0.04);
+$black_tertiary: rgba(var(--black), var(--black), var(--black), 0.70);
+
+$font-color-primary: #000001;
+$font-color-secondary: #6c757d;
+$font-color-main: var(--font-color);
+$opacity-navbar: var(--opacity-navbar);
+
+$border: #e1e3ea;
+$color-font: #464D69;
+$gray: gray;
+$light-gray: rgba(128, 128, 128, .6);
+$topbar-height: 56px;
+
+$background: var(--background);
+$background-components: var(--background-components);
+$background-inputs: var(--background-components);
+$border: #b7b9c4;
+$topbar-background: #FFF;
+$border-radius-card: 4px;
+$border-radius: 3px;
+
+$background-tooltip: rgba(97, 97, 97, 0.9);
+
+
+// Primary Colors
+//$primary: #ecb100;
+//$whirklist: #80008E;
+$whirklist: #7b0099;
+$whirklist-rgb: rgb(123, 0, 153);
+$primary: rgb(var(--primary-r), var(--primary-g), var(--primary-b));
+$primary-navbar-dark: var(--color-navbar);
+//$primary-color-hover: rgba(236, 177, 0, 0.92);
+$primary-color-hover: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.92);
+//$primary-color-hover-outlined: rgba(236, 177, 0, 0.04);
+$primary-color-hover-outlined: rgba(var(--primary-r), var(--primary-g), var(--primary-b).04);
+//$primary-color-active: rgba(236, 177, 0, 0.68);
+$primary-color-active: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.68);
+//$primary-color-active-outlined: rgba(236, 177, 0, 0.16);
+$primary-color-active-outlined: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.16);
+//$primary-color-focus: rgba(236, 177, 0, 0.12);
+$primary-color-focus: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.12);
+//$primary-color-enabled-focus: rgba(236, 177, 0, 0.76);
+$primary-color-enabled-focus: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.76);
+//$primary-color-checked: rgba(236, 177, 0, 0.5);
+$primary-color-checked: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.5);
+//$primary-color-progressbar: rgba(236, 177, 0, 0.32);
+$primary-color-progressbar: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.32);
+$primary-color-orderList-higLight: #660171;
+
+// secondary Colors
+//$secondary: #282828;
+$secondary: rgb(var(--secondary-r), var(--secondary-g), var(--secondary-b));
+//$secondary-color-hover: rgba(40,40, 40, 0.92);
+$secondary-color-hover: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.92);
+//$secondary-color-hover-outline: rgba(40,40, 40, 0.04);
+$secondary-color-hover-outline: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.04);
+$secondary-color-disabled: #EFF0F0;
+$secondary-color-disabled-font: #BABDC0;
+$secondary-color-active: rgb(83, 88, 91);
+$secondary-color-active-outline: rgba(83, 88, 91, 0.16);
+//$secondary-color-focus: rgba(40, 40, 40, 0.2);
+$secondary-color-focus: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.2);
+//$secondary-color-enabled-focus: rgba(40, 40, 40, 0.76);
+$secondary-color-enabled-focus: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.76);
+//$secondary-color-text-enabled-focus: rgba(40, 40, 40, 0.12);
+$secondary-color-text-enabled-focus: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.12);
+
+$sidebar-color: var(--sidebar-color);
+$sidebar-color-hover: rgba(var(--black), var(--black), var(--black), 0.15);
+$sidebar-color-active: rgba(var(--black), var(--black), var(--black), 0.25);
+$sidebar-color-active-section: rgba(var(--black), var(--black), var(--black), 0.4);
+$sidebar-color-font: $primary;
+
+
+// Event Colors
+$link: #0C73FF;
+$link-color-hover: #005BD6;
+$link-color-disabled: #70ADFF;
+//Help
+$help: rgba(156, 39, 179, 1);
+//$help_hover: rgba(156, 39, 179, 0.92);
+$help_hover: rgba(var(--help-r), var(--help-g), var(--help-b), 0.92);
+//$help_hover_outline: rgba(156, 39, 179, 0.04);
+$help_hover_outline: rgba(var(--help-r), var(--help-g), var(--help-b), 0.04);
+//$help_active: rgba(156, 39, 179, 0.68);
+$help_active: rgba(var(--help-r), var(--help-g), var(--help-b), 0.68);
+//$help_active_outline: rgba(156, 39, 179, 0.16);
+$help_active_outline: rgba(var(--help-r), var(--help-g), var(--help-b), 0.16);
+//$help_active_enabled_focus: rgba(156, 39, 179, 0.76);
+$help_active_enabled_focus: rgba(var(--help-r), var(--help-g), var(--help-b), 0.76);
+//$help_active_text_enabled_focus: rgba(156, 39, 179, 0.12);
+$help_active_text_enabled_focus: rgba(var(--help-r), var(--help-g), var(--help-b), 0.12);
+//Info
+$info: rgb(var(--info-r), var(--info-g), var(--info-b));
+//$info_hover: rgba(33, 150, 243, 0.92);
+$info_hover: rgba(var(--info-r), var(--info-g), var(--info-b), 0.92);
+//$info_hover_outline: rgba(33, 150, 243, 0.04);
+$info_hover_outline: rgba(var(--info-r), var(--info-g), var(--info-b), 0.04);
+//$info_active: rgba(33, 150, 243, 0.68);
+$info_active: rgba(var(--info-r), var(--info-g), var(--info-b), 0.68);
+//$info_active_outline: rgba(33, 150, 243, 0.16);
+$info_active_outline: rgba(var(--info-r), var(--info-g), var(--info-b), 0.16);
+//$info_active_enabled_focus: rgba(33, 150, 243, 0.76);
+$info_active_enabled_focus: rgba(var(--info-r), var(--info-g), var(--info-b), 0.76);
+//$info_active_text_enabled_focus: rgba(33, 150, 243, 0.12);
+$info_active_text_enabled_focus: rgba(var(--info-r), var(--info-g), var(--info-b), 0.12);
+$info_message_background: #B3E5FC;
+$info_message_color: #01579B;
+//Success
+$success: rgb(104, 159, 56);
+//$success_hover: rgba(104, 159, 56, 0.92);
+$success_hover: rgba(var(--success-r), var(--success-g), var(--success-b), 0.92);
+//$success_hover_outline: rgba(104, 159, 56, 0.04);
+$success_hover_outline: rgba(var(--success-r), var(--success-g), var(--success-b), 0.04);
+//$success_active: rgba(104, 159, 56, 0.68);
+$success_active: rgba(var(--success-r), var(--success-g), var(--success-b), 0.68);
+//$success_active_outline: rgba(104, 159, 56, 0.16);
+$success_active_outline: rgba(var(--success-r), var(--success-g), var(--success-b), 0.16);
+//$success_active_enabled_focus: rgba(104, 159, 56, 0.76);
+$success_active_enabled_focus: rgba(var(--success-r), var(--success-g), var(--success-b), 0.76);
+//$success_active_text_enabled_focus: rgba(104, 159, 56, 0.12);
+$success_active_text_enabled_focus: rgba(var(--success-r), var(--success-g), var(--success-b), 0.12);
+$success_message_background: #C8E6C9;
+$success_message_color: #1B5E20;
+//Warning
+$warning: rgb(255, 143, 0);
+$warning_font: rgba(33, 37, 41, 1);
+//$warning_hover: rgba(255, 143, 0, 0.92);
+$warning_hover: rgba(var(--warning-r), var(--warning-g), var(--warning-b), 0.92);
+//$warning_hover_outline: rgba(255, 143, 0, 0.04);
+$warning_hover_outline: rgba(var(--warning-r), var(--warning-g), var(--warning-b), 0.04);
+//$warning_active: rgba(255, 143, 0, 0.68);
+$warning_active: rgba(var(--warning-r), var(--warning-g), var(--warning-b), 0.68);
+//$warning_active_outline: rgba(255, 143, 0, 0.16);
+$warning_active_outline: rgba(var(--warning-r), var(--warning-g), var(--warning-b), 0.16);
+//$warning_active_enabled_focus: rgba(255, 143, 0, 0.76);
+$warning_active_enabled_focus: rgba(var(--warning-r), var(--warning-g), var(--warning-b), 0.76);
+//$warning_active_text_enabled_focus: rgba(255, 143, 0, 0.12);
+$warning_active_text_enabled_focus: rgba(var(--warning-r), var(--warning-g), var(--warning-b), 0.12);
+$warning_message_background: #FFECB3;
+$warning_message_color: #7f6003;
+//Danger
+$danger: rgb(211, 47, 47);
+//$danger_hover: rgba(211, 47, 47, 0.92);
+$danger_hover: rgba(var(--danger-r), var(--danger-g), var(--danger-b), 0.92);
+//$danger_hover_outline: rgba(211, 47, 47, 0.04);
+$danger_hover_outline: rgba(var(--danger-r), var(--danger-g), var(--danger-b), 0.04);
+//$danger_active: rgba(211, 47, 47, 0.68);
+$danger_active: rgba(var(--danger-r), var(--danger-g), var(--danger-b), 0.68);
+//$danger_active_outline: rgba(211, 47, 47, 0.16);
+$danger_active_outline: rgba(var(--danger-r), var(--danger-g), var(--danger-b), 0.16);
+//$danger_active_enabled_focus: rgba(211, 47, 47, 0.76);
+$danger_active_enabled_focus: rgba(var(--danger-r), var(--danger-g), var(--danger-b), 0.76);
+//$danger_active_text_enabled_focus: rgba(211, 47, 47, 0.12);
+$danger_active_text_enabled_focus: rgba(var(--danger-r), var(--danger-g), var(--danger-b), 0.12);
+
+//Error
+$error: $danger;
+$error_opacity: rgba(var(--danger-r), var(--danger-g), var(--danger-b), 0.6);
+$danger_message_background: #FFCDD2;
+$danger_message_color: #B71C1C;
+//Danger
+$multiple: #283593;
+$multiple_opacity: rgba($multiple, 0.6);
+
+
+//============= App Colors Definiions Dark Theme =============
+// Primary Colors
+//$primary: rgb(236, 177, 0);
+
+// secondary Colors
+//$secondary: #607D8B;
+
+// Tertiary Colors
+//$tertiary: #ad1457;
+
+// Event Colors
+//$info: #0277BD;
+//$success: #2E7D32;
+//$warning: #FF8F00;
+//$error: #F44336;
+//$multiple: #283593;

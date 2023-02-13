@@ -1,0 +1,263 @@
+@import "variables";
+
+@mixin phone() {
+  @media only screen and (min-width: #{$phone}){
+    @content
+  }
+}
+@mixin phone-wide() {
+  @media only screen and (min-width: #{$phone-wide}) {
+    @content
+  }
+}
+@mixin phablet() {
+  @media only screen and (min-width: #{$phablet}){
+    @content
+  }
+}
+@mixin tablet-small() {
+  @media only screen and (min-width: #{$tablet-small}){
+    @content
+  }
+}
+@mixin tablet() {
+  @media only screen and (min-width: #{$tablet}){
+    @content
+  }
+}
+@mixin tablet-wide() {
+  @media only screen and (min-width: #{$tablet-wide}){
+    @content
+  }
+}
+@mixin desktop() {
+  @media only screen and (min-width: #{$desktop}){
+    @content
+  }
+}
+@mixin desktop-wide() {
+  @media only screen and (min-width: #{$desktop-wide}){
+    @content
+  }
+}
+@mixin media-desde($width) {
+  @media only screen and (min-width: $width) {
+    @content
+  }
+}
+@mixin media-hasta($width) {
+  @media only screen and (max-width: $width) {
+    @content
+  }
+}
+
+@mixin phoneminmax() {
+  @media only screen and (min-width: #{$phone}) and (max-width: #{$tablet-small}){
+    @content
+  }
+}
+@mixin tabletominmax() {
+  @media only screen and (min-width: #{$tablet-small}) and (max-width: #{$desktop}){
+    @content
+  }
+}
+
+@mixin vertical-margin() {
+  margin: .8rem 0;
+}
+
+// Animations
+@mixin transition ($time) {
+  transition: all $time ease-in-out;
+}
+
+@mixin transition_icon () {
+  transition: all .2s ease-in-out;
+}
+
+//  Botones  //
+@mixin button_principal($color) {
+  height: 48px;
+  width: 180px;
+  background-color: $color;
+  color: $white;
+  @include tamanio_primario();
+  text-transform: uppercase;
+}
+@mixin button_secundario($color) {
+  height: 36px;
+  width: 127px;
+  background-color: $color;
+  color: $white;
+}
+@mixin icono_encabezado ($color) {
+  font-size: 70px;
+  color: $color;
+}
+@mixin button_create() {
+  //height: 48px;
+  //width: 160px;
+  padding: 10px 15px;
+  @include tamanio_primario();
+  text-transform: uppercase;
+}
+@mixin button-a($color) {
+  background: none !important;
+  border: none;
+  color: $color !important;
+  font-weight: 300;
+}
+@mixin box-sizing($box-model) {
+  box-sizing: $box-model;
+}
+// ----------------- Fuentes --------------- //
+@mixin tamanio_primario() {
+  font-size: 14px !important;
+  font-weight: 500;
+  letter-spacing: 1.25px;
+  line-height: 14px;
+}
+@mixin title() {
+  color: $black_primary;
+  font-size: 30px;
+  letter-spacing: 0.28px;
+  line-height: 30px;
+}
+@mixin subtitle() {
+  margin-top: -20px;
+  color: #5F6368;
+  font-size: 16px;
+  letter-spacing: 0.15px;
+  line-height: 20px;
+}
+@mixin titleCard() {
+  color: $black_primary;
+  font-size: 16px;
+  letter-spacing: 0.15px;
+  line-height: 20px;
+  font-weight: 500;
+}
+@mixin subtitleCard() {
+  color: $black_primary;
+  font-size: 14px;
+  letter-spacing: 0.15px;
+  line-height: 15px;
+}
+@mixin description(){
+  flex-basis: 20%;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  line-height: 16px;
+  color: $light-gray;
+  text-transform: uppercase;
+
+}
+@mixin datos(){
+  flex-basis: 60%;
+  color: $black_primary;
+  font-size: 16px;
+  letter-spacing: 0.15px;
+  line-height: 24px;
+}
+// -------------- Fin fuentes --------------- //
+
+
+@mixin box-shadow() {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+@mixin box-shadow-right() {
+  box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 4px;
+}
+@mixin box-shadow-toolbar() {
+  box-shadow: 0 1px 10px -1px rgba(0,0,0,.2) !important;
+}
+@mixin card() {
+  @include box-shadow();
+  border-radius: $border-radius-card;
+}
+// Mixin para colocar una caja al rededor del elemento para
+// identificar el estado de la asistencia
+@mixin estado ($color){
+  color: white;
+  width: 130px;
+  text-align: center;
+  background-color: $color;
+  border-radius: 4px;
+}
+
+@mixin border-card($color) {
+  border: 1px solid $color;
+  border-radius: 4px;
+}
+//--------tooltip-----------------//
+@mixin tooltip() {
+  .tooltip {
+    display: inline-block;
+    position: relative;
+    border-bottom: 1px dotted #666;
+    text-align: left;
+  }
+  .tooltip p {
+    margin: 12px 0;
+    width: 100%;
+  }
+  .tooltip .right {
+    min-width: 200px;
+    max-width: 200px;
+    height: 290px;
+    margin-top: 100px;
+    top: 50%;
+    right: 100%;
+    margin-right: 20px;
+    transform: translate(0, -50%);
+    padding: 0;
+    color: $black_primary;
+    background-color: $background;
+    font-weight: normal;
+    font-size: 13px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 99999999;
+    box-sizing: border-box;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.8s;
+  }
+  .tooltip:hover .right {
+    visibility: visible;
+    opacity: 1;
+  }
+  .tooltip .right img {
+    width: 400px;
+    border-radius: 8px 8px 0 0;
+  }
+  .tooltip .text-content {
+    padding: 10px 20px;
+  }
+  .tooltip .right i {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -110px;
+    width: 12px;
+    height: 24px;
+    overflow: hidden;
+  }
+  .tooltip .right i::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    background-color: $background;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+@mixin form-alert() {
+  color: $danger;
+  font-size: 12px;
+}
