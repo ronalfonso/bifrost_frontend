@@ -1,15 +1,21 @@
-import {Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {AuthRoutes} from '../auth/routes/AuthRoutes';
 import {BifrostRoutes} from '../bifrost/routes/BifrostRoutes';
+import {UseCheckAuth} from '../core/hooks';
 
 export const AppRouter = () => {
+    const { status } = UseCheckAuth();
+
     return (
         <Routes>
-            {/*Login y registro*/}
-            <Route path="/auth/*" element={ <AuthRoutes /> } />
+            {
+                (status === 'authenticated')
+                    ? <Route path="/*" element={<BifrostRoutes/>}/>
+                    : <Route path="/auth/*" element={<AuthRoutes/>}/>
+            }
 
-            {/*Rutas protegidas*/}
-            <Route path="/*" element={ <BifrostRoutes /> } />
+            <Route path='/*' element={<Navigate to='/auth/login'/>}/>
+
         </Routes>
     )
 }
