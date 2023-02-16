@@ -172,7 +172,10 @@
 @mixin box-shadow-toolbar() {
   box-shadow: 0 1px 10px -1px rgba(0,0,0,.2) !important;
 }
-@mixin card() {
+@mixin box-shadow-tridementional() {
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+  @mixin card() {
   @include box-shadow();
   border-radius: $border-radius-card;
 }

@@ -13,10 +13,10 @@
   --help-r: 165;
   --help-g: 39;
   --help-b: 179;
-  --info: rgb(0, 208, 189);
-  --info-r: 0;
-  --info-g: 208;
-  --info-b: 189;
+  --info: rgb(49, 75, 255);
+  --info-r: 49;
+  --info-g: 75;
+  --info-b: 255;
   --success: rgb(104, 159, 56);
   --success-r: 104;
   --success-g: 159;
@@ -56,7 +56,7 @@ $color-prueba: #3e5f8a;
 //============= App Colors Definiions Ligth Theme =============
 
 
-$white: rgba(var(--white), var(--white), var(--white), 1);;
+$white: rgb(var(--white), var(--white), var(--white));;
 $white_secondary: rgba(var(--white), var(--white), var(--white), 0.87);
 $white_tertiary: rgba(var(--white), var(--white), var(--white), 0.1);
 $black_primary: rgba(var(--black), var(--black), var(--black), 0.86);
@@ -72,7 +72,7 @@ $opacity-navbar: var(--opacity-navbar);
 $border: #e1e3ea;
 $color-font: #464D69;
 $gray: gray;
-$light-gray: rgba(128, 128, 128, .6);
+$light-gray: rgba(128, 128, 128, .4);
 $topbar-height: 56px;
 
 $background: var(--background);
@@ -96,7 +96,8 @@ $primary-navbar-dark: var(--color-navbar);
 //$primary-color-hover: rgba(236, 177, 0, 0.92);
 $primary-color-hover: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.92);
 //$primary-color-hover-outlined: rgba(236, 177, 0, 0.04);
-$primary-color-hover-outlined: rgba(var(--primary-r), var(--primary-g), var(--primary-b).04);
+$primary-color-background: rgba(var(--primary-r), var(--primary-g), var(--primary-b), .15);
+$primary-color-hover-outlined: rgba(var(--primary-r), var(--primary-g), var(--primary-b), .04);
 //$primary-color-active: rgba(236, 177, 0, 0.68);
 $primary-color-active: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.68);
 //$primary-color-active-outlined: rgba(236, 177, 0, 0.16);
@@ -115,6 +116,7 @@ $primary-color-orderList-higLight: #660171;
 //$secondary: #282828;
 $secondary: rgb(var(--secondary-r), var(--secondary-g), var(--secondary-b));
 //$secondary-color-hover: rgba(40,40, 40, 0.92);
+$secondary-color-background: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.3);
 $secondary-color-hover: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.92);
 //$secondary-color-hover-outline: rgba(40,40, 40, 0.04);
 $secondary-color-hover-outline: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.04);
