@@ -19,7 +19,6 @@ export const LoginPage = () => {
         }
     }, [error]);
 
-
     return (
         <>
             <div className="main__loginPage">

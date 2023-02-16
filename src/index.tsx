@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import {store} from './store';
 import {Provider} from 'react-redux';
 
-import {BrowserRouter} from 'react-router-dom';
 import {BifrostApp} from './bifrostApp';
 
 //theme
@@ -23,9 +22,7 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-                <BrowserRouter>
                     <BifrostApp/>
-                </BrowserRouter>
         </Provider>
     </React.StrictMode>
 );

@@ -1,11 +1,14 @@
 import {Button} from 'primereact/button';
+import {useNavigate} from 'react-router-dom';
 
 export const FooterComponent = () => {
+    const navigate = useNavigate();
 
     return (
         <div className={'buttons_container'}>
             <div className={`button_content `}>
                 <Button icon={'pi pi-user'}
+                        onClick={() => navigate('/profile')}
                         className={`p-button-rounded p-button-text`}
                         aria-label="Filter"/>
             </div>

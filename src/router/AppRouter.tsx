@@ -1,21 +1,26 @@
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AuthRoutes} from '../auth/routes/AuthRoutes';
 import {BifrostRoutes} from '../bifrost/routes/BifrostRoutes';
-import {UseCheckAuth} from '../core/hooks';
+import {PublicRoutes} from '../auth/routes/PublicRoutes';
+import {PrivateRoutes} from '../auth/routes/PrivateRoutes';
 
 export const AppRouter = () => {
-    const { status } = UseCheckAuth();
 
     return (
-        <Routes>
-            {
-                (status === 'authenticated')
-                    ? <Route path="/*" element={<BifrostRoutes/>}/>
-                    : <Route path="/auth/*" element={<AuthRoutes/>}/>
-            }
+        <BrowserRouter>
+            <Routes>
+                <Route path='/auth/*' element={
+                    <PublicRoutes>
+                        <AuthRoutes/>
+                    </PublicRoutes>
+                }/>
 
-            <Route path='/*' element={<Navigate to='/auth/login'/>}/>
-
-        </Routes>
+                <Route path='/*' element={
+                    <PrivateRoutes>
+                        <BifrostRoutes/>
+                    </PrivateRoutes>
+                }/>
+            </Routes>
+        </BrowserRouter>
     )
 }
