@@ -14,6 +14,7 @@ import "primereact/resources/primereact.min.css";
 //icons
 import "primeicons/primeicons.css";
 import 'primeflex/primeflex.css';
+import {GeneralProvider} from './core/context/GeneralProvider';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root')
@@ -22,7 +23,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-                    <BifrostApp/>
+            <GeneralProvider>
+                <BifrostApp/>
+            </GeneralProvider>
         </Provider>
     </React.StrictMode>
 );

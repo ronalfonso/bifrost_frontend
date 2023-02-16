@@ -1,17 +1,19 @@
+import {useContext} from 'react';
 import {Sidebar} from 'primereact/sidebar';
 import {startLogout} from '../../../store/auth';
 import {useAppDispatch} from '../../../store';
-import {useState} from 'react';
+import {GeneralContext} from '../../../core/context/GeneralContext';
 
 export const SidebarComponent = () => {
+    // @ts-ignore
+    const { showSidebar, setShowSidebar } = useContext(GeneralContext);
     const dispatch = useAppDispatch();
-    const [visible, setVisible] = useState<boolean>(false);
     const handleLogout = () => {
         dispatch(startLogout());
     }
     return (
         <div className="card flex justify-content-center">
-            <Sidebar visible={visible} className="w-15rem md:w-20rem lg:w-30rem" onHide={() => setVisible(false)}>
+            <Sidebar visible={showSidebar} className="w-15rem md:w-20rem lg:w-30rem" onHide={() => setShowSidebar(false)}>
                 <div className="content_sidebar">
                     <div className="menu_sidebar">
 
