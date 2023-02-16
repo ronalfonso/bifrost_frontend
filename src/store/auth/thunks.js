@@ -1,6 +1,6 @@
 import {checkingCredentials, login, logout} from './authSlice';
 import {loginUser} from './api/auth.service';
-
+import {db} from '../../core/database/db';
 
 
 export const starLogin = ({username, password}) => {
@@ -10,11 +10,26 @@ export const starLogin = ({username, password}) => {
         await loginUser({username, password}).then(resp => {
             if (resp.status === 201) {
                 const {data} = resp;
-                dispatch(login( data ))
+                dispatch(login(data))
             } else {
-                dispatch(logout( resp ))
+                dispatch(logout(resp))
             }
         })
+    }
+}
+
+export const startLogout = () => {
+    return async (dispatch) => {
+        try {
+            const resp = await db.authData.toArray();
+            const user = resp[0];
+            const deleteUser = await db.authData.where("uuid").anyOf(user.uuid).delete();
+            if (deleteUser !== undefined) {
+                dispatch(logout())
+            }
+        } catch (e) {
+
+        }
     }
 }
 

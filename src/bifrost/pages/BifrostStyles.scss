@@ -126,3 +126,20 @@
   }
 }
 
+.content_sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .menu_sidebar {
+    height: 79vh;
+  }
+  .footer_sidebar {
+    height: 8vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border-top: 1px solid $border;
+  }
+}
+

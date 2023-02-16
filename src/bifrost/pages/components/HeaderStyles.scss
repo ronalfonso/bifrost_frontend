@@ -3,6 +3,16 @@
 
 .left {
   width: 20%;
+  .menu {
+    .button_content {
+      .p-button {
+        .p-button-icon {
+          font-size: 1.3rem !important;
+          color: $white;
+        }
+      }
+    }
+  }
 }
 
 .center {
