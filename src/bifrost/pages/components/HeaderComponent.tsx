@@ -1,13 +1,10 @@
 import {useAppSelector} from '../../../store';
-import moment from 'moment';
 import logoWhite from '../../../assets/img/bifrost_color.png'
 
 
 export const HeaderComponent = () => {
-    const { user } = useAppSelector((state) => state.auth);
-    const initial = user.username.substring(0, 1).toUpperCase()
+    const { user } = useAppSelector((state) => state.auth)
     const name = user.username.substring(0, 1).toUpperCase() + user.username.substring(1, user.username.length)
-    const now = moment().format('DD-MM-YYYY').toString()
 
     return (
         <>
@@ -24,7 +21,7 @@ export const HeaderComponent = () => {
             </div>
             <div className="right">
                 <div className="content_img">
-                    <img src={logoWhite} width={'35px'}/>
+                    <img src={logoWhite} width={'35px'} alt={'logo'}/>
                 </div>
             </div>
         </>
