@@ -14,7 +14,7 @@ import "primereact/resources/primereact.min.css";
 //icons
 import "primeicons/primeicons.css";
 import 'primeflex/primeflex.css';
-import {GeneralProvider} from './core/context/GeneralProvider';
+import {GeneralProvider} from './contexts/GeneralProvider';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root')

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AuthRoutes} from '../auth/routes/AuthRoutes';
 import {BifrostRoutes} from '../bifrost/routes/BifrostRoutes';
@@ -17,7 +18,9 @@ export const AppRouter = () => {
 
                 <Route path='/*' element={
                     <PrivateRoutes>
-                        <BifrostRoutes/>
+                        <Suspense fallback={ null }>
+                            <BifrostRoutes/>
+                        </Suspense>
                     </PrivateRoutes>
                 }/>
             </Routes>

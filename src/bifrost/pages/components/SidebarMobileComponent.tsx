@@ -2,9 +2,9 @@ import {useContext} from 'react';
 import {Sidebar} from 'primereact/sidebar';
 import {startLogout} from '../../../store/auth';
 import {useAppDispatch} from '../../../store';
-import {GeneralContext} from '../../../core/context/GeneralContext';
+import {GeneralContext} from '../../../contexts/GeneralContext';
 
-export const SidebarComponent = () => {
+export const SidebarMobileComponent = () => {
     // @ts-ignore
     const { showSidebar, setShowSidebar } = useContext(GeneralContext);
     const dispatch = useAppDispatch();

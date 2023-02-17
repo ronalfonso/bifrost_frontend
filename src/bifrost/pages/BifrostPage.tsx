@@ -57,3 +57,5 @@ export const BifrostPage = () => {
         </div>
     )
 }
+
+export default BifrostPage;

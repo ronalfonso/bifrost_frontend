@@ -2,8 +2,8 @@ import {useContext} from 'react';
 import { useAppSelector } from '../../../store';
 import logoWhite from '../../../assets/img/bifrost_color.png'
 import {Button} from 'primereact/button';
-import {SidebarComponent} from './SidebarComponent';
-import {GeneralContext} from '../../../core/context/GeneralContext';
+import {SidebarMobileComponent} from './SidebarMobileComponent';
+import {GeneralContext} from '../../../contexts/GeneralContext';
 
 
 
@@ -18,7 +18,7 @@ export const HeaderComponent = () => {
 
     return (
         <>
-            <SidebarComponent />
+            <SidebarMobileComponent />
             <div className={'left'}>
                 <div className="menu">
                     <div className={`button_content `}>
