@@ -15,10 +15,13 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import 'primeflex/primeflex.css';
 import {GeneralProvider} from './contexts/GeneralProvider';
+import {AxiosInterceptor} from './core/interceptors';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root')
 );
+
+AxiosInterceptor();
 
 root.render(
     <React.StrictMode>

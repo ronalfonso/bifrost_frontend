@@ -2,7 +2,6 @@ import {checkingCredentials, login, logout} from './authSlice';
 import {loginUser} from './api/auth.service';
 import {db} from '../../core/database/db';
 
-
 export const starLogin = ({username, password}) => {
     return async (dispatch) => {
         dispatch(checkingCredentials());

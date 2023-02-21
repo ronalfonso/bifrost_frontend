@@ -9,5 +9,5 @@ export class User {
     role: Role;
     updatedAt: string;
     username: string;
-    uuid: string;
+    id: string;
 }

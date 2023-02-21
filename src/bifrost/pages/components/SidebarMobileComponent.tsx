@@ -9,6 +9,7 @@ export const SidebarMobileComponent = () => {
     const { showSidebar, setShowSidebar } = useContext(GeneralContext);
     const dispatch = useAppDispatch();
     const handleLogout = () => {
+        setShowSidebar(false);
         dispatch(startLogout());
     }
     return (
