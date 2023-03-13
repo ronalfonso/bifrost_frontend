@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkbifrost_frontend=self.webpackChunkbifrost_frontend||[]).push([[337],{2337:function(e,n,r){r.r(n),r.d(n,{ProfilePage:function(){return f}});var t=r(184),f=function(){return(0,t.jsx)("div",{className:"container_profile",children:(0,t.jsx)("span",{style:{color:"black"},children:"ProfilePage"})})};n.default=f}}]);
-//# sourceMappingURL=337.fe466c3b.chunk.js.map

@@ -14,6 +14,7 @@ import {
 
 } from '@mui/icons-material';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import {Container, Divider} from '@mui/material';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 export const SidebarMobileComponent = () => {
