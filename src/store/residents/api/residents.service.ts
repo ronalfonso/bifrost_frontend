@@ -9,10 +9,7 @@ export const getHomeResidents = async (userId) => {
     const url = `${URL_COMPONENT}/${userId}/by-user`;
     try {
         return await axios.get(url)
-            .then(resp => {
-                console.log(resp);
-                return resp
-            });
+            .then(resp => resp.data);
     } catch (err) {
         const {data} = err.response;
         return data;

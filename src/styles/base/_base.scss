@@ -1,0 +1,123 @@
+
+:root {
+  --primary-color: $primary;
+  --secondary-color: $secondary;
+  --primary-font-color: $white;
+  --background-color: $background;
+  --help: $help;
+  --info: $info;
+  --success: $success;
+  --warning: $warning;
+  --danger: $danger;
+
+  --primary-font: 'Square721 BT', -apple-system, BlinkMacSystemFont;
+  --secondary-font: 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif
+}
+
+// Dark mode
+@media (prefers-color-scheme: dark) {
+  root {
+    --primary-color: rgba(7, 10, 31, 1);
+    --secondary-color: rgba(44, 188, 218, 1);
+  }
+}
+
+// Disabled animation
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none;
+    transition: none;
+  }
+}
+
+// Resets margin, padding
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+// Images
+img, picture, video, iframe, figure {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+// Tabs anchor
+a {
+  display: block;
+}
+
+p a {
+  display: inline;
+}
+
+// List
+li {
+  list-style-type: none;
+}
+
+// Scroll smooth
+html {
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, a, strong, blockquote, i, b, u, em {
+  font-size: 1rem;
+  font-weight: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+::selection {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+form, input, textarea, select, button, label {
+  font-family: inherit;
+  font-size: inherit;
+  hyphens: auto;
+  background-color: transparent;
+  display: block;
+  color: inherit;
+  appearance: none;
+}
+
+// Table
+table, tr, td {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// SVG
+svg {
+  width: 100%;
+  display: block;
+  fill: currentColor;
+}
+
+// Config web
+body {
+  min-height: 100vh;
+  font-size: 100%;
+  font-family: var(--primary-font);
+  color: var(--primary-font-color);
+  background-color: var(--background-color);
+  line-height: 1.4em;
+  //hyphens: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

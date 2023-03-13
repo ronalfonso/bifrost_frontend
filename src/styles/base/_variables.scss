@@ -1,0 +1,74 @@
+
+//============= Size Screen ============= border-left: 5px solid $success_message_color;
+$phone: 400px;
+$phone-wide:   480px;
+$phablet:      560px;
+$tablet-small: 640px;
+$tablet:       768px;
+$tablet-wide:  1024px;
+$desktop:      1248px;
+$desktop-wide: 1440px;
+$color-prueba: #3e5f8a;
+
+//============= App Colors Definiions Ligth Theme =============
+
+
+$white: rgb(255,255,255);
+$white_secondary: rgba(255,255,255, 0.87);
+$white_tertiary: rgba(255,255,255, 0.1);
+$black_primary: rgba(0,0,0, 0.86);
+$black_secondary: rgba(0,0,0, 0.6);
+$black_secondary_hover: rgba(0,0,0, 0.04);
+$black_tertiary: rgba(0,0,0, 0.70);
+
+$border: #e1e3ea;
+$color-font: #464D69;
+$gray: gray;
+$light-gray: rgba(128, 128, 128, .4);
+$topbar-height: 56px;
+
+$background: rgb(220, 220, 220);
+$background-components: var(--background-components);
+$background-inputs: var(--background-components);
+$border: #b7b9c4;
+$topbar-background: #FFF;
+$border-radius-card: 4px;
+$border-radius: 3px;
+
+$background-tooltip: rgba(97, 97, 97, 0.9);
+
+
+// Primary Colors
+$primary: rgb(44, 188, 218);
+$primary-dark: rgb(30, 131, 152);
+$primary-light: rgb(30, 131, 152);
+
+// secondary Colors
+$secondary: rgba(7, 10, 31, 1);
+$secondary-dark: rgb(4, 7, 21);
+$secondary-light: rgb(56, 59, 75);
+
+$sidebar-color: var(--sidebar-color);
+$sidebar-color-hover: rgba(0, 0, 0, 0.15);
+$sidebar-color-active: rgba(0, 0, 0, 0.25);
+$sidebar-color-active-section: rgba(0, 0, 0, 0.4);
+$sidebar-color-font: $primary;
+
+
+//Help
+$help: rgba(156, 39, 179, 1);
+
+//Info
+$info: rgb(49, 75, 255);
+
+//Success
+$success: rgb(104, 159, 56);
+
+//Warning
+$warning: rgb(255, 143, 0);
+
+//Danger
+$danger: rgb(211, 47, 47);
+
+
+

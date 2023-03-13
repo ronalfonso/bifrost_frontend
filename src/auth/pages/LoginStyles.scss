@@ -1,7 +1,6 @@
-@import "./src/assets/styles/variables.scss";
 @import "./src/assets/styles/mixins.scss";
 
-@import "./components/login.scss";
+@import "../components/login.scss";
 
 .main__loginPage {
 
@@ -20,7 +19,7 @@
   .buttons {
     display: flex;
     justify-content: center;
-    margin-top: -25px;
+    margin-top: -20px;
 
     .button-login {
       background-color: $white;
@@ -34,6 +33,11 @@
         background-color: $white !important;
         color: $primary;
       }
+    }
+
+    .button-register {
+      background-color: $primary;
+      color: $white;
     }
   }
 

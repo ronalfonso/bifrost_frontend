@@ -1,4 +1,3 @@
-@import "variables";
 
 @mixin phone() {
   @media only screen and (min-width: #{$phone}){
@@ -76,7 +75,7 @@
 }
 
 //  Botones  //
-@mixin button_principal($color) {
+@mixin button_primary($color) {
   height: 48px;
   width: 180px;
   background-color: $color;
@@ -84,7 +83,7 @@
   @include tamanio_primario();
   text-transform: uppercase;
 }
-@mixin button_secundario($color) {
+@mixin button_secondary($color) {
   height: 36px;
   width: 127px;
   background-color: $color;
@@ -173,7 +172,7 @@
   box-shadow: 0 1px 10px -1px rgba(0,0,0,.2) !important;
 }
 @mixin box-shadow-tridementional() {
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 8px;
 }
   @mixin card() {
   @include box-shadow();

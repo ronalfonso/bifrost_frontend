@@ -1,21 +1,40 @@
-import {Button} from 'primereact/button';
-import {useEffect, useRef, useState} from 'react';
-import {LoginComponent} from './components/LoginComponent';
+import {useEffect, useState} from 'react';
+import {LoginComponent} from '../components/LoginComponent';
 import {useAppSelector} from '../../store';
-import {Toast} from 'primereact/toast';
+import {useTranslation} from "react-i18next";
+import {Alert, IconButton, Snackbar} from '@mui/material';
+import {LoginOutlined, PersonAddAlt1Outlined} from '@mui/icons-material';
+
+type positionHorizontal = "right" | "center" | "left";
+type positionVertical = "top" | "bottom";
 
 export const LoginPage = () => {
-    const toastError = useRef(null);
-    const [showRegister, setShowRegister] = useState(false);
+    const [ showRegister, setShowRegister ] = useState(false);
+    const [alert, setAlert] = useState({
+        open: false,
+        vertical: 'top' as positionVertical,
+        horizontal: 'right' as positionHorizontal,
+        message: ''
+    });
     const error = useAppSelector((state) => state.auth.error);
+    const { t } = useTranslation();
+    const { vertical, horizontal, open, message } = alert;
 
-    const showToastError = () => {
-        toastError.current.show({severity: 'error', summary: 'Error', detail: 'Usuario o password incorrectos'})
+    const showToastError = (message: string) => {
+        setAlert({...alert, open: true, message});
     }
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setAlert({...alert, open: false, message: ''});
+    };
 
     useEffect(() => {
         if (error) {
-            showToastError();
+            showToastError(error.message);
         }
     }, [error]);
 
@@ -28,16 +47,31 @@ export const LoginPage = () => {
                     </div>
                 </div>
                 <div className="buttons">
-                    <Button onClick={() => setShowRegister(false)} icon="pi pi-sign-in"
-                            className="p-button-rounded button-login" aria-label="Filter"/>
-
-                    <Button onClick={() => setShowRegister(true)} icon="pi pi-user-plus" className="p-button-rounded"
-                            aria-label="Filter"/>
+                    <IconButton className={'button-login'}
+                                onClick={() => setShowRegister(false)}
+                                aria-label="delete">
+                        <LoginOutlined />
+                    </IconButton>
+                    <IconButton className={'button-register'}
+                                onClick={() => setShowRegister(true)}
+                                aria-label="delete">
+                        <PersonAddAlt1Outlined />
+                    </IconButton>
                 </div>
                 <div className={`section_register ${showRegister ? 'showRegister' : ""}`}>Register</div>
 
             </div>
-            <Toast ref={toastError}/>
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                anchorOrigin={{ vertical, horizontal }}
+                onClose={handleClose}
+                key={vertical + horizontal}
+            >
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {t(`OUT.LOGIN.${message}`)}
+                </Alert>
+            </Snackbar>
         </>
     )
 }

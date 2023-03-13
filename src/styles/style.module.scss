@@ -1,0 +1,10 @@
+@import './base/variables';
+
+:export {
+  colorPrimary: $primary;
+  colorSecondary: $secondary;
+  colorHelp: $help;
+  colorInfo: $info;
+  colorWarning: $warning;
+  colorDanger: $danger
+}

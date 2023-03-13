@@ -1,21 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {store} from './store';
-import {Provider} from 'react-redux';
+import { store } from './store';
+import { Provider } from 'react-redux';
+import { GeneralProvider } from './contexts/GeneralProvider';
+import { AxiosInterceptor } from './core/interceptors';
+import { BifrostApp } from './bifrostApp';
 
-import {BifrostApp} from './bifrostApp';
-
-//theme
-import "./assets/styles/customTheme.scss";
-
-//core
-import "primereact/resources/primereact.min.css";
-
-//icons
-import "primeicons/primeicons.css";
-import 'primeflex/primeflex.css';
-import {GeneralProvider} from './contexts/GeneralProvider';
-import {AxiosInterceptor} from './core/interceptors';
+// Translate
+import './core/translations'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root')
@@ -25,11 +17,13 @@ AxiosInterceptor();
 
 root.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <GeneralProvider>
-                <BifrostApp/>
-            </GeneralProvider>
-        </Provider>
+
+            <Provider store={store}>
+                <GeneralProvider>
+                    <BifrostApp/>
+                </GeneralProvider>
+            </Provider>
+
     </React.StrictMode>
 );
 
