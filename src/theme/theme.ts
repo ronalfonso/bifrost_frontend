@@ -13,7 +13,10 @@ export let theme = createTheme({
             main: styles.colorSecondary,
             dark: styles.colorSecondaryDark,
             light: styles.colorSecondaryLight
-        }
+        },
+        background: {
+            default: styles.backgroundColor
+        },
     }
 })
 

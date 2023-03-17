@@ -6,6 +6,7 @@ import {PublicRoutes} from './PublicRoutes';
 import {PrivateRoutes} from './PrivateRoutes';
 import {HeaderComponent} from '../bifrost/pages/UI/HeaderComponent';
 import {FooterComponent} from '../bifrost/pages/UI/FooterComponent';
+import {LoadingGlobalComponent} from '../core/shared/ui/components/LoadingGlobalComponent';
 
 export const AppRouter = () => {
 
@@ -20,15 +21,19 @@ export const AppRouter = () => {
 
                 <Route path='/*' element={
                     <PrivateRoutes>
-                        <Suspense fallback={<span>Loading...</span>}>
-                            <div className={'main_container'}>
-                                <HeaderComponent/>
-                                <BifrostRoutes/>
-                                <div className={'footer_container'}>
-                                    <FooterComponent/>
+
+                        <div className={'main_container'}>
+                            <HeaderComponent/>
+                            <Suspense fallback={<LoadingGlobalComponent />}>
+                                <div className={'body_container'}>
+                                    <BifrostRoutes/>
                                 </div>
+                            </Suspense>
+
+                            <div className={'footer_container'}>
+                                <FooterComponent/>
                             </div>
-                        </Suspense>
+                        </div>
                     </PrivateRoutes>
                 }/>
             </Routes>

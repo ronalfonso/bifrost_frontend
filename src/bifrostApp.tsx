@@ -16,9 +16,7 @@ export const BifrostApp = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div className={'main'}>
                 <AppRouter/>
-            </div>
         </ThemeProvider>
     )
 }

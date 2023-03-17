@@ -1,46 +1,33 @@
-import {useNavigate} from 'react-router-dom';
-import {IconButton} from '@mui/material';
 import {
     AutoStoriesOutlined,
-    CalendarMonth,
+    Home,
     PersonOutline,
     QrCode,
     WorkHistoryOutlined
 } from '@mui/icons-material';
+import {ButtonFooterComponent} from './components/ButtonFooterComponent';
 
 export const FooterComponent = () => {
-    const navigate = useNavigate();
+    const buttonsList = [
+        {path: '../home', Component: <Home/>, name: 'Home'},
+        {path: '../profile', Component: <PersonOutline/>, name: 'Profile'},
+        {path: '', Component: <QrCode/>, name: 'QR'},
+        {path: '', Component: <AutoStoriesOutlined/>, name: 'Contactos'},
+        {path: '', Component: <WorkHistoryOutlined/>, name: 'Hitorial'},
+    ]
 
     return (
-        <div className={'buttons_container'}>
-            <div className={`button_content `}>
-                <IconButton onClick={() => navigate('/profile')} aria-label="delete">
-                    <PersonOutline />
-                </IconButton>
+        <>
+            <div className="navigation">
+                <ul>
+                    {
+                        buttonsList.map((button) => (
+                            <ButtonFooterComponent button={button}/>
+                        ))
+                    }
+                    <div className="indicator"></div>
+                </ul>
             </div>
-            <div className={`button_content button_content_perfil`}>
-                <IconButton onClick={() => navigate('/profile')} aria-label="delete">
-                    <CalendarMonth />
-                </IconButton>
-            </div>
-
-            <div className={`button_content button_content_qr`}>
-                <div className="circle">
-                    <IconButton onClick={() => navigate('/profile')} aria-label="delete">
-                        <QrCode className={'qr-button'}/>
-                    </IconButton>
-                </div>
-            </div>
-            <div className={`button_content button_content_frecuentes`}>
-                <IconButton onClick={() => navigate('/profile')} aria-label="delete">
-                    <AutoStoriesOutlined />
-                </IconButton>
-            </div>
-            <div className={`button_content `}>
-                <IconButton onClick={() => navigate('/profile')} aria-label="delete">
-                    <WorkHistoryOutlined />
-                </IconButton>
-            </div>
-        </div>
+        </>
     )
 }

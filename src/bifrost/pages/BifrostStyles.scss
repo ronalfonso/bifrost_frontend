@@ -4,12 +4,11 @@
 @import "UI/HeaderStyles.scss";
 
 .main_container {
-  width: 100%;
-  height: 100vh;
+  position: relative;
   background-color: $background;
+  min-height: 100vh;
 
   .header_container {
-    width: 100%;
     height: 4rem;
     padding: .65rem;
     display: flex;
@@ -17,83 +16,37 @@
     justify-content: space-between;
     background-color: $primary;
     color: $white;
-    @include box-shadow-toolbar;
+    //@include box-shadow-toolbar;
   }
 
   .body_container {
-    width: 100%;
-    padding: 1rem;
+    padding: 1rem 1rem $buttonFooterSize;
+    height: 85vh;
 
     .tabs_container {
-      .p-tabview {
-        .p-tabview-nav-container {
-          background: transparent !important;
-          .p-tabview-nav-content {
-            background: transparent !important;
-            .p-tabview-nav {
-              background: transparent !important;
-              li {
-                background: transparent !important;
-
-                max-width: 110px;
-                @include tablet {
-                  max-width: none;
-                }
-                a {
-                  //color: $secondary;
-                  span {
-                    font-size: 12px;
-                    @include tablet {
-                      font-size: 16px;
-                    }
-                  }
-                }
-              }
-              li.p-highlight {
-                border-bottom: 2px solid $primary;
-                a {
-                  //color: $white;
-                }
-              }
-            }
-            a {
-              background: transparent !important;
-            }
-          }
-        }
-        .p-tabview-panels {
-          overflow-y: auto;
-          max-height: 380px !important;
-          background: transparent !important;
-          //padding: .5rem;
-          .p-tabview-panel {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, 120px);
-            grid-gap: 1rem;
-            @include tablet {
-              grid-template-columns: repeat(auto-fit, 250px);
-            }
-          }
-
-        }
-      }
+      height: calc(90vh - 60px);
     }
   }
 
   .footer_container {
-    width: 100%;
     position: absolute;
-    bottom: 0;
-    height: 3rem;
+    bottom: 1px;
+    width: 100%;
+    height: $buttonFooterSize;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: center;
+    background: $white;
   }
 }
 
 .panel-home {
   overflow-y: auto;
-  height: 380px;
+  min-height: 200px;
   justify-content: center;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 120px);
+  grid-template-columns: repeat(auto-fit, 130px);
   grid-gap: 1rem;
   @include tablet {
     grid-template-columns: repeat(auto-fit, 250px);

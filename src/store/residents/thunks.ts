@@ -1,15 +1,12 @@
 import {getHomeResidents} from './api/residents.service';
+import {initResident} from './residentSlice';
 
 export const startGetResidentHome = (userId) => {
     return async (dispatch) => {
-        console.log(userId);
-
-        await getHomeResidents(userId).then(resp => {
-            console.log(resp);
-            if (resp.status === 202) {
-                const {data} = resp;
-                console.log(data);
-                return data;
+        return await getHomeResidents(userId).then(resp => {
+            if (resp) {
+                dispatch(initResident(resp));
+                return resp;
             } else {
                 // dispatch(logout(resp))
             }

@@ -1,16 +1,19 @@
 import {SyntheticEvent, useContext, useEffect, useState} from 'react';
 import {GeneralContext} from '../../contexts/GeneralContext';
 import {useTranslation} from "react-i18next";
-import {useAppSelector} from '../../store';
+import {useAppDispatch, useAppSelector} from '../../store';
 import PageWrapper from '../../layout/PageWrapper/PageWrapper';
 import Box from '@mui/material/Box';
 import {AppBar, styled, Tab, Tabs, useTheme} from '@mui/material';
 import SwipeableViews from 'react-swipeable-views';
-import {getHomeResidents} from '../../store/residents/api/residents.service';
 import {TabPanelComponent} from '../components/BifrostPage/TabPanelComponent';
 import {HomeComponent} from "../components/BifrostPage/HomeComponent";
 import {ResidentHomes} from "../../core/models/residents/Resident-homes";
-import {Diversity3, Home, InsertInvitation} from '@mui/icons-material';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
+import HomeIcon from '@mui/icons-material/Home';
+import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
+import {startGetResidentHome} from '../../store/residents';
+import {LoadingComponent} from '../../core/shared/ui/components/LoadingComponent';
 
 interface StyledTabProps {
     label: string;
@@ -18,7 +21,8 @@ interface StyledTabProps {
 
 export const BifrostPage = () => {
     // @ts-ignore
-    const {isLoading} = useContext(GeneralContext);
+    const {isLoading, setIsLoading} = useContext(GeneralContext);
+    const dispatch = useAppDispatch();
     const theme = useTheme();
     const {user} = useAppSelector((state) => state.auth);
     const [residentList, setResidentList] = useState<ResidentHomes[]>([]);
@@ -26,13 +30,11 @@ export const BifrostPage = () => {
     const {t} = useTranslation();
 
     const _getResidentHome = async () => {
-        getHomeResidents(user.id).then((data: ResidentHomes[]) => {
-            if (data) {
-                setResidentList([...data]);
-            }
-        }).catch(err => {
-            console.error(err)
-        })
+        setIsLoading(true);
+        dispatch(startGetResidentHome(user.id)).then((residents: ResidentHomes[]) => {
+            setResidentList([...residents])
+            setIsLoading(false);
+        });
     }
 
     function a11yProps(index: number) {
@@ -45,7 +47,7 @@ export const BifrostPage = () => {
 
     const StyledTab = styled((props: StyledTabProps) => (
         <Tab disableRipple {...props} />
-    ))(({ theme }) => ({
+    ))(({theme}) => ({
         fontSize: theme.typography.pxToRem(15),
         marginRight: theme.spacing(1),
     }));
@@ -59,19 +61,15 @@ export const BifrostPage = () => {
     };
 
     useEffect(() => {
-        if (isLoading === false) {
             _getResidentHome()
-        }
-    }, [isLoading]);
+    }, []);
 
 
     return (
         <PageWrapper title={'Home'}>
-            <div className={'body_container'}>
                 <div className={'tabs_container'}>
-                    <Box sx={{ width: '100%'}}>
-                        <AppBar position="static"
-                        >
+                    <Box sx={{width: '100%', height: '80vh'}}>
+                        <AppBar position="static">
                             <Tabs
                                 sx={{height: '3rem', fontSize: '10px'}}
                                 value={value}
@@ -81,42 +79,55 @@ export const BifrostPage = () => {
                                 variant="fullWidth"
                                 scrollButtons="auto"
                                 aria-label="full width tabs example"
-                                centered
-                            >
-                                <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}} icon={<Home fontSize='small' />} label={t('IN.SECTIONS.HOME.TAB.HOMES')} {...a11yProps(0)} />
-                                <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}} icon={<Diversity3 fontSize='small' />} label={t('IN.SECTIONS.HOME.TAB.SOCIAL')} {...a11yProps(1)} />
-                                <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}} icon={<InsertInvitation fontSize='small' />} label={t('IN.SECTIONS.HOME.TAB.INVITATIONS')} {...a11yProps(2)} />
+                                centered>
+                                <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}}
+                                     icon={<HomeIcon fontSize='small'/>}
+                                     label={t('IN.SECTIONS.HOME.TAB.HOMES')} {...a11yProps(0)} />
+                                <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}}
+                                     icon={<Diversity3Icon fontSize='small'/>}
+                                     label={t('IN.SECTIONS.HOME.TAB.SOCIAL')} {...a11yProps(1)} />
+                                <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}}
+                                     icon={<InsertInvitationIcon fontSize='small'/>}
+                                     label={t('IN.SECTIONS.HOME.TAB.INVITATIONS')} {...a11yProps(2)} />
                             </Tabs>
                         </AppBar>
                         <SwipeableViews
+                            style={{height: '80%'}}
                             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                             index={value}
                             onChangeIndex={handleChangeIndex}
 
                         >
                             <TabPanelComponent value={value} index={0} dir={theme.direction}>
-                                <div className={'panel-home'}>
                                 {
-                                    residentList.map((resident) => {
-                                        return (
-                                            <HomeComponent key={resident.home.numberHouse} resident={resident}/>
-                                        )
-                                    })
+                                    isLoading ?
+                                        <LoadingComponent />
+                                        :
+                                        <div className={'panel-home'}>
+                                            {
+                                                residentList.length > 0
+                                                    ?
+                                                    residentList.map((resident) => {
+                                                        return (
+                                                            <HomeComponent key={resident.home.numberHouse} resident={resident}/>
+                                                        )
+                                                    })
+                                                    :
+                                                    <span>No existen hogares registrados</span>
+                                            }
+                                        </div>
+
                                 }
-                                </div>
                             </TabPanelComponent>
                             <TabPanelComponent value={value} index={1} dir={theme.direction}>
                                 Item Two
                             </TabPanelComponent>
                             <TabPanelComponent value={value} index={2} dir={theme.direction}>
-                                Item Three
+                                <LoadingComponent />
                             </TabPanelComponent>
                         </SwipeableViews>
                     </Box>
                 </div>
-            </div>
-
-
         </PageWrapper>
     )
 }
