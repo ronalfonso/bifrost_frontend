@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {db} from '../database/db';
 
-
 export const AxiosInterceptor = () => {
 
     const updateHeader = async (request) => {

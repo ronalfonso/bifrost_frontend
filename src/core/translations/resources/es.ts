@@ -92,7 +92,8 @@ export const es = {
             NOT_A_MEMBER: "¿Crear una nueva cuenta?",
             SIGN_UP_NOW: "Regístrate",
             USERNAME_OR_EMAIL_IS_REQUIRED: "El username o correo es obligatorio",
-            USERNAME_OR_PASSWORD_IS_WRONG: "Usuario o contraseña incorrectos"
+            USERNAME_OR_PASSWORD_IS_WRONG: "Usuario o contraseña incorrectos",
+            UNAUTHORIZED: 'No tiene autorizacion',
         },
         REGISTER: {
             BUSINESS_NAME: "Nombre de empresa",

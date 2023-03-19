@@ -92,7 +92,8 @@ export const en = {
             NOT_A_MEMBER: "Create New account?",
             SIGN_UP_NOW: "Sign up",
             USERNAME_OR_EMAIL_IS_REQUIRED: "The username or email is required",
-            USERNAME_OR_PASSWORD_IS_WRONG: "Incorrect username or password"
+            USERNAME_OR_PASSWORD_IS_WRONG: "Incorrect username or password",
+            UNAUTHORIZED: 'Does not have authorization',
         },
         REGISTER: {
             BUSINESS_NAME: "Business name",

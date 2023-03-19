@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const helpHttp = () => {
     const customFetch = (url: string, options: any) => {
         const defaultHeader = {
@@ -16,12 +18,14 @@ export const helpHttp = () => {
 
         setTimeout(() => controller.abort(),15000);
 
-        return fetch(url, options)
-            .then(resp => resp.ok ? resp.json(): Promise.reject({
-                error: true,
-                status: resp.status || '00',
-                statusText: resp.statusText || 'DICTIONARY.ERROR_OCCURRED'
-            }))
+        return axios(url, options)
+            .then(resp => {
+                return resp.status >= 200 && resp.status < 300 ? resp : Promise.reject({
+                    error: true,
+                    status: resp.status || '00',
+                    statusText: resp.statusText || 'DICTIONARY.ERROR_OCCURRED'
+                })
+            })
             .catch((err) => err);
     }
     const get = (url: string, options = {}) => customFetch(url, options);

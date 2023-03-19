@@ -17,14 +17,14 @@ export const starLogin = ({username, password}) => {
     }
 }
 
-export const startLogout = () => {
+export const startLogout = (message = '') => {
     return async (dispatch) => {
         try {
             const resp = await db.authData.toArray();
             const user = resp[0];
             const deleteUser = await db.authData.where("uuid").anyOf(user.uuid).delete();
             if (deleteUser !== undefined) {
-                dispatch(logout())
+                dispatch(logout(message))
             }
         } catch (e) {
 

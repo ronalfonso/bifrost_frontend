@@ -4,14 +4,13 @@ import {useTranslation} from "react-i18next";
 import {useAppDispatch, useAppSelector} from '../../store';
 import PageWrapper from '../../layout/PageWrapper/PageWrapper';
 import Box from '@mui/material/Box';
-import {AppBar, styled, Tab, Tabs, useTheme} from '@mui/material';
+import {AppBar, Tab, Tabs, useTheme} from '@mui/material';
 import SwipeableViews from 'react-swipeable-views';
 import {TabPanelComponent} from '../components/BifrostPage/TabPanelComponent';
 import {HomeComponent} from "../components/BifrostPage/HomeComponent";
 import {ResidentHomes} from "../../core/models/residents/Resident-homes";
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import HomeIcon from '@mui/icons-material/Home';
-import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import {startGetResidentHome} from '../../store/residents';
 import {LoadingComponent} from '../../core/shared/ui/components/LoadingComponent';
 
@@ -21,7 +20,7 @@ interface StyledTabProps {
 
 export const BifrostPage = () => {
     // @ts-ignore
-    const {isLoading, setIsLoading} = useContext(GeneralContext);
+    const {isLoading, setIsLoading, setIsUnauthorized} = useContext(GeneralContext);
     const dispatch = useAppDispatch();
     const theme = useTheme();
     const {user} = useAppSelector((state) => state.auth);
@@ -32,7 +31,12 @@ export const BifrostPage = () => {
     const _getResidentHome = async () => {
         setIsLoading(true);
         dispatch(startGetResidentHome(user.id)).then((residents: ResidentHomes[]) => {
-            setResidentList([...residents])
+            if (residents !== undefined && residents['status'] !== 401) {
+                setResidentList([...residents])
+            }
+            if (residents['status'] === 401) {
+                setIsUnauthorized(true)
+            }
             setIsLoading(false);
         });
     }
@@ -43,14 +47,6 @@ export const BifrostPage = () => {
             'aria-controls': `full-width-tabpanel-${index}`,
         };
     }
-
-
-    const StyledTab = styled((props: StyledTabProps) => (
-        <Tab disableRipple {...props} />
-    ))(({theme}) => ({
-        fontSize: theme.typography.pxToRem(15),
-        marginRight: theme.spacing(1),
-    }));
 
     const handleChangeTabs = (event: SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -86,9 +82,6 @@ export const BifrostPage = () => {
                                 <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}}
                                      icon={<Diversity3Icon fontSize='small'/>}
                                      label={t('IN.SECTIONS.HOME.TAB.SOCIAL')} {...a11yProps(1)} />
-                                <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}}
-                                     icon={<InsertInvitationIcon fontSize='small'/>}
-                                     label={t('IN.SECTIONS.HOME.TAB.INVITATIONS')} {...a11yProps(2)} />
                             </Tabs>
                         </AppBar>
                         <SwipeableViews
@@ -121,9 +114,6 @@ export const BifrostPage = () => {
                             </TabPanelComponent>
                             <TabPanelComponent value={value} index={1} dir={theme.direction}>
                                 Item Two
-                            </TabPanelComponent>
-                            <TabPanelComponent value={value} index={2} dir={theme.direction}>
-                                <LoadingComponent />
                             </TabPanelComponent>
                         </SwipeableViews>
                     </Box>

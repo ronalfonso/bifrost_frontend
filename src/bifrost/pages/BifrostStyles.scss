@@ -73,12 +73,11 @@
   .body_card {
     background: $white;
     padding: .2rem .5rem;
-    height: 80px;
+    height: 90px;
     border-radius: 0 10px 10px 10px;
     @include box-shadow-tridementional;
     .number_house {
       width: 100%;
-      font-size: 13px;
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
@@ -109,11 +108,11 @@
   }
   .footer_card {
     width: 100%;
-    margin-top: -15px;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     padding-left: .7rem;
+    margin-top: -20px;
     .condo {
       font-size: 13px;
       color: $black_secondary;

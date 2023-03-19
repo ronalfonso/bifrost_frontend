@@ -1,55 +1,24 @@
-import {useMemo, useState} from 'react';
+import {useMemo} from 'react';
 import {useTranslation} from "react-i18next";
-import {useForm} from '../../core/hooks';
 import {useAppDispatch, useAppSelector} from '../../store';
 import {starLogin} from '../../store/auth';
-import logo from '../../assets/img/bifrost_color.png';
-import {AccountBox, Visibility, VisibilityOff} from '@mui/icons-material';
 import {
+    Box,
     Button,
-    FormControl, IconButton, InputAdornment,
-    InputLabel,
-    OutlinedInput,
+    FormControl,
 } from '@mui/material';
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 
-const formData = {
-    username: '',
-    password: ''
-}
+import {object, string} from 'yup';
+import {TextField} from 'formik-mui';
+import logo from '../../assets/img/bifrost_color.png';
 
-const formValidations = {
-    username: [(value) => value.length > 1, 'El username es requerido'],
-    password: [(value) => value.length > 1, 'El password es requerido'],
-}
 
 export const LoginComponent = () => {
     const dispatch = useAppDispatch();
     const {t} = useTranslation();
-
     const status = useAppSelector((state) => state.auth.status);
     const isCheckingAuth = useMemo(() => status === 'checking', [status]);
-    const [showPassword, setShowPassword] = useState(false);
-
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    // @ts-ignore
-    const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        console.log(event);
-    };
-
-    const {
-        username,
-        password,
-        onInputChange,
-        isFormValid,
-    }: any = useForm(formData, formValidations);
-
-    const onSubmit = async (e: any) => {
-        e.preventDefault();
-        if (!isFormValid) return;
-        dispatch(starLogin({username, password}))
-    }
 
     return (
         <>
@@ -62,64 +31,69 @@ export const LoginComponent = () => {
                     <h1>Bifrost Security</h1>
                 </div>
             </div>
-            <form className={'form_login'} onSubmit={onSubmit}>
+            <Formik
+                initialValues={{
+                username: '',
+                password: '',
+            }}
+                onSubmit={(values) => {
+                    console.log(values);
+                    dispatch(starLogin(values))
+                }}
+                validationSchema={object({
+                    username: string()
+                        .min(4, 'Debe tener al menos 4 caracteres')
+                        .required(t('OUT.LOGIN.USERNAME_OR_EMAIL_IS_REQUIRED')),
+                    password: string()
+                        .min(4, 'Debe tener al menos 4 caracteres')
+                        .required(t('OUT.LOGIN.PASSWORD_REQUIRED')),
+                })
+            }>
+                {
+                    (formik) => (
+                        <Form className={'form_login'} >
+                            <div className="">
+                                <Box marginTop={2}>
+                                    <Field
+                                        component={TextField}
+                                        type="text"
+                                        label={t('OUT.LOGIN.USERNAME_EMAIL')}
+                                        name={'username'}
+                                        size="small"
+                                        sx={{width: '100%', maxHeight: '60px'}}
+                                        />
+                                    <ErrorMessage name={'username'} />
+                                </Box>
+                                <Box marginTop={2}>
+                                    <Field
+                                        component={TextField}
+                                        type="password"
+                                        label={t('OUT.LOGIN.PASSWORD')}
+                                        name={'password'}
+                                        size="small"
+                                        sx={{width: '100%', maxHeight: '60px'}}
+                                    />
+                                    <ErrorMessage name={'password'} />
+                                </Box>
 
-                <div className="">
+                            </div>
 
-                    <FormControl size="small"
-                                 fullWidth
-                                 sx={{mt: 2}}
-                                 variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">{t('OUT.LOGIN.USERNAME_EMAIL')}</InputLabel>
-                        <OutlinedInput
-                            value={username} onChange={onInputChange}
-                            name="username"
-                            id="outlined-adornment-username"
-                            type={'text'}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <AccountBox/>
-                                </InputAdornment>
-                            }
-                            label={t('OUT.LOGIN.USERNAME_EMAIL')}
-                        />
-                    </FormControl>
+                            <div className="footer_login ">
+                                <FormControl size="small" fullWidth sx={{mt: 1}} variant="outlined">
+                                    <Button type="submit" variant="contained"
+                                            disabled={!formik.isValid || isCheckingAuth}
+                                    >{t('OUT.LOGIN.LOGIN')}</Button>
+                                </FormControl>
+                                <FormControl className={'forget'} size="small" fullWidth sx={{mt: 1}} variant="outlined">
+                                    <a href="/auth/login">{t('OUT.LOGIN.FORGOT_PASSWORD')}</a>
+                                </FormControl>
+                            </div>
+                        </Form>
+                    )
+                }
 
-                    <FormControl size="small" fullWidth sx={{mt: 2}} variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">{t('OUT.LOGIN.PASSWORD')}</InputLabel>
-                        <OutlinedInput
-                            id="outlined-adornment-password"
-                            type={showPassword ? 'text' : 'password'}
-                            value={password} onChange={onInputChange} name="password"
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                    >
-                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                            label={t('OUT.LOGIN.PASSWORD')}
-                        />
-                    </FormControl>
+            </Formik>
 
-                </div>
-
-                <div className="footer_login ">
-                    <FormControl size="small" fullWidth sx={{mt: 1}} variant="outlined">
-                        <Button type="submit" variant="contained"
-                                disabled={!isFormValid || isCheckingAuth}
-                        >{t('OUT.LOGIN.LOGIN')}</Button>
-                    </FormControl>
-                    <FormControl className={''} size="small" fullWidth sx={{mt: 1}} variant="outlined">
-                        <a href="/auth/login">{t('OUT.LOGIN.FORGOT_PASSWORD')}</a>
-                    </FormControl>
-                </div>
-            </form>
         </>
     )
 }

@@ -15,14 +15,7 @@ export const HomeComponent = ({resident}: {resident: ResidentHomes}) => {
                 </div>
                 <div className="body_card">
                     <div className={'number_house'}><span>{t(`DICTIONARY.${condo.type.description}`)} { home.numberHouse }</span></div>
-                    <div className={'name'}>
-                        <span className={'label'}>Nom.: </span>
-                        <span className={'description'}>{resident.firsName} {resident.lastName}</span>
-                    </div>
-                    <div className={'description'}>
-                        <span className={'label'}>Desc.: </span>
-                        <span className={'description'}>{home.description}</span>
-                    </div>
+
 
                 </div>
                 <div className="footer_card">

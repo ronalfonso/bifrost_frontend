@@ -1,10 +1,11 @@
 import { GridLoader } from 'react-spinners';
+import styles from "../../../../styles/style.module.scss";
 
 export const LoadingGlobalComponent = () => {
     return (
         <div className="loading-global">
             <GridLoader
-                color={'rgb(44, 188, 218)'}
+                color={styles.colorPrimary}
                 loading={true}
                 cssOverride={{}}
                 size={10}

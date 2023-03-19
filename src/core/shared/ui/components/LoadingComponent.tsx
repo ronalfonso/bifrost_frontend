@@ -1,10 +1,11 @@
 import {ClockLoader} from 'react-spinners';
+import styles from "../../../../styles/style.module.scss";
 
 export const LoadingComponent = () => {
     return (
         <div className="loading-components">
             <ClockLoader
-                color={'rgb(44, 188, 218)'}
+                color={styles.colorPrimary}
                 loading={true}
                 cssOverride={{}}
                 size={50}

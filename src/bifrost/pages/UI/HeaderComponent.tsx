@@ -40,7 +40,7 @@ export const HeaderComponent = () => {
             <div className={'center'}>
                 <div className="username">
                     <h5>{t('OUT.LOGIN.WELCOME')}</h5>
-                    <h3>{name}</h3>
+                    <h3 style={{fontSize: '1rem'}}>{name}</h3>
                 </div>
             </div>
             <div className="right">
