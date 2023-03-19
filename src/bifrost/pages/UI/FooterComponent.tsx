@@ -11,7 +11,7 @@ export const FooterComponent = () => {
     const buttonsList = [
         {path: '../home', Component: <Home/>, name: 'Home'},
         {path: '../profile', Component: <PersonOutline/>, name: 'Profile'},
-        {path: '', Component: <QrCode/>, name: 'QR'},
+        {path: '../invitations', Component: <QrCode/>, name: 'QR'},
         {path: '', Component: <AutoStoriesOutlined/>, name: 'Contactos'},
         {path: '', Component: <WorkHistoryOutlined/>, name: 'Hitorial'},
     ]

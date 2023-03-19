@@ -12,6 +12,7 @@ export interface globalScss {
     colorDanger: string,
     colorSuccess: string,
     backgroundColor: string,
+    borderColor: string,
 }
 
 export const stylesGlobal: globalScss;

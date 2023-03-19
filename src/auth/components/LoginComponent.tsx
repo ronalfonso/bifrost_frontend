@@ -37,7 +37,6 @@ export const LoginComponent = () => {
                 password: '',
             }}
                 onSubmit={(values) => {
-                    console.log(values);
                     dispatch(starLogin(values))
                 }}
                 validationSchema={object({

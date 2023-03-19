@@ -170,5 +170,19 @@ export const es = {
         APARTMENT: 'Apartamento',
         APARTMENTS: 'Apartamentos',
         TOWNHOUSE: 'Townhouse',
+    },
+    INVITATIONS_FORM: {
+        FIRSTNAME: 'Nombre',
+        LASTNAME: 'Apellido',
+        HOUSE_NUMBER: 'Numero de casa',
+        PHONE_NUMBER: 'Teléfono',
+        VEHICLE_MODEL: 'Modelo del vehiculo',
+        VEHICLE_ID: 'Placa del vehiculo',
+        VEHICLE_COLOR: 'Color del vehiculo',
+        FROM_DATE: 'Desde',
+        TO_DATE: 'Hasta',
+        QR: 'Codigo QR',
+        date: 'Fecha',
+        RESIDENT: 'Residente',
     }
 }
