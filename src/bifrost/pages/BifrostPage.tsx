@@ -14,9 +14,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import {startGetResidentHome} from '../../store/residents';
 import {LoadingComponent} from '../../core/shared/ui/components/LoadingComponent';
 
-interface StyledTabProps {
-    label: string;
-}
 
 export const BifrostPage = () => {
     // @ts-ignore
