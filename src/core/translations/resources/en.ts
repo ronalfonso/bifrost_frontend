@@ -3,6 +3,7 @@ export const en = {
         YOUR_SESSION_HAS_EXPIRED: "Your session has expired",
         CONFIRM: 'Confirm',
         CANCEL: 'Cancel',
+        GUEST: 'Guest',
     },
     DB: {
         PUBLIC: "Public",
@@ -190,5 +191,6 @@ export const en = {
         INVITE: 'Invite',
         FREQUENT_GUEST: 'Frequent guest',
         INVITATION_CONFIRMATION: 'Invitation confirmation',
+        CREATE_INVITATION: 'Create invitation',
     }
 }

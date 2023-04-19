@@ -16,9 +16,26 @@ export const helpHttp = () => {
         options.body = JSON.stringify(options.body) || false;
         if (!options.body) delete options.body;
 
-        setTimeout(() => controller.abort(),15000);
+        let request: any = {};
+        if (options.data) {
+            request = {
+                method: options.method,
+                url: url,
+                data: options.data
+            }
+            delete request.data.signal;
+            delete request.data.method;
+            delete request.data.headers;
+            delete request.data.url;
+        } else {
+            request = {
+                method: options.method,
+                url: url,
+            }
+        }
 
-        return axios(url, options)
+
+        return axios(request)
             .then(resp => {
                 return resp.status >= 200 && resp.status < 300 ? resp : Promise.reject({
                     error: true,

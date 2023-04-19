@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 export const HomeComponent = ({resident}: {resident: ResidentHomes}) => {
     const home = resident.home;
     const condo = resident.home.condo;
-    const invitations = resident.invitations;
+    const invitations = resident.invitations.filter(invitation => invitation.isActive);
     const { t } = useTranslation();
 
     return (

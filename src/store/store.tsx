@@ -2,11 +2,13 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit'
 import { authSlice } from './auth';
 import {residentSlice} from './residents/residentSlice';
+import {invitationSlice} from './invitations/invitationSlice';
 
 export const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
         resident: residentSlice.reducer,
+        invitation: invitationSlice.reducer,
     }
 })
 

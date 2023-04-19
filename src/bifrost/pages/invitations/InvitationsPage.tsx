@@ -9,27 +9,45 @@ import {
     Card,
     CardActions,
     CardContent,
-    CardHeader, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    CardHeader, Dialog, DialogActions, DialogContent, DialogTitle,
     FormControl, FormControlLabel,
     FormGroup,
     MenuItem, Switch, Typography
 } from '@mui/material';
 import {Select, TextField} from 'formik-mui';
-import {LocalizationProvider, DateTimePicker} from '@mui/x-date-pickers';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
+import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import styles from '../../../styles/style.module.scss';
 import {Condo} from '../../../core/models/condos/Condo';
-import moment from 'moment';
-import dayjs, {Dayjs} from 'dayjs';
+import moment, {Moment} from 'moment';
+import {Home} from '../../../core/models/homes/Home';
+import {startCreateInvitation} from '../../../store/invitations';
 
 export const InvitationsPage = () => {
     const dispatch = useAppDispatch();
     const [openDialog, setOpenDialog] = useState(false);
     const {t} = useTranslation();
-    const {condos} = useAppSelector((state) => state.resident);
-    const [dateFrom, setDateFrom] = useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
-    const [dateTo, setDateTo] = useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
-    const [data, setData] = useState(null);
+    const {condos, homes} = useAppSelector((state) => state.resident);
+    const [dateFrom, setDateFrom] = useState<Moment | null>(moment());
+    const [dateTo, setDateTo] = useState<Moment | null>(moment().add(4, 'hours'));
+    const [data, setData] = useState({
+        firsName: '',
+        lastName: '',
+        houseNumber: null,
+        phoneNumber: '',
+        vehicleModel: '',
+        vehicleId: '',
+        vehicleColor: '',
+        toDate: null,
+        fromDate: null,
+        qrCode: '',
+        date: null,
+        residentsId: '',
+        homeId: '',
+        condo: '',
+    });
 
     const handleClickOpen = () => {
         setOpenDialog(true)
@@ -40,10 +58,16 @@ export const InvitationsPage = () => {
     }
 
     const handleSave = () => {
-        console.log('save');
         console.log(data);
-        console.log(dateFrom);
-        console.log(dateTo);
+        create();
+    }
+
+    const create = () => {
+        console.log(data);
+        delete data.condo;
+        dispatch(startCreateInvitation(data)).then((resp) => {
+            console.log(resp);
+        })
     }
 
 
@@ -55,7 +79,7 @@ export const InvitationsPage = () => {
                 <CardHeader
                     sx={{p: 0, borderBottom: `1px solid ${styles.borderColor}`}}
                     titleTypographyProps={{fontSize: '1.2rem'}}
-                    title={'Crear invitación'}
+                    title={t('GENERAL.GUEST')}
                 >
 
                 </CardHeader>
@@ -73,13 +97,24 @@ export const InvitationsPage = () => {
                             fromDate: null,
                             qrCode: '',
                             date: null,
-                            residents: '',
-                            home: null,
+                            residentsId: '',
+                            homeId: null,
                             condo: '',
                         }}
                         onSubmit={(values) => {
-                            console.log(values);
-                            setData({...values});
+                            const condo = condos.find((condo: Condo) => condo.id === values.condo);
+                            const home = homes.find((home: Home) => home.condo.id === values.condo);
+
+                            setData({
+                                ...values,
+                                fromDate: dateFrom.format(),
+                                toDate: dateTo.format(),
+                                residentsId: condo.residentId,
+                                homeId: home.id.toString(),
+                                houseNumber: home.numberHouse,
+                                date: dateFrom.valueOf(),
+                            })
+
                         }}
                     >
                         {
@@ -190,41 +225,6 @@ export const InvitationsPage = () => {
                                                 onClick={handleClickOpen}
                                         >{t('INVITATIONS_FORM.INVITE')}</Button>
                                     </Box>
-                                    <Dialog
-                                        open={openDialog}
-                                        aria-labelledby="alert-dialog-title"
-                                        aria-describedby="alert-dialog-description"
-                                    >
-                                        <DialogTitle id="alert-dialog-title">
-                                            {t('INVITATIONS_FORM.INVITATION_CONFIRMATION')}
-                                        </DialogTitle>
-                                        <DialogContent>
-                                            <DialogContentText id="alert-dialog-description">
-                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                    <Box marginTop={2}>
-                                                        <DateTimePicker
-                                                            label={t('INVITATIONS_FORM.FROM_DATE')}
-                                                            value={dateFrom}
-                                                            onChange={(newValue) => setDateFrom(newValue)}
-                                                        />
-                                                    </Box>
-                                                    <Box marginTop={2}>
-                                                        <DateTimePicker
-                                                            label={t('INVITATIONS_FORM.TO_DATE')}
-                                                            value={dateTo}
-                                                            onChange={(newValue) => setDateTo(newValue)}
-                                                        />
-                                                    </Box>
-                                                </LocalizationProvider>
-                                            </DialogContentText>
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button color={'secondary'} onClick={handleClickClose}>{t('GENERAL.CANCEL')}</Button>
-                                            <Button onClick={handleSave} autoFocus>
-                                                {t('GENERAL.CONFIRM')}
-                                            </Button>
-                                        </DialogActions>
-                                    </Dialog>
                                 </Form>
                             )
                         }
@@ -235,8 +235,43 @@ export const InvitationsPage = () => {
 
                 </CardActions>
             </Card>
-
+            <Dialog
+                open={openDialog}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {t('INVITATIONS_FORM.CREATE_INVITATION')}
+                </DialogTitle>
+                <DialogContent>
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                        <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
+                            <Box marginTop={2}>
+                                <DateTimePicker
+                                    label={t('INVITATIONS_FORM.FROM_DATE')}
+                                    value={dateFrom}
+                                    onChange={(newValue) => setDateFrom(newValue)}
+                                />
+                            </Box>
+                            <Box marginTop={2}>
+                                <DateTimePicker
+                                    label={t('INVITATIONS_FORM.TO_DATE')}
+                                    value={dateTo}
+                                    onChange={(newValue) => setDateTo(newValue)}
+                                />
+                            </Box>
+                        </DemoContainer>
+                    </LocalizationProvider>
+                </DialogContent>
+                <DialogActions>
+                    <Button color={'secondary'} onClick={handleClickClose}>{t('GENERAL.CANCEL')}</Button>
+                    <Button onClick={handleSave} autoFocus>
+                        {t('GENERAL.CONFIRM')}
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </PageWrapper>
+
     )
 }
 
