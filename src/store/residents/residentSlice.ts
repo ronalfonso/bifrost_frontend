@@ -1,14 +1,31 @@
-import { ResidentState } from '../../core/models/residents/Resident-homes';
 import {createSlice} from '@reduxjs/toolkit';
 
-const initialState:ResidentState[] = []
+const initialState = {
+    residents: [],
+    homes: [],
+    condos: [],
+}
 
 export const residentSlice = createSlice({
     name: 'Resident',
     initialState,
     reducers: {
-        initResident: (state, {payload}) => [...payload]
+        initCondos: (state, {payload}) => {
+            state.residents = [...state.residents];
+            state.homes = [...state.homes];
+            state.condos = [...payload];
+        },
+        initHomes: (state, {payload}) => {
+            state.residents = [...state.residents];
+            state.homes = [...payload];
+            state.condos = [...state.condos];
+        },
+        initResident: (state, {payload}) => {
+            state.residents = [...payload];
+            state.homes = [...state.homes];
+            state.condos = [...state.condos];
+        },
     }
 })
 
-export const { initResident } = residentSlice.actions;
+export const { initResident, initHomes, initCondos } = residentSlice.actions;

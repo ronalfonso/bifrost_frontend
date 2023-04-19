@@ -22,7 +22,7 @@ export const FooterComponent = () => {
                 <ul>
                     {
                         buttonsList.map((button) => (
-                            <ButtonFooterComponent button={button}/>
+                            <ButtonFooterComponent key={button.name} button={button}/>
                         ))
                     }
                     <div className="indicator"></div>

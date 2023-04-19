@@ -1,5 +1,5 @@
 import { getHomeResidents } from './api/residents.service';
-import { initResident } from './residentSlice';
+import {initCondos, initHomes, initResident} from './residentSlice';
 import { startLogout } from '../auth';
 
 export const startGetResidentHome = (userId) => {
@@ -7,7 +7,22 @@ export const startGetResidentHome = (userId) => {
         return await getHomeResidents(userId).then(resp => {
             if (resp.status === 202) {
                 const {data} = resp;
+                const homesList = data.map((resident) => {
+                    return {
+                        ...resident.home,
+                        residentId: resident.id
+                    }
+                })
+                const condosList = homesList.map((home) => {
+                    return {
+                        ...home.condo,
+                        homeId: home.id,
+                        residentId: home.residentId
+                    }
+                })
                 dispatch(initResident(data));
+                dispatch(initHomes(homesList));
+                dispatch(initCondos(condosList));
                 return data;
             } else if (resp?.response.status >= 400) {
                 dispatch(startLogout('UNAUTHORIZED'))

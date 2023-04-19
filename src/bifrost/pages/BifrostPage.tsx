@@ -22,7 +22,7 @@ export const BifrostPage = () => {
     const theme = useTheme();
     const {user} = useAppSelector((state) => state.auth);
     const [residentList, setResidentList] = useState<ResidentHomes[]>([]);
-    const [value, setValue] = useState(0);
+    const [tabValue, setTabValue] = useState(0);
     const {t} = useTranslation();
 
     const _getResidentHome = async () => {
@@ -46,75 +46,75 @@ export const BifrostPage = () => {
     }
 
     const handleChangeTabs = (event: SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+        setTabValue(newValue);
     };
 
     const handleChangeIndex = (index: number) => {
-        setValue(index);
+        setTabValue(index);
     };
 
     useEffect(() => {
-            _getResidentHome()
+        _getResidentHome()
     }, []);
 
 
     return (
         <PageWrapper title={'Home'}>
-                <div className={'tabs_container'}>
-                    <Box sx={{width: '100%', height: '80vh'}}>
-                        <AppBar position="static">
-                            <Tabs
-                                sx={{height: '3rem', fontSize: '10px'}}
-                                value={value}
-                                onChange={handleChangeTabs}
-                                indicatorColor="secondary"
-                                textColor="inherit"
-                                variant="fullWidth"
-                                scrollButtons="auto"
-                                aria-label="full width tabs example"
-                                centered>
-                                <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}}
-                                     icon={<HomeIcon fontSize='small'/>}
-                                     label={t('IN.SECTIONS.HOME.TAB.HOMES')} {...a11yProps(0)} />
-                                <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}}
-                                     icon={<Diversity3Icon fontSize='small'/>}
-                                     label={t('IN.SECTIONS.HOME.TAB.SOCIAL')} {...a11yProps(1)} />
-                            </Tabs>
-                        </AppBar>
-                        <SwipeableViews
-                            style={{height: '80%'}}
-                            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                            index={value}
-                            onChangeIndex={handleChangeIndex}
+            <div className={'tabs_container'}>
+                <Box sx={{width: '100%', height: '80vh'}}>
+                    <AppBar position="static">
+                        <Tabs
+                            sx={{height: '3rem', fontSize: '10px'}}
+                            value={tabValue}
+                            onChange={handleChangeTabs}
+                            indicatorColor="secondary"
+                            textColor="inherit"
+                            variant="fullWidth"
+                            scrollButtons="auto"
+                            aria-label="full width tabs example"
+                            centered>
+                            <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}}
+                                 icon={<HomeIcon fontSize='small'/>}
+                                 label={t('IN.SECTIONS.HOME.TAB.HOMES')} {...a11yProps(0)} />
+                            <Tab sx={{marginTop: '-10px', height: '3rem', fontSize: '10px'}}
+                                 icon={<Diversity3Icon fontSize='small'/>}
+                                 label={t('IN.SECTIONS.HOME.TAB.SOCIAL')} {...a11yProps(1)} />
+                        </Tabs>
+                    </AppBar>
+                    <SwipeableViews
+                        style={{height: '80%'}}
+                        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                        index={Number(tabValue)}
+                        onChangeIndex={handleChangeIndex}
 
-                        >
-                            <TabPanelComponent value={value} index={0} dir={theme.direction}>
-                                {
-                                    isLoading ?
-                                        <LoadingComponent />
-                                        :
-                                        <div className={'panel-home'}>
-                                            {
-                                                residentList.length > 0
-                                                    ?
-                                                    residentList.map((resident) => {
-                                                        return (
-                                                            <HomeComponent key={resident.home.numberHouse} resident={resident}/>
-                                                        )
-                                                    })
-                                                    :
-                                                    <span>No existen hogares registrados</span>
-                                            }
-                                        </div>
+                    >
+                    <TabPanelComponent value={tabValue} index={0} dir={theme.direction}>
+                        {
+                            isLoading ?
+                                <LoadingComponent/>
+                                :
+                                <div className={'panel-home'}>
+                                    {
+                                        residentList.length > 0
+                                            ?
+                                            residentList.map((resident) => {
+                                                return (
+                                                    <HomeComponent key={resident.home.numberHouse} resident={resident}/>
+                                                )
+                                            })
+                                            :
+                                            <span>No existen hogares registrados</span>
+                                    }
+                                </div>
 
-                                }
-                            </TabPanelComponent>
-                            <TabPanelComponent value={value} index={1} dir={theme.direction}>
-                                Item Two
-                            </TabPanelComponent>
-                        </SwipeableViews>
-                    </Box>
-                </div>
+                        }
+                    </TabPanelComponent>
+                    <TabPanelComponent value={tabValue} index={1} dir={theme.direction}>
+                        Item Two
+                    </TabPanelComponent>
+                    </SwipeableViews>
+                </Box>
+            </div>
         </PageWrapper>
     )
 }

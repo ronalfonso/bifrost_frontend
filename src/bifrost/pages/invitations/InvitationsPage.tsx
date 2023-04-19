@@ -1,20 +1,51 @@
-import moment from 'moment';
+import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useAppDispatch} from '../../../store';
-import PageWrapper from '../../../layout/PageWrapper/PageWrapper';
+import {useAppDispatch, useAppSelector} from '../../../store';
 import {ErrorMessage, Field, Form, Formik} from 'formik';
-import {Box, Button, Card, CardActions, CardContent, CardHeader, Grid} from '@mui/material';
-import {TextField} from 'formik-mui';
-import {DateTimePicker} from '@mui/lab';
-import {MobileDateTimePicker} from '@mui/x-date-pickers/MobileDateTimePicker';
-import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import PageWrapper from '../../../layout/PageWrapper/PageWrapper';
+import {
+    Box,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    FormControl, FormControlLabel,
+    FormGroup,
+    MenuItem, Switch, Typography
+} from '@mui/material';
+import {Select, TextField} from 'formik-mui';
+import {LocalizationProvider, DateTimePicker} from '@mui/x-date-pickers';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import styles from '../../../styles/style.module.scss';
+import {Condo} from '../../../core/models/condos/Condo';
+import moment from 'moment';
+import dayjs, {Dayjs} from 'dayjs';
 
 export const InvitationsPage = () => {
     const dispatch = useAppDispatch();
+    const [openDialog, setOpenDialog] = useState(false);
     const {t} = useTranslation();
-    const now = moment();
+    const {condos} = useAppSelector((state) => state.resident);
+    const [dateFrom, setDateFrom] = useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
+    const [dateTo, setDateTo] = useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
+    const [data, setData] = useState(null);
+
+    const handleClickOpen = () => {
+        setOpenDialog(true)
+    }
+
+    const handleClickClose = () => {
+        setOpenDialog(false)
+    }
+
+    const handleSave = () => {
+        console.log('save');
+        console.log(data);
+        console.log(dateFrom);
+        console.log(dateTo);
+    }
+
 
     return (
         <PageWrapper title={'Invitations'}>
@@ -29,7 +60,6 @@ export const InvitationsPage = () => {
 
                 </CardHeader>
                 <CardContent className={'invitations_cardContainer'} sx={{pt: 1, pl: 0, pr: 0}}>
-
                     <Formik
                         initialValues={{
                             firsName: '',
@@ -39,46 +69,47 @@ export const InvitationsPage = () => {
                             vehicleModel: '',
                             vehicleId: '',
                             vehicleColor: '',
-                            toDate: now,
-                            fromDate: now.add(1, 'hours'),
+                            toDate: null,
+                            fromDate: null,
                             qrCode: '',
                             date: null,
-                            residentsId: '',
-                            homeId: null
+                            residents: '',
+                            home: null,
+                            condo: '',
                         }}
                         onSubmit={(values) => {
                             console.log(values);
+                            setData({...values});
                         }}
                     >
                         {
                             (formik) => (
                                 <Form>
-                                    <Box marginTop={2} sx={{display: 'flex', justifyContent: 'space-between'}}>
-                                        <LocalizationProvider dateAdapter={AdapterMoment}>
-                                            <Grid container columns={{sm: 12, xs: 6}} gap={2}>
-                                                <Grid item xs={6} sm={4} md={4}>
-                                                    <MobileDateTimePicker
-                                                        sx={{width: '100%'}}
-                                                        value={formik.values.toDate}
-                                                        label={t('INVITATIONS_FORM.TO_DATE')}
-                                                        defaultValue={moment()}/>
-                                                </Grid>
-                                                <Grid item xs={6} sm={4} md={4}>
-                                                    <MobileDateTimePicker
-                                                        sx={{width: '100%'}}
-                                                        value={formik.values.fromDate}
-                                                        label={t('INVITATIONS_FORM.FROM_DATE')}
-                                                        defaultValue={moment()}/>
-                                                </Grid>
-                                            </Grid>
-                                        </LocalizationProvider>
+
+                                    <Box marginTop={2}>
+                                        <FormControl sx={{width: '100%'}}>
+                                            <Field
+                                                component={Select}
+                                                size={'small'}
+                                                type="text"
+                                                label={t('DICTIONARY.CONDO')}
+                                                name={'condo'}
+                                            >
+                                                {
+                                                    condos.map((condo: Condo) => (
+                                                        <MenuItem key={condo.idCondo}
+                                                                  value={condo.id}>{condo.name.toUpperCase()}</MenuItem>
+                                                    ))
+                                                }
+                                            </Field>
+                                        </FormControl>
                                     </Box>
                                     <Box marginTop={2}>
                                         <Field
                                             component={TextField}
                                             type="text"
                                             label={t('INVITATIONS_FORM.FIRSTNAME')}
-                                            name={'firstName'}
+                                            name={'firsName'}
                                             size="small"
                                             sx={{width: '100%', maxHeight: '60px'}}
                                         />
@@ -139,23 +170,61 @@ export const InvitationsPage = () => {
                                         />
                                         <ErrorMessage name={'vehicleColor'}/>
                                     </Box>
-                                    <Field
-                                        component={DateTimePicker}
-                                        name="dateTime"
-                                        label="Date Time"
-                                    />
-                                    <Box marginTop={2}>
-                                        <Field
-                                            component={DateTimePicker}
-                                            type="dateTime"
-                                            label={t('INVITATIONS_FORM.TO_DATE')}
-                                            name={'toDate'}
-                                            size="small"
-                                            sx={{width: '100%', maxHeight: '60px'}}
-                                        />
-                                        <ErrorMessage name={'toDate'}/>
+
+                                    <Box marginTop={2} sx={{display: 'flex', justifyContent: 'space-between'}}>
+                                        <FormGroup>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch size={'small'} color={'primary'} defaultChecked/>
+                                                }
+                                                label={
+                                                    <Typography style={{fontSize: '.75rem'}}>
+                                                        {t('INVITATIONS_FORM.FREQUENT_GUEST')}
+                                                    </Typography>
+                                                }/>
+                                        </FormGroup>
+                                        <Button type={'submit'}
+                                                variant={'contained'}
+                                                disabled={!formik.isValid || !formik.dirty}
+                                                size="small"
+                                                onClick={handleClickOpen}
+                                        >{t('INVITATIONS_FORM.INVITE')}</Button>
                                     </Box>
-                                    <Button type={'submit'} variant={'contained'} size="small">Invitar</Button>
+                                    <Dialog
+                                        open={openDialog}
+                                        aria-labelledby="alert-dialog-title"
+                                        aria-describedby="alert-dialog-description"
+                                    >
+                                        <DialogTitle id="alert-dialog-title">
+                                            {t('INVITATIONS_FORM.INVITATION_CONFIRMATION')}
+                                        </DialogTitle>
+                                        <DialogContent>
+                                            <DialogContentText id="alert-dialog-description">
+                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                    <Box marginTop={2}>
+                                                        <DateTimePicker
+                                                            label={t('INVITATIONS_FORM.FROM_DATE')}
+                                                            value={dateFrom}
+                                                            onChange={(newValue) => setDateFrom(newValue)}
+                                                        />
+                                                    </Box>
+                                                    <Box marginTop={2}>
+                                                        <DateTimePicker
+                                                            label={t('INVITATIONS_FORM.TO_DATE')}
+                                                            value={dateTo}
+                                                            onChange={(newValue) => setDateTo(newValue)}
+                                                        />
+                                                    </Box>
+                                                </LocalizationProvider>
+                                            </DialogContentText>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button color={'secondary'} onClick={handleClickClose}>{t('GENERAL.CANCEL')}</Button>
+                                            <Button onClick={handleSave} autoFocus>
+                                                {t('GENERAL.CONFIRM')}
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
                                 </Form>
                             )
                         }
@@ -166,6 +235,7 @@ export const InvitationsPage = () => {
 
                 </CardActions>
             </Card>
+
         </PageWrapper>
     )
 }

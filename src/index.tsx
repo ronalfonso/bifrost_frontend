@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import {store} from './store';
 import {Provider} from 'react-redux';
 import {GeneralProvider} from './contexts/GeneralProvider';
@@ -9,19 +9,16 @@ import {BifrostApp} from './bifrostApp';
 // Translate
 import './core/translations'
 
-const root = ReactDOM.createRoot(
-    document.getElementById('root')
-);
-
 AxiosInterceptor();
 
-root.render(
+ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <GeneralProvider>
                 <BifrostApp/>
             </GeneralProvider>
         </Provider>
-   </React.StrictMode>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 

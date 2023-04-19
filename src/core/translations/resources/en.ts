@@ -1,6 +1,8 @@
 export const en = {
     GENERAL: {
-        YOUR_SESSION_HAS_EXPIRED: "Your session has expired"
+        YOUR_SESSION_HAS_EXPIRED: "Your session has expired",
+        CONFIRM: 'Confirm',
+        CANCEL: 'Cancel',
     },
     DB: {
         PUBLIC: "Public",
@@ -170,6 +172,7 @@ export const en = {
         APARTMENT: 'Apartment',
         APARTMENTS: 'Apartments',
         TOWNHOUSE: 'Townhouse',
+        CONDO: 'Condominium',
     },
     INVITATIONS_FORM: {
         FIRSTNAME: 'Firstname',
@@ -184,5 +187,8 @@ export const en = {
         QR: 'QR code',
         date: 'Date',
         RESIDENT: 'Resident',
+        INVITE: 'Invite',
+        FREQUENT_GUEST: 'Frequent guest',
+        INVITATION_CONFIRMATION: 'Invitation confirmation',
     }
 }

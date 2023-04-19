@@ -4,7 +4,7 @@ export const ButtonFooterComponent = ({button}) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const {path, Component} = button;
+    const {path, Component, name} = button;
 
     const activePage = (page: string) => {
         return location.pathname === page.substring(2);
@@ -15,7 +15,7 @@ export const ButtonFooterComponent = ({button}) => {
             onClick={() => navigate(path)}>
             <div className={'button-nav'}>
                 <span className={'icon'}> {Component}</span>
-                <span className={'text'}>Home</span>
+                <span className={'text'}>{name}</span>
             </div>
         </li>
     )

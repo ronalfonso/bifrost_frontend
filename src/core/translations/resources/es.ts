@@ -1,6 +1,8 @@
 export const es = {
     GENERAL: {
-        YOUR_SESSION_HAS_EXPIRED: "Su sesión ha expirado"
+        YOUR_SESSION_HAS_EXPIRED: "Su sesión ha expirado",
+        CONFIRM: 'Confirmar',
+        CANCEL: "Cancelar",
     },
     DB: {
         PUBLIC: "Público",
@@ -170,6 +172,7 @@ export const es = {
         APARTMENT: 'Apartamento',
         APARTMENTS: 'Apartamentos',
         TOWNHOUSE: 'Townhouse',
+        CONDO: 'Condominio',
     },
     INVITATIONS_FORM: {
         FIRSTNAME: 'Nombre',
@@ -184,5 +187,8 @@ export const es = {
         QR: 'Codigo QR',
         date: 'Fecha',
         RESIDENT: 'Residente',
+        INVITE: 'Invitar',
+        FREQUENT_GUEST: 'Invitado frecuente',
+        INVITATION_CONFIRMATION: 'Confirmación de la invitación',
     }
 }
