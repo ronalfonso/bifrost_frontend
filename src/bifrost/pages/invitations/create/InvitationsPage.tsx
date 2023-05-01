@@ -64,6 +64,7 @@ export const InvitationsPage = () => {
     const create = () => {
         delete data.condo;
         dispatch(startCreateInvitation(data)).then((resp) => {
+            setOpenDialog(false)
             if (resp.status === 201) {
                 setOpenDialog(false)
             }
