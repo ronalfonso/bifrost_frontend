@@ -1,7 +1,8 @@
+import {ReactNode} from 'react';
 import Box from '@mui/material/Box';
 
 interface TabPanelProps {
-    children?: React.ReactNode;
+    children?: ReactNode;
     dir?: string;
     index: number;
     value: number;
@@ -17,7 +18,7 @@ export const TabPanelComponent = (props: TabPanelProps) => {
             {...other}
         >
             {value === index && (
-                <Box sx={{ pt: 3, pb: 3, margin: '0 auto', color: 'black' }}>
+                <Box sx={{ pt: 3, pb: 3, margin: '0 auto' }}>
                     {children}
                 </Box>
             )}

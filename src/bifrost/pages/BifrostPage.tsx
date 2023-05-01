@@ -88,30 +88,31 @@ export const BifrostPage = () => {
                         onChangeIndex={handleChangeIndex}
 
                     >
-                    <TabPanelComponent value={tabValue} index={0} dir={theme.direction}>
-                        {
-                            isLoading ?
-                                <LoadingComponent/>
-                                :
-                                <div className={'panel-home'}>
-                                    {
-                                        residentList.length > 0
-                                            ?
-                                            residentList.map((resident) => {
-                                                return (
-                                                    <HomeComponent key={resident.home.numberHouse} resident={resident}/>
-                                                )
-                                            })
-                                            :
-                                            <span>No existen hogares registrados</span>
-                                    }
-                                </div>
+                        <TabPanelComponent value={tabValue} index={0} dir={theme.direction}>
+                            {
+                                isLoading ?
+                                    <LoadingComponent/>
+                                    :
+                                    <div className={'panel-home'}>
+                                        {
+                                            residentList.length > 0
+                                                ?
+                                                residentList.map((resident) => {
+                                                    return (
+                                                        <HomeComponent key={resident.home.numberHouse}
+                                                                       resident={resident}/>
+                                                    )
+                                                })
+                                                :
+                                                <span>No existen hogares registrados</span>
+                                        }
+                                    </div>
 
-                        }
-                    </TabPanelComponent>
-                    <TabPanelComponent value={tabValue} index={1} dir={theme.direction}>
-                        Item Two
-                    </TabPanelComponent>
+                            }
+                        </TabPanelComponent>
+                        <TabPanelComponent value={tabValue} index={1} dir={theme.direction}>
+                            Item Two
+                        </TabPanelComponent>
                     </SwipeableViews>
                 </Box>
             </div>

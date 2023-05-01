@@ -1,10 +1,11 @@
 import {Home} from "../homes/Home";
+import {Invitation} from '../invitations/Invitation';
 
 export interface ResidentHomes {
     id: string;
     firsName: string;
     lastName: string;
-    invitations: any[]
+    invitations: Invitation[]
     mobilePhone: string;
     phoneNumber: string;
     home: Home;

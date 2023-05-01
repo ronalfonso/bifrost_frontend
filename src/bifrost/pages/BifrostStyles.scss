@@ -2,7 +2,8 @@
 
 @import "UI/FooterStyles.scss";
 @import "UI/HeaderStyles.scss";
-@import 'invitations/InvitationsStyles.scss';
+@import 'invitations/create/InvitationsStyles';
+@import 'invitations/list/InvitationList';
 
 .main_container {
   position: relative;
@@ -17,7 +18,7 @@
     justify-content: space-between;
     background-color: $primary;
     color: $white;
-    //@include box-shadow-toolbar;
+    @include box-shadow-toolbar;
   }
 
   .body_container {

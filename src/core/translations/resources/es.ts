@@ -4,6 +4,14 @@ export const es = {
         CONFIRM: 'Confirmar',
         CANCEL: "Cancelar",
         GUEST: 'Invitado',
+        ACTIVES_INV:  'Activas',
+        INACTIVES_INV:  'Inactivas',
+    },
+    FOOTER_BAR: {
+        HOME: 'Hogar',
+        SETUP: 'Config',
+        CONTACTS: 'Contactos',
+        INVITATIONS: 'Invitaciones'
     },
     DB: {
         PUBLIC: "Público",

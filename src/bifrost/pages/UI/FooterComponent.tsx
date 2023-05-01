@@ -1,19 +1,21 @@
 import {
     AutoStoriesOutlined,
     Home,
-    PersonOutline,
     QrCode,
-    WorkHistoryOutlined
+    BallotOutlined,
+    MiscellaneousServices
 } from '@mui/icons-material';
 import {ButtonFooterComponent} from './components/ButtonFooterComponent';
+import {useTranslation} from 'react-i18next';
 
 export const FooterComponent = () => {
+    const { t } = useTranslation();
     const buttonsList = [
-        {path: '../home', Component: <Home/>, name: 'Home'},
-        {path: '../profile', Component: <PersonOutline/>, name: 'Profile'},
-        {path: '../invitations', Component: <QrCode/>, name: 'QR'},
-        {path: '', Component: <AutoStoriesOutlined/>, name: 'Contactos'},
-        {path: '', Component: <WorkHistoryOutlined/>, name: 'Hitorial'},
+        {path: '../home', Component: <Home/>, name: `${t('FOOTER_BAR.HOME')}`},
+        {path: '../profile', Component: <MiscellaneousServices />, name: `${t('FOOTER_BAR.SETUP')}`},
+        {path: '../create-invitation', Component: <QrCode/>, name: 'QR'},
+        {path: '', Component: <AutoStoriesOutlined/>, name: `${t('FOOTER_BAR.CONTACTS')}`},
+        {path: '../list-invitation', Component: <BallotOutlined/>, name: `${t('FOOTER_BAR.INVITATIONS')}`},
     ]
 
     return (

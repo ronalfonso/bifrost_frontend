@@ -3,7 +3,7 @@ import {helpHttp} from '../../../core/helpers/helpHttp';
 
 
 const BASE_URL = environment.BASE_URL;
-const URL_COMPONENT = `${BASE_URL}/residents`;
+const URL_COMPONENT = `${BASE_URL}/invitations`;
 
 export const createInvitation = async (data: any) => {
     const url = `${URL_COMPONENT}`;

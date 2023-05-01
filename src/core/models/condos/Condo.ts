@@ -12,5 +12,5 @@ export class Condo {
     deletedAt: string;
     updatedAt: string;
 
-    type:HousingType;
+    type: HousingType;
 }

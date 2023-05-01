@@ -6,9 +6,7 @@ import {GeneralContext} from '../../../contexts/GeneralContext';
 import {useTranslation} from "react-i18next";
 import {useNavigate} from 'react-router-dom';
 import {IconButton} from '@mui/material';
-import {MenuRounded} from '@mui/icons-material';
-
-
+import {FilterAlt} from '@mui/icons-material';
 
 export const HeaderComponent = () => {
     // @ts-ignore
@@ -29,12 +27,8 @@ export const HeaderComponent = () => {
         <div className={'header_container'}>
             <SidebarMobileComponent />
             <div className={'left'}>
-                <div className="menu">
-                    <div className={`button_content `}>
-                        <IconButton onClick={() => setShowSidebar(true)} aria-label="delete">
-                            <MenuRounded />
-                        </IconButton>
-                    </div>
+                <div className="content_img" onClick={handleGoHome}>
+                    <img src={logo} alt={'logo'}/>
                 </div>
             </div>
             <div className={'center'}>
@@ -44,8 +38,12 @@ export const HeaderComponent = () => {
                 </div>
             </div>
             <div className="right">
-                <div className="content_img" onClick={handleGoHome}>
-                    <img src={logo} alt={'logo'}/>
+                <div className="menu">
+                    <div className={`button_content `}>
+                        <IconButton onClick={() => setShowSidebar(true)} aria-label="delete">
+                            <FilterAlt />
+                        </IconButton>
+                    </div>
                 </div>
             </div>
         </div>

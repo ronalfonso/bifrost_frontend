@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useAppDispatch, useAppSelector} from '../../../store';
+import {useAppDispatch, useAppSelector} from '../../../../store';
 import {ErrorMessage, Field, Form, Formik} from 'formik';
-import PageWrapper from '../../../layout/PageWrapper/PageWrapper';
+import PageWrapper from '../../../../layout/PageWrapper/PageWrapper';
 import {
     Box,
     Button,
@@ -19,11 +19,11 @@ import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
 import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
-import styles from '../../../styles/style.module.scss';
-import {Condo} from '../../../core/models/condos/Condo';
+import styles from '../../../../styles/style.module.scss';
+import {Condo} from '../../../../core/models/condos/Condo';
 import moment, {Moment} from 'moment';
-import {Home} from '../../../core/models/homes/Home';
-import {startCreateInvitation} from '../../../store/invitations';
+import {Home} from '../../../../core/models/homes/Home';
+import {startCreateInvitation} from '../../../../store/invitations';
 
 export const InvitationsPage = () => {
     const dispatch = useAppDispatch();
@@ -58,15 +58,15 @@ export const InvitationsPage = () => {
     }
 
     const handleSave = () => {
-        console.log(data);
         create();
     }
 
     const create = () => {
-        console.log(data);
         delete data.condo;
         dispatch(startCreateInvitation(data)).then((resp) => {
-            console.log(resp);
+            if (resp.status === 201) {
+                setOpenDialog(false)
+            }
         })
     }
 

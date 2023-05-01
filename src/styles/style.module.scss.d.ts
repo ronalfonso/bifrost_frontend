@@ -13,6 +13,8 @@ export interface globalScss {
     colorSuccess: string,
     backgroundColor: string,
     borderColor: string,
+    blackPrimary: string,
+    blackSecondary: string,
 }
 
 export const stylesGlobal: globalScss;

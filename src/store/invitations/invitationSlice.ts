@@ -1,17 +1,21 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-    invitations: []
+    actives: [],
+    inactives: [],
 }
 
 export const invitationSlice = createSlice({
-    name: 'Invitation',
+    name: 'Invitations',
     initialState,
     reducers: {
-        invitations: (state, {payload}) => {
-            state.invitations = [...payload]
+        active: (state, {payload}) => {
+            state.actives = [...payload]
+        },
+        inactive: (state, {payload}) => {
+            state.inactives = [...payload]
         }
     }
 })
 
-export const {invitations} = invitationSlice.actions;
+export const {active, inactive} = invitationSlice.actions;

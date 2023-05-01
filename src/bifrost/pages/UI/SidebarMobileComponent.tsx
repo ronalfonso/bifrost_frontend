@@ -36,7 +36,7 @@ export const SidebarMobileComponent = () => {
     return (
         <div className="card flex justify-content-center">
             <div>
-                {(['left'] as const).map((anchor) => (
+                {(['right'] as const).map((anchor) => (
                     <React.Fragment key={anchor}>
                         <SwipeableDrawer
                             anchor={anchor}

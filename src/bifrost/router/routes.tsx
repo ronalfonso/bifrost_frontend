@@ -11,7 +11,8 @@ interface Route {
 const SCREENS = {
     HOME: lazy(() => import(/*webpackChunkName: "Home" */'../pages/BifrostPage')),
     PROFILE: lazy(() => import(/*webpackChunkName: "Profile" */'../pages/ProfilePage')),
-    INVITATIONS: lazy(() => import(/*webpackChunkName: "Invitations" */'../pages/invitations/InvitationsPage')),
+    INVITATIONS: lazy(() => import(/*webpackChunkName: "Invitations" */'../pages/invitations/create/InvitationsPage')),
+    CREATE_INVITATION: lazy(() => import(/*webpackChunkName: "Invitations list" */'../pages/invitations/list/InvitationsListPage')),
 }
 
 export const routes: Route[] = [
@@ -28,9 +29,15 @@ export const routes: Route[] = [
         name: 'Profile'
     },
     {
-        to: '/invitations',
-        path: 'invitations',
+        to: '/create-invitation',
+        path: 'create-invitation',
         Component: SCREENS.INVITATIONS,
+        name: 'Create invitation'
+    },
+    {
+        to: '/list-invitation',
+        path: 'list-invitation',
+        Component: SCREENS.CREATE_INVITATION,
         name: 'Invitations'
     },
 ]
