@@ -27,10 +27,11 @@ const Transition = forwardRef(function Transition(
 
 export const AppRouter = () => {
     // @ts-ignore
-    const {isOpenInvitation, setIsOpenInvitation, invitationSelected} = useContext(GeneralContext);
+    const {isOpenInvitation, setIsOpenInvitation, invitationSelected, setInvitationSelected} = useContext(GeneralContext);
     const [invitation, setInvitation] = useState<Invitation>(new Invitation());
 
     const handleClose = () => {
+        setInvitationSelected(null)
         setIsOpenInvitation(false);
     };
 
@@ -178,6 +179,7 @@ export const AppRouter = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
+                    <Button onClick={handleClose}>Compartir</Button>
                 </DialogActions>
             </Dialog>
         </>

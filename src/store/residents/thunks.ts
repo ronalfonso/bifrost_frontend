@@ -67,7 +67,9 @@ function getInvitationList(residentList: ResidentHomes[], invitationsList: any[]
         const invitations = resident.invitations.map(invitation => {
             return {
                 ...invitation,
-                condoName: resident.home.condo.name.toUpperCase()
+                condoName: resident.home.condo.name.toUpperCase(),
+                homeId: resident.home.id,
+                condoId: resident.home.condo.id
             }
         })
         invitations.forEach(invitation => {

@@ -17,7 +17,7 @@ import {LoadingComponent} from '../../core/shared/ui/components/LoadingComponent
 
 export const BifrostPage = () => {
     // @ts-ignore
-    const {isLoading, setIsLoading, setIsUnauthorized} = useContext(GeneralContext);
+    const {isLoading, setIsLoading, setIsUnauthorized, setIsOpenInvitation, invitationSelected,} = useContext(GeneralContext);
     const dispatch = useAppDispatch();
     const theme = useTheme();
     const {user} = useAppSelector((state) => state.auth);
@@ -56,6 +56,12 @@ export const BifrostPage = () => {
     useEffect(() => {
         _getResidentHome()
     }, []);
+
+    useEffect(() => {
+        if (invitationSelected !== null) {
+            setIsOpenInvitation(true);
+        }
+    }, [invitationSelected]);
 
 
     return (

@@ -11,7 +11,15 @@ import {GeneralContext} from '../../../contexts/GeneralContext';
 export const InvitationCardComponent = ({invitation}: { invitation: Invitation }) => {
     // @ts-ignore
     const {setIsOpenInvitation, setInvitationSelected} = useContext(GeneralContext);
-    const {firsName, lastName, houseNumber, condoName, fromDate, toDate } = invitation;
+    const {
+        firsName,
+        lastName,
+        houseNumber,
+        condoName,
+        fromDate,
+        toDate,
+        isActive
+    } = invitation;
 
     const showInvitation = () => {
         setInvitationSelected({...invitation})
@@ -20,7 +28,11 @@ export const InvitationCardComponent = ({invitation}: { invitation: Invitation }
 
     return (
         <>
-            <Card sx={{maxWidth: 350, borderLeft: `4px solid ${styles.colorInfo}`}}>
+            <Card sx={{
+                maxWidth: 350,
+                borderLeft: `4px solid ${styles.colorInfo}`,
+                backgroundColor: !isActive && styles.borderColor
+            }}>
                 <CardHeader
                     sx={{padding: '.75rem'}}
                     title={
@@ -72,10 +84,10 @@ export const InvitationCardComponent = ({invitation}: { invitation: Invitation }
                     {/*    <Favorite />*/}
                     {/*</IconButton>*/}
                     <IconButton aria-label="share">
-                        <Share />
+                        <Share/>
                     </IconButton>
                     <IconButton onClick={showInvitation} aria-label="share">
-                        <Preview />
+                        <Preview/>
                     </IconButton>
                 </CardActions>
             </Card>

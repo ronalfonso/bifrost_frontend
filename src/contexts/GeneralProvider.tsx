@@ -8,12 +8,14 @@ export const GeneralProvider = ({ children }) => {
     const [isUnauthorized, setIsUnauthorized] = useState(false);
     const [isOpenInvitation, setIsOpenInvitation] = useState(false);
     const [invitationSelected, setInvitationSelected] = useState<Invitation>(null);
+    const [homeSelected, setHomeSelected] = useState(null);
     const data = {
         showSidebar, setShowSidebar,
         isLoading, setIsLoading,
         isUnauthorized, setIsUnauthorized,
         isOpenInvitation, setIsOpenInvitation,
-        invitationSelected, setInvitationSelected
+        invitationSelected, setInvitationSelected,
+        homeSelected, setHomeSelected,
     }
 
     return (

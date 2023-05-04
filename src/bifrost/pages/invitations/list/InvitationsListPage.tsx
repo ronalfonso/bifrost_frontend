@@ -1,28 +1,33 @@
+import {SyntheticEvent, useContext, useEffect, useState} from 'react';
 import PageWrapper from '../../../../layout/PageWrapper/PageWrapper';
 import Box from '@mui/material/Box';
 import {
-    AppBar,
+    AppBar, Fab,
     Tab,
     Tabs,
     useTheme
 } from '@mui/material';
+import {Add, Ballot, HowToVote} from '@mui/icons-material';
 import {TabPanelComponent} from '../../../components/BifrostPage/TabPanelComponent';
-import {SyntheticEvent, useContext, useState} from 'react';
 import {GeneralContext} from '../../../../contexts/GeneralContext';
 import SwipeableViews from 'react-swipeable-views';
 import {useTranslation} from 'react-i18next';
-import {Ballot, HowToVote} from '@mui/icons-material';
 import {LoadingComponent} from '../../../../core/shared/ui/components/LoadingComponent';
 import {useAppSelector} from '../../../../store';
 import {InvitationCardComponent} from '../../../components/InvitationsPage/InvitationCardComponent';
+import {Invitation} from '../../../../core/models/invitations/Invitation';
+import {useNavigate} from 'react-router-dom';
 
 export const InvitationsListPage = () => {
     // @ts-ignore
-    const {isLoading} = useContext(GeneralContext);
+    const {isLoading, homeSelected,} = useContext(GeneralContext);
+    const navigate = useNavigate();
     const {actives, inactives} = useAppSelector((state) => state.invitation);
     const theme = useTheme();
     const [tabValue, setTabValue] = useState(0);
     const {t} = useTranslation();
+    const [activeList, setActiveList] = useState<Invitation[]>([]);
+    const [inactiveList, setInactiveList] = useState<Invitation[]>([]);
 
     function a11yProps(index: number) {
         return {
@@ -38,6 +43,26 @@ export const InvitationsListPage = () => {
     const handleChangeIndex = (index: number) => {
         setTabValue(index);
     };
+
+    const goCreate = () => {
+        navigate('../create-invitation')
+    }
+
+    useEffect(() => {
+        setActiveList([...actives]);
+        setInactiveList([...inactives]);
+    }, [actives, inactives]);
+
+
+    useEffect(() => {
+        if (homeSelected !== null) {
+            const activeFilter = actives.filter(active => active.homeId === homeSelected.id);
+            const inactiveFilter = inactives.filter(inactive => inactive.homeId === homeSelected.id);
+            setActiveList([...activeFilter]);
+            setInactiveList([...inactiveFilter]);
+        }
+    }, [homeSelected]);
+
 
     return (
         <PageWrapper>
@@ -75,14 +100,14 @@ export const InvitationsListPage = () => {
                                 isLoading ?
                                     <LoadingComponent/>
                                     :
-                                    <div>
+                                    <div className={'card_invitation'}>
                                         {
-                                            actives.length > 0
+                                            activeList.length > 0
                                                 ?
-                                                actives.map((invitation) => {
+                                                activeList.map((invitation) => {
                                                     return (
                                                         <InvitationCardComponent
-                                                            key={invitation.houseNumber}
+                                                            key={invitation.id}
                                                             invitation={invitation}/>
                                                     )
                                                 })
@@ -97,14 +122,14 @@ export const InvitationsListPage = () => {
                                 isLoading ?
                                     <LoadingComponent/>
                                     :
-                                    <div>
+                                    <div className={`card_invitation`}>
                                         {
-                                            inactives.length > 0
+                                            inactiveList.length > 0
                                                 ?
-                                                inactives.map((invitation) => {
+                                                inactiveList.map((invitation) => {
                                                     return (
                                                         <InvitationCardComponent
-                                                            key={invitation.houseNumber}
+                                                            key={invitation.id}
                                                             invitation={invitation}/>
                                                     )
                                                 })
@@ -119,7 +144,13 @@ export const InvitationsListPage = () => {
                     </SwipeableViews>
 
                 </div>
+                <Box className={'add-button'}>
+                    <Fab onClick={goCreate} color="primary" aria-label="add">
+                        <Add />
+                    </Fab>
+                </Box>
             </Box>
+
         </PageWrapper>
     )
 }

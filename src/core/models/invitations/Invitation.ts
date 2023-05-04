@@ -16,4 +16,6 @@ export class Invitation {
     vehicleId: string;
     vehicleModel: string;
     condoName: string;
+    homeId: number;
+    condoId: string;
 }

@@ -1,5 +1,17 @@
+.card_invitation {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 1rem;
+}
 
 .card-content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+}
+
+.add-button {
+  position: absolute;
+  z-index: 10;
+  bottom: 65px;
+  right: 0;
 }

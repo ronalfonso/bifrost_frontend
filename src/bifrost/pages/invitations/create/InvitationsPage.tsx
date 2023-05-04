@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useAppDispatch, useAppSelector} from '../../../../store';
 import {ErrorMessage, Field, Form, Formik} from 'formik';
@@ -24,14 +24,21 @@ import {Condo} from '../../../../core/models/condos/Condo';
 import moment, {Moment} from 'moment';
 import {Home} from '../../../../core/models/homes/Home';
 import {startCreateInvitation} from '../../../../store/invitations';
+import {useNavigate} from 'react-router-dom';
+import {GeneralContext} from '../../../../contexts/GeneralContext';
+import {Invitation} from '../../../../core/models/invitations/Invitation';
 
 export const InvitationsPage = () => {
+    // @ts-ignore
+    const {homeSelected, setInvitationSelected} = useContext(GeneralContext);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const [openDialog, setOpenDialog] = useState(false);
     const {t} = useTranslation();
     const {condos, homes} = useAppSelector((state) => state.resident);
     const [dateFrom, setDateFrom] = useState<Moment | null>(moment());
     const [dateTo, setDateTo] = useState<Moment | null>(moment().add(4, 'hours'));
+    const [condoIdSelected, setCondoIdSelected] = useState('');
     const [data, setData] = useState({
         firsName: '',
         lastName: '',
@@ -66,10 +73,25 @@ export const InvitationsPage = () => {
         dispatch(startCreateInvitation(data)).then((resp) => {
             setOpenDialog(false)
             if (resp.status === 201) {
+                const invitation = new Invitation();
+                for (let invitationKey in invitation) {
+                    invitation[invitationKey] = resp.data[invitationKey]
+                }
+                setInvitationSelected(invitation)
+                navigate('../login');
                 setOpenDialog(false)
             }
         })
     }
+
+    useEffect(() => {
+        if (homeSelected !== null) {
+            console.log(homeSelected);
+            console.log(homeSelected.condo.id);
+            setCondoIdSelected(homeSelected.condo.id);
+        }
+    }, [homeSelected]);
+
 
 
     return (
@@ -86,6 +108,7 @@ export const InvitationsPage = () => {
                 </CardHeader>
                 <CardContent className={'invitations_cardContainer'} sx={{pt: 1, pl: 0, pr: 0}}>
                     <Formik
+                        enableReinitialize={true}
                         initialValues={{
                             firsName: '',
                             lastName: '',
@@ -100,7 +123,7 @@ export const InvitationsPage = () => {
                             date: null,
                             residentsId: '',
                             homeId: null,
-                            condo: '',
+                            condo: condoIdSelected,
                         }}
                         onSubmit={(values) => {
                             const condo = condos.find((condo: Condo) => condo.id === values.condo);
