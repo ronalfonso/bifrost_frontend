@@ -11,7 +11,7 @@ import {ErrorMessage, Field, Form, Formik} from 'formik';
 
 import {object, string} from 'yup';
 import {TextField} from 'formik-mui';
-import logo from '../../assets/img/bifrost_color.png';
+import logo from '../../assets/img/bifrost_delimited.png';
 
 
 export const LoginComponent = () => {
