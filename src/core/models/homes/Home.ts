@@ -1,6 +1,6 @@
 import {Condo} from "../condos/Condo";
 
-export class Home {
+export interface Home {
     description: string;
     id: number;
     latitude: number;

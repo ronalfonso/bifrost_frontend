@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import { AppRouter } from './routes/AppRouter';
-import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
-import { theme } from './theme/theme';
+import {useMemo} from 'react';
+import {AppRouter} from './routes/AppRouter';
+import {createTheme, ThemeProvider, useMediaQuery} from '@mui/material';
+import {theme} from './theme/theme';
 import './core/translations/index';
 import './styles/styles.scss';
 
@@ -16,7 +16,7 @@ export const BifrostApp = () => {
 
     return (
         <ThemeProvider theme={theme}>
-                <AppRouter/>
+            <AppRouter/>
         </ThemeProvider>
     )
 }

@@ -1,16 +1,13 @@
-import { environment } from '../../../environment';
-import { helpHttp } from '../../../core/helpers/helpHttp';
-
+import {environment} from '../../../environment';
+import {helpHttp} from '../../../core/helpers/helpHttp';
 
 const BASE_URL = environment.BASE_URL;
-const URL_COMPONENT = `${BASE_URL}/residents`
+const URL_COMPONENT = `${BASE_URL}/condos`;
 
-export const getResident = async (userId) => {
+export const getCondoList = async (userId)=> {
     const url = `${URL_COMPONENT}/${userId}/by-user`;
     return helpHttp().get(url).then(resp => {
         return resp;
     })
         .catch(err => console.log(err));
-
-
 }

@@ -3,7 +3,7 @@ import {Invitation} from '../invitations/Invitation';
 
 export interface ResidentHomes {
     id: string;
-    firsName: string;
+    firstName: string;
     lastName: string;
     invitations: Invitation[]
     mobilePhone: string;

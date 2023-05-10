@@ -1,18 +1,18 @@
 import {useContext} from 'react';
+import {GeneralContext} from '../../../contexts/GeneralContext';
 import {Card, CardActions, CardContent, CardHeader, IconButton, Typography} from '@mui/material';
 import {Preview, Share} from '@mui/icons-material';
 import Box from '@mui/material/Box';
-import styles from '../../../styles/style.module.scss';
 import {Invitation} from '../../../core/models/invitations/Invitation';
 import moment from 'moment';
-import {GeneralContext} from '../../../contexts/GeneralContext';
+import styles from '../../../styles/style.module.scss';
 
 
 export const InvitationCardComponent = ({invitation}: { invitation: Invitation }) => {
     // @ts-ignore
     const {setIsOpenInvitation, setInvitationSelected} = useContext(GeneralContext);
     const {
-        firsName,
+        firstName,
         lastName,
         houseNumber,
         condoName,
@@ -20,7 +20,7 @@ export const InvitationCardComponent = ({invitation}: { invitation: Invitation }
         toDate,
         isActive
     } = invitation;
-
+    console.log({invitation});
     const showInvitation = () => {
         setInvitationSelected({...invitation})
         setIsOpenInvitation(true)
@@ -38,7 +38,7 @@ export const InvitationCardComponent = ({invitation}: { invitation: Invitation }
                     title={
                         <Typography
                             sx={{fontSize: 13, fontWeight: 'bold', letterSpacing: '0.05em'}}>
-                            {firsName} {lastName}
+                            {firstName} {lastName}
                         </Typography>
                     }
                     subheader={

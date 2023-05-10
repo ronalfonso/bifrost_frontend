@@ -1,4 +1,4 @@
-export class HousingType {
+export interface HousingType {
     id: number;
     description: string;
 }

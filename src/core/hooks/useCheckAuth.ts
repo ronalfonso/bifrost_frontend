@@ -3,6 +3,7 @@ import {useAppDispatch, useAppSelector} from '../../store';
 import {db} from '../database/db';
 import {login} from '../../store/auth';
 import {GeneralContext} from '../../contexts/GeneralContext';
+import {startGetResident} from '../../store/residents';
 
 export const UseCheckAuth = () => {
     // @ts-ignore
@@ -21,6 +22,7 @@ export const UseCheckAuth = () => {
                 resp[0].user = JSON.parse(resp[0].user);
                 const authInfo = resp[0];
                 dispatch(login(authInfo));
+                dispatch(startGetResident(authInfo.uuid))
                 setIsLoading(false)
             }
         } catch (e) {

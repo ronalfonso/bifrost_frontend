@@ -1,25 +1,32 @@
-import {useContext} from 'react';
-import {ResidentHomes} from "../../../core/models/residents/Resident-homes";
+import {useContext, useEffect, useState} from 'react';
 import {useTranslation} from "react-i18next";
 import {Condo} from '../../../core/models/condos/Condo';
 import {Home} from '../../../core/models/homes/Home';
 import {Invitation} from '../../../core/models/invitations/Invitation';
 import {useNavigate} from 'react-router-dom';
 import {GeneralContext} from '../../../contexts/GeneralContext';
+import {useAppSelector} from '../../../store';
 
-export const HomeComponent = ({resident}: {resident: ResidentHomes}) => {
+export const HomeComponent = ({home}: {home: Home}) => {
     // @ts-ignore
     const {setHomeSelected,} = useContext(GeneralContext);
     const navigate = useNavigate();
-    const home: Home = resident.home;
-    const condo: Condo = resident.home.condo;
-    const invitations: Invitation[] = resident.invitations.filter(invitation => invitation.isActive);
+    const condo: Condo = home.condo;
+    const { actives } = useAppSelector((state) => state.invitation);
     const { t } = useTranslation();
+    const [invitations, setInvitations] = useState<Invitation[]>([]);
 
     const handleInvitationList = (home: Home): void => {
         setHomeSelected(home);
         navigate(`../list-invitation`)
     };
+
+    useEffect(() => {
+        if (actives.length > 0) {
+            setInvitations([...actives])
+        }
+    }, [actives]);
+
 
     return (
         <>
@@ -31,7 +38,7 @@ export const HomeComponent = ({resident}: {resident: ResidentHomes}) => {
                     <div className={'number_house'}><span>{t(`DICTIONARY.${condo.type.description}`)} { home.numberHouse }</span></div>
                 </div>
                 <div className="footer_card">
-                    <span className={'condo'}>{resident.home.condo.name}</span>
+                    <span className={'condo'}>{home.condo.name}</span>
                 </div>
             </div>
         </>

@@ -1,6 +1,6 @@
 import {HousingType} from "./housing-type";
 
-export class Condo {
+export interface Condo {
     id: string;
     idCondo: string;
     direction: string;

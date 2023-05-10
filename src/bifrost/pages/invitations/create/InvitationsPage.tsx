@@ -30,17 +30,17 @@ import {Invitation} from '../../../../core/models/invitations/Invitation';
 
 export const InvitationsPage = () => {
     // @ts-ignore
-    const {homeSelected, setInvitationSelected} = useContext(GeneralContext);
+    const {homeSelected, setInvitationSelected, setIsOpenInvitation} = useContext(GeneralContext);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [openDialog, setOpenDialog] = useState(false);
     const {t} = useTranslation();
-    const {condos, homes} = useAppSelector((state) => state.resident);
+    const {condos, homes, resident} = useAppSelector((state) => state.resident);
     const [dateFrom, setDateFrom] = useState<Moment | null>(moment());
     const [dateTo, setDateTo] = useState<Moment | null>(moment().add(4, 'hours'));
     const [condoIdSelected, setCondoIdSelected] = useState('');
     const [data, setData] = useState({
-        firsName: '',
+        firstName: '',
         lastName: '',
         houseNumber: null,
         phoneNumber: '',
@@ -79,6 +79,9 @@ export const InvitationsPage = () => {
                 }
                 setInvitationSelected(invitation)
                 navigate('../login');
+                setTimeout(() => {
+                    setIsOpenInvitation(true);
+                },500)
                 setOpenDialog(false)
             }
         })
@@ -110,8 +113,9 @@ export const InvitationsPage = () => {
                     <Formik
                         enableReinitialize={true}
                         initialValues={{
-                            firsName: '',
+                            firstName: '',
                             lastName: '',
+                            nroId: '',
                             houseNumber: null,
                             phoneNumber: '',
                             vehicleModel: '',
@@ -126,14 +130,13 @@ export const InvitationsPage = () => {
                             condo: condoIdSelected,
                         }}
                         onSubmit={(values) => {
-                            const condo = condos.find((condo: Condo) => condo.id === values.condo);
                             const home = homes.find((home: Home) => home.condo.id === values.condo);
 
                             setData({
                                 ...values,
                                 fromDate: dateFrom.format(),
                                 toDate: dateTo.format(),
-                                residentsId: condo.residentId,
+                                residentsId: resident.id,
                                 homeId: home.id.toString(),
                                 houseNumber: home.numberHouse,
                                 date: dateFrom.valueOf(),
@@ -168,7 +171,7 @@ export const InvitationsPage = () => {
                                             component={TextField}
                                             type="text"
                                             label={t('INVITATIONS_FORM.FIRSTNAME')}
-                                            name={'firsName'}
+                                            name={'firstName'}
                                             size="small"
                                             sx={{width: '100%', maxHeight: '60px'}}
                                         />
@@ -184,6 +187,17 @@ export const InvitationsPage = () => {
                                             sx={{width: '100%', maxHeight: '60px'}}
                                         />
                                         <ErrorMessage name={'lastName'}/>
+                                    </Box>
+                                    <Box marginTop={2}>
+                                        <Field
+                                            component={TextField}
+                                            type="text"
+                                            label={t('INVITATIONS_FORM.NROID')}
+                                            name={'nroId'}
+                                            size="small"
+                                            sx={{width: '100%', maxHeight: '60px'}}
+                                        />
+                                        <ErrorMessage name={'nroId'}/>
                                     </Box>
                                     <Box marginTop={2}>
                                         <Field

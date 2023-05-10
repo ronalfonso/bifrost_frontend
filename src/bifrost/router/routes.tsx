@@ -13,6 +13,7 @@ const SCREENS = {
     PROFILE: lazy(() => import(/*webpackChunkName: "Profile" */'../pages/ProfilePage')),
     INVITATIONS: lazy(() => import(/*webpackChunkName: "Invitations" */'../pages/invitations/create/InvitationsPage')),
     CREATE_INVITATION: lazy(() => import(/*webpackChunkName: "Invitations list" */'../pages/invitations/list/InvitationsListPage')),
+    CONTACTS: lazy(() => import(/*webpackChunkName: "Contacts list" */'../pages/contacts/list/ContactsListPage')),
 }
 
 export const routes: Route[] = [
@@ -39,5 +40,12 @@ export const routes: Route[] = [
         path: 'list-invitation',
         Component: SCREENS.CREATE_INVITATION,
         name: 'Invitations'
+    },
+
+    {
+        to: '/list-contacts',
+        path: 'list-contacts',
+        Component: SCREENS.CONTACTS,
+        name: 'Contancts'
     },
 ]

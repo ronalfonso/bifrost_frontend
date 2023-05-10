@@ -82,7 +82,7 @@ export const AppRouter = () => {
                     <Box>
                         <Typography
                             sx={{fontSize: 16, fontWeight: 'bold', letterSpacing: '0.05em'}}>
-                            {invitation.firsName} {invitation.lastName}
+                            {invitation.firstName} {invitation.lastName}
                         </Typography>
                     </Box>
                     <Box>
@@ -95,7 +95,7 @@ export const AppRouter = () => {
 
                 <DialogContent>
                     <div className="qr_container">
-                        <img src={`${invitation.qrCode}`} alt={`Inv ${invitation.firsName} ${invitation.lastName}`}/>
+                        <img src={`${invitation.qrCode}`} alt={`Inv ${invitation.firstName} ${invitation.lastName}`}/>
                     </div>
                     <div className="invitation_container">
                         <Box>

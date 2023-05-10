@@ -1,17 +1,20 @@
-import { getHomeResidents } from './api/residents.service';
 import {initCondos, initHomes, initResident} from './residentSlice';
 import { startLogout } from '../auth';
 import {active, inactive} from '../invitations/invitationSlice';
-import {ResidentHomes} from '../../core/models/residents/Resident-homes';
+import {getCondoList} from './api/condos.services';
+import {Home} from '../../core/models/homes/Home';
+import {getResident} from './api/residents.service';
 
 export const startGetResidentHome = (userId) => {
     return async (dispatch) => {
-        return await getHomeResidents(userId).then(resp => {
+        return await getCondoList(userId).then(resp => {
             if (resp.status === 202) {
                 const {data} = resp;
-                const homesList = dispatchHomes(data, dispatch);
-                dispatchCondos(homesList, dispatch);
-                dispatchInvitations(data, dispatch);
+                const condosHomes = data.map(condo => ({...condo}));
+                const homesList = dispatchHomes(condosHomes, dispatch);
+                const condos = data.map(condo => ({...condo}));
+                dispatchCondos(condos, dispatch);
+                dispatchInvitations(homesList, dispatch);
                 return data;
             } else if (resp?.response.status >= 400) {
                 dispatch(startLogout('UNAUTHORIZED'))
@@ -26,54 +29,58 @@ export const startGetResidentHome = (userId) => {
     }
 }
 
-function getResidents(data, dispatch) {
-    const residentList: any[] = data.map((resident) => resident);
-    dispatch(initResident(residentList));
-    return residentList;
+export const startGetResident = (userId) => {
+    return async (dispatch) => {
+        return await getResident(userId).then(resp => {
+            if (resp.status === 202) {
+                dispatch(initResident(resp.data))
+            } else if (resp?.response.status >= 400) {
+                dispatch(startLogout('UNAUTHORIZED'))
+                return resp.response;
+            } else {
+                return [];
+            }
+        })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 }
 
-function dispatchHomes(data, dispatch) {
-    const homesList = data.map((resident) => {
-        return {
-            ...resident.home,
-            residentId: resident.id
-        }
+function dispatchCondos(condos, dispatch) {
+    condos.forEach((condo) => delete condo.homes);
+    dispatch(initCondos([...condos]));
+}
+
+function dispatchHomes(condos, dispatch) {
+    const homesList: Home[] = [];
+    condos.forEach(condo => {
+        const homes = condo.homes.map((home) => {
+            return {
+                ...home,
+                condo
+            }
+        })
+        homes.forEach(((home: Home) => {
+            homesList.push(home)
+        }));
+        delete condo.homes
     })
-    dispatch(initHomes(homesList));
+    dispatch(initHomes([...homesList]));
     return homesList;
 }
 
-function dispatchCondos(homesList, dispatch) {
-    const condosList = homesList.map((home) => {
-        return {
-            ...home.condo,
-            homeId: home.id,
-            residentId: home.residentId
-        }
-    })
-    dispatch(initCondos(condosList));
-}
-
-function dispatchInvitations(data, dispatch) {
-    let residentList: ResidentHomes[] = [...getResidents(data, dispatch)];
+function dispatchInvitations(homeList, dispatch) {
     const invitationsList = [];
-    getInvitationList(residentList, invitationsList);
-    dispatch(active(invitationsList.filter(invitation => invitation.isActive)));
-    dispatch(inactive(invitationsList.filter(invitation => !invitation.isActive)));
-}
-
-function getInvitationList(residentList: ResidentHomes[], invitationsList: any[]) {
-    residentList.forEach((resident: ResidentHomes) => {
-        const invitations = resident.invitations.map(invitation => {
+    homeList.forEach((home) => {
+        const invitations = home.invitations.map((invitation) => {
             return {
                 ...invitation,
-                condoName: resident.home.condo.name.toUpperCase(),
-                homeId: resident.home.id,
-                condoId: resident.home.condo.id
+                homeId: home.id
             }
         })
-        invitations.forEach(invitation => {
-            invitationsList.push(invitation)
-        })
+        invitations.forEach((invitation) => invitationsList.push(invitation));
     })
+    dispatch(active(invitationsList.filter(invitation => invitation.isActive)));
+    dispatch(inactive(invitationsList.filter(invitation => !invitation.isActive)));
 }

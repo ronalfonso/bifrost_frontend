@@ -2,7 +2,7 @@
 export class Invitation {
     createdAt: Date;
     date: number;
-    firsName: string;
+    firstName: string;
     fromDate: Date;
     houseNumber: number;
     id: number;

@@ -14,7 +14,7 @@ export const FooterComponent = () => {
         {path: '../home', Component: <Home/>, name: `${t('FOOTER_BAR.HOME')}`},
         {path: '../profile', Component: <MiscellaneousServices />, name: `${t('FOOTER_BAR.SETUP')}`},
         {path: '../create-invitation', Component: <QrCode/>, name: 'QR'},
-        {path: '', Component: <AutoStoriesOutlined/>, name: `${t('FOOTER_BAR.CONTACTS')}`},
+        {path: '../list-contacts', Component: <AutoStoriesOutlined/>, name: `${t('FOOTER_BAR.CONTACTS')}`},
         {path: '../list-invitation', Component: <BallotOutlined/>, name: `${t('FOOTER_BAR.INVITATIONS')}`},
     ]
 

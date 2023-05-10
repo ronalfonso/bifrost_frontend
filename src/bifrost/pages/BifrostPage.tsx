@@ -8,32 +8,27 @@ import {AppBar, Tab, Tabs, useTheme} from '@mui/material';
 import SwipeableViews from 'react-swipeable-views';
 import {TabPanelComponent} from '../components/BifrostPage/TabPanelComponent';
 import {HomeComponent} from "../components/BifrostPage/HomeComponent";
-import {ResidentHomes} from "../../core/models/residents/Resident-homes";
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import HomeIcon from '@mui/icons-material/Home';
 import {startGetResidentHome} from '../../store/residents';
 import {LoadingComponent} from '../../core/shared/ui/components/LoadingComponent';
+import {Home} from '../../core/models/homes/Home';
 
 
 export const BifrostPage = () => {
     // @ts-ignore
-    const {isLoading, setIsLoading, setIsUnauthorized, setIsOpenInvitation, invitationSelected,} = useContext(GeneralContext);
+    const {isLoading, setIsLoading,} = useContext(GeneralContext);
+    const {  homes } = useAppSelector((state) => state.resident);
     const dispatch = useAppDispatch();
     const theme = useTheme();
     const {user} = useAppSelector((state) => state.auth);
-    const [residentList, setResidentList] = useState<ResidentHomes[]>([]);
+    const [homeList, setHomeList] = useState<Home[]>([]);
     const [tabValue, setTabValue] = useState(0);
     const {t} = useTranslation();
 
     const _getResidentHome = async () => {
         setIsLoading(true);
-        dispatch(startGetResidentHome(user.id)).then((residents: ResidentHomes[]) => {
-            if (residents !== undefined && residents['status'] !== 401) {
-                setResidentList([...residents])
-            }
-            if (residents['status'] === 401) {
-                setIsUnauthorized(true)
-            }
+        dispatch(startGetResidentHome(user.id)).then(() => {
             setIsLoading(false);
         });
     }
@@ -58,10 +53,10 @@ export const BifrostPage = () => {
     }, []);
 
     useEffect(() => {
-        if (invitationSelected !== null) {
-            setIsOpenInvitation(true);
+        if (homes[0].id !== 0) {
+            setHomeList([...homes])
         }
-    }, [invitationSelected]);
+    }, [homes]);
 
 
     return (
@@ -101,12 +96,12 @@ export const BifrostPage = () => {
                                     :
                                     <div className={'panel-home'}>
                                         {
-                                            residentList.length > 0
+                                            homeList.length > 0
                                                 ?
-                                                residentList.map((resident) => {
+                                                homeList.map((home) => {
                                                     return (
-                                                        <HomeComponent key={resident.home.numberHouse}
-                                                                       resident={resident}/>
+                                                        <HomeComponent key={home.numberHouse}
+                                                                       home={home} />
                                                     )
                                                 })
                                                 :
