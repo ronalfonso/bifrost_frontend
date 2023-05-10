@@ -6,6 +6,7 @@ import {Invitation} from '../../../core/models/invitations/Invitation';
 import {useNavigate} from 'react-router-dom';
 import {GeneralContext} from '../../../contexts/GeneralContext';
 import {useAppSelector} from '../../../store';
+import {capitalizeLabel} from '../../../core/utils/handle-lables';
 
 export const HomeComponent = ({home}: {home: Home}) => {
     // @ts-ignore
@@ -38,7 +39,7 @@ export const HomeComponent = ({home}: {home: Home}) => {
                     <div className={'number_house'}><span>{t(`DICTIONARY.${condo.type.description}`)} { home.numberHouse }</span></div>
                 </div>
                 <div className="footer_card">
-                    <span className={'condo'}>{home.condo.name}</span>
+                    <span className={'condo'}>{capitalizeLabel(home.condo.name)}</span>
                 </div>
             </div>
         </>

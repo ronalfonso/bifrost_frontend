@@ -4,6 +4,7 @@ import {active, inactive} from '../invitations/invitationSlice';
 import {getCondoList} from './api/condos.services';
 import {Home} from '../../core/models/homes/Home';
 import {getResident} from './api/residents.service';
+import {capitalizeLabel} from '../../core/utils/handle-lables';
 
 export const startGetResidentHome = (userId) => {
     return async (dispatch) => {
@@ -76,7 +77,8 @@ function dispatchInvitations(homeList, dispatch) {
         const invitations = home.invitations.map((invitation) => {
             return {
                 ...invitation,
-                homeId: home.id
+                homeId: home.id,
+                condoName: capitalizeLabel(home.condo.name),
             }
         })
         invitations.forEach((invitation) => invitationsList.push(invitation));

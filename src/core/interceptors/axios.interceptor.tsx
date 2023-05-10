@@ -9,10 +9,12 @@ export const AxiosInterceptor = () => {
         if (response.length > 0) {
             request.headers = {
                 Authorization: 'Bearer ' + response[0].access_token,
+                "ngrok-skip-browser-warning": "69420"
             };
         } else {
             request.headers = {
                 Authorization: 'Bearer ' + accessToken,
+                "ngrok-skip-browser-warning": "69420"
             };
         }
         return request;
