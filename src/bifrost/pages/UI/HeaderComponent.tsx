@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import { useAppSelector } from '../../../store';
-import logo from '../../../assets/img/bifrost_color.png'
+import logo from '../../../assets/img/bifrost_delimited.png'
 import {SidebarMobileComponent} from './SidebarMobileComponent';
 import {GeneralContext} from '../../../contexts/GeneralContext';
 import {useTranslation} from "react-i18next";

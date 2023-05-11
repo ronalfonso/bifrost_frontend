@@ -89,8 +89,6 @@ export const InvitationsPage = () => {
 
     useEffect(() => {
         if (homeSelected !== null) {
-            console.log(homeSelected);
-            console.log(homeSelected.condo.id);
             setCondoIdSelected(homeSelected.condo.id);
         }
     }, [homeSelected]);

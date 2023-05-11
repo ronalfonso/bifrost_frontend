@@ -1,0 +1,62 @@
+@import "../../assets/styles/mixins";
+
+.register_container {
+  width: 100%;
+  height: 85vh;
+  padding: 0 1rem;
+
+  .header_register {
+    height: 75px;
+    max-width: 450px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    @include phone {
+      height: 90px;
+      .logo {
+        width: 75px;
+        height: 75px;
+      }
+    }
+
+    .logo {
+      grid-column: 4/5;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include phone {
+        width: 75px;
+        height: 75px;
+      }
+      img {
+        width: 85%;
+      }
+    }
+
+    .title {
+      grid-column: 1/2;
+      margin-top: 1rem;
+      text-align: justify;
+      line-height: 1.2rem;
+      letter-spacing: 1.5px;
+      @include phone {
+        line-height: 1.5rem;
+      }
+      h1, h3 {
+        font-size: 3vh;
+        margin: 0;
+      }
+    }
+  }
+
+  .card_register {
+    height: 70vh;
+    @include phone {
+      height: 80vh;
+    }
+  }
+}
+
