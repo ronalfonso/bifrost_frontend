@@ -66,11 +66,11 @@
 }
 
 .showRegisterComponent {
-  margin-top: 0;
+  display: block;
   transition: all 0.3s ease-in-out;
 }
 
 .hideRegisterComponent {
-  margin-top: 600px;
+  display: none;
   transition: all 0.3s ease-in-out;
 }
