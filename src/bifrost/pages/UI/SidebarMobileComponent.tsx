@@ -56,7 +56,7 @@ export const SidebarMobileComponent = () => {
                             >
                                 <Box sx={{padding: '.75rem'}}>
                                     <Typography>
-                                        Filtrar  por:
+                                        {t('DICTIONARY.FILTER_BY')}:
                                     </Typography>
                                 </Box>
                                 <Box sx={{padding: 1}}>

@@ -162,6 +162,7 @@ export const en = {
         ORDER_BY: 'Order by',
         DATES: 'Dates',
         RESIDENT: 'Resident',
+        FILTER_BY: 'Filtrar por',
     },
     INVITATIONS_FORM: {
         FIRSTNAME: 'Firstname',
@@ -181,5 +182,12 @@ export const en = {
         FREQUENT_GUEST: 'Frequent guest',
         INVITATION_CONFIRMATION: 'Invitation confirmation',
         CREATE_INVITATION: 'Create invitation',
-    }
+    },
+    WARNING: {
+        COMING_SOON: 'Coming soon!!',
+        RECORD: {
+            NO_RECORDS: 'No records',
+            NO_HOUSEHOLDS_REGISTERED: 'There are no households registered',
+        },
+    },
 }

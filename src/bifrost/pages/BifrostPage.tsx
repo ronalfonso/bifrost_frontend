@@ -105,7 +105,7 @@ export const BifrostPage = () => {
                                                     )
                                                 })
                                                 :
-                                                <span>No existen hogares registrados</span>
+                                                <span>{t('WARNING.RECORD.NO_HOUSEHOLDS_REGISTERED')}</span>
                                         }
                                     </div>
 
