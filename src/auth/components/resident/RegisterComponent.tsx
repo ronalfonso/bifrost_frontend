@@ -2,9 +2,9 @@ import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Card, Divider, FormControl, InputLabel, MenuItem} from '@mui/material';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
-import logo from '../../assets/img/bifrost_color.png';
+import logo from '../../../assets/img/bifrost_color.png';
 import Box from '@mui/material/Box';
-import {CondoRegisterComponent} from './CondoRegisterComponent';
+import {CondoRegisterComponent} from '../CondoRegisterComponent';
 import {ResidentRegisterComponent} from './ResidentRegisterComponent';
 
 export const RegisterComponent = () => {
@@ -12,7 +12,7 @@ export const RegisterComponent = () => {
     const [typeRegister, setTypeRegister] = useState('');
 
     const handleChange = (event: SelectChangeEvent) => {
-        setTypeRegister(event.target.value as string);
+        setTypeRegister(event.target.value);
     };
 
     return (
@@ -46,13 +46,13 @@ export const RegisterComponent = () => {
                 {
                     (typeRegister == '1') &&
                     <Box className="container_form animate__animated animate__fadeInRight animate__faster">
-                        <CondoRegisterComponent/>
+                        <CondoRegisterComponent type={typeRegister}/>
                     </Box>
                 }
                 {
                     (typeRegister == '2') &&
                     <Box className="container_form animate__animated animate__fadeInRight animate__faster">
-                        <ResidentRegisterComponent/>
+                        <ResidentRegisterComponent type={typeRegister}/>
                     </Box>
                 }
             </Card>

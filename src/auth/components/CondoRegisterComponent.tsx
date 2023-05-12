@@ -1,6 +1,6 @@
 
 
-export const CondoRegisterComponent = () => {
+export const CondoRegisterComponent = ({type}: {type: string}) => {
     return (
         <>
 

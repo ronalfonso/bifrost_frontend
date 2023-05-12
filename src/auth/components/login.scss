@@ -1,7 +1,7 @@
 @import "../../assets/styles/mixins";
 
 .header_login {
-  height: 200px;
+  height: 165px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +23,25 @@
     text-align: center;
     h1, h3 {
       margin: 0;
+      font-size: 1rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+      letter-spacing: 1.5px;
+    }
+  }
+}
+
+.name_section {
+  margin-bottom: 1rem;
+  .title {
+    width: 60px;
+    line-height: 1.2rem;
+    letter-spacing: 1.5px;
+    h3 {
+      font-size: 3vh;
     }
   }
 }

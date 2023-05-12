@@ -1,48 +1,31 @@
-import {useMemo} from 'react';
-import {useTranslation} from "react-i18next";
-import {useAppDispatch, useAppSelector} from '../../store';
-import {starLogin} from '../../store/auth';
-import {
-    Box,
-    Button,
-    FormControl,
-} from '@mui/material';
-import {ErrorMessage, Field, Form, Formik} from 'formik';
-
-import {object, string} from 'yup';
+import { useContext } from 'react';
+import {Field, Form, Formik} from 'formik';
+import {object, ref, string} from 'yup';
+import {Box, Button, FormControl} from '@mui/material';
 import {TextField} from 'formik-mui';
-import logo from '../../assets/img/bifrost_delimited.png';
+import {useTranslation} from 'react-i18next';
+import {useAppDispatch} from '../../store';
+import {GeneralContext} from '../../contexts/GeneralContext';
 
-
-export const LoginComponent = () => {
+export const UserRegisterComponent = () => {
+    // @ts-ignore
+    const {setUserRegisterSubmit} = useContext(GeneralContext);
     const dispatch = useAppDispatch();
     const {t} = useTranslation();
-    const status = useAppSelector((state) => state.auth.status);
-    const isCheckingAuth = useMemo(() => status === 'checking', [status]);
+
 
     return (
         <>
-            <div className="header_login">
-                <div className="logo">
-                    <img src={logo} alt="logo"/>
-                </div>
-                <div className="title">
-                    <h3>{t('OUT.LOGIN.WELCOME')}</h3>
-                    <h1>Bifrost Security</h1>
-                </div>
-            </div>
-            <div className="name_section">
-                <div className="title">
-                    <h3>{t('OUT.REGISTER.CREATE_ACCOUNT')}</h3>
-                </div>
-            </div>
             <Formik
                 initialValues={{
-                username: '',
-                password: '',
-            }}
+                    username: '',
+                    password: '',
+                    passwordConfirm: '',
+                }}
                 onSubmit={(values) => {
-                    dispatch(starLogin(values))
+                    // dispatch(starLogin(values))
+                    console.log(values);
+                    setUserRegisterSubmit(true);
                 }}
                 validationSchema={object({
                     username: string()
@@ -51,11 +34,18 @@ export const LoginComponent = () => {
                     password: string()
                         .min(4, 'Debe tener al menos 4 caracteres')
                         .required(t('OUT.LOGIN.PASSWORD_REQUIRED')),
+                    passwordConfirm: string()
+                        .min(4, 'Debe tener al menos 4 caracteres')
+                        .required(t('OUT.LOGIN.PASSWORD_REQUIRED'))
+                        .oneOf(
+                            [ref('password')],
+                            'Las contraseñas deben ser iguales'
+                        ),
                 })
-            }>
+                }>
                 {
                     (formik) => (
-                        <Form className={'form_login'} >
+                        <Form className={'form_register'} >
                             <div className="">
                                 <Box marginTop={2}>
                                     <Field
@@ -65,39 +55,44 @@ export const LoginComponent = () => {
                                         name={'username'}
                                         size="small"
                                         sx={{width: '100%', maxHeight: '60px'}}
-                                        />
-                                    <ErrorMessage name={'username'} />
+                                    />
                                 </Box>
                                 <Box marginTop={2}>
                                     <Field
                                         component={TextField}
-                                        type="password"
+                                        type={'password'}
                                         label={t('OUT.LOGIN.PASSWORD')}
                                         name={'password'}
                                         size="small"
                                         sx={{width: '100%', maxHeight: '60px'}}
                                     />
-                                    <ErrorMessage name={'password'} />
+                                </Box>
+
+                                <Box marginTop={2}>
+                                    <Field
+                                        component={TextField}
+                                        type={'password'}
+                                        label={t('OUT.LOGIN.REPEAT_PASSWORD')}
+                                        name={'passwordConfirm'}
+                                        size="small"
+                                        sx={{width: '100%', maxHeight: '60px'}}
+                                    />
                                 </Box>
 
                             </div>
-
                             <div className="footer_login ">
                                 <FormControl size="small" fullWidth sx={{mt: 1}} variant="outlined">
                                     <Button type="submit" variant="contained"
-                                            disabled={!formik.isValid || isCheckingAuth}
-                                    >{t('OUT.LOGIN.LOGIN')}</Button>
-                                </FormControl>
-                                <FormControl className={'forget'} size="small" fullWidth sx={{mt: 1}} variant="outlined">
-                                    <a href="/auth/login">{t('OUT.LOGIN.FORGOT_PASSWORD')}</a>
+                                            disabled={!formik.isValid}
+                                    >{t('OUT.REGISTER.NEXT')}</Button>
                                 </FormControl>
                             </div>
+
                         </Form>
                     )
                 }
 
             </Formik>
-
         </>
     )
-}
+};

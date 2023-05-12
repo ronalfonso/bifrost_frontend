@@ -105,6 +105,7 @@ export const en = {
             USERNAME_OR_EMAIL_IS_REQUIRED: "The username or email is required",
             USERNAME_OR_PASSWORD_IS_WRONG: "Incorrect username or password",
             UNAUTHORIZED: 'Does not have authorization',
+            PASSWORD_SAME: 'Passwords must be the same',
         },
         REGISTER: {
             CREATE_ACCOUNT: 'Create account',
@@ -112,6 +113,14 @@ export const en = {
             USER_DATA: 'User data',
             CONDO_DATA: 'Condominium data',
             RESIDENT_DATA: 'Resident data',
+            TITLE_DIALOG: 'Enter invitation code',
+            CODE: 'Code',
+            ENTER_CODE: 'Enter code',
+            NEXT: 'Next',
+            FINISH: 'Finish',
+            FIRSTNAME_REQUIRED: 'Firstname required',
+            LASTNAME_REQUIRED: 'Lastname required',
+            HOME_REQUIRED: 'Home required',
         },
         REQUEST_CHANGE_PASSWORD: {
             DONT_WORRY_WE_SEND_YOU_A_NEW_EMAIL: "Don't worry. We will send you an email with a link to enter a new password",
@@ -162,6 +171,7 @@ export const en = {
         ORDER_BY: 'Order by',
         DATES: 'Dates',
         RESIDENT: 'Resident',
+        MOBILE: 'Mobile',
     },
     INVITATIONS_FORM: {
         FIRSTNAME: 'Firstname',

@@ -105,6 +105,7 @@ export const es = {
             USERNAME_OR_EMAIL_IS_REQUIRED: "El username o correo es obligatorio",
             USERNAME_OR_PASSWORD_IS_WRONG: "Usuario o contraseña incorrectos",
             UNAUTHORIZED: 'No tiene autorizacion',
+            PASSWORD_SAME: 'Las contraseñas deben ser iguales',
         },
         REGISTER: {
             CREATE_ACCOUNT: 'Crear cuenta',
@@ -112,6 +113,14 @@ export const es = {
             USER_DATA: 'Datos del usuario',
             CONDO_DATA: 'Datos del condominio',
             RESIDENT_DATA: 'Datos del residente',
+            TITLE_DIALOG: 'Introduzca codigo de invitación',
+            CODE: 'Codigo',
+            ENTER_CODE: 'Introduzca codigo',
+            NEXT: 'Siguiente',
+            FINISH: 'Finalizar',
+            FIRSTNAME_REQUIRED: 'El nombre es requerido',
+            LASTNAME_REQUIRED: 'El apellido es requerido',
+            HOME_REQUIRED: 'El hogar es requerido',
         },
         REQUEST_CHANGE_PASSWORD: {
             DONT_WORRY_WE_SEND_YOU_A_NEW_EMAIL: "No te preocupes. Te enviaremos un correo electrónico con un enlace para que introduzcas una nueva contraseña",
@@ -162,6 +171,7 @@ export const es = {
         ORDER_BY: 'Ordenado por',
         DATES: 'Fechas',
         RESIDENT: 'Residente',
+        MOBILE: 'Celular',
     },
     INVITATIONS_FORM: {
         FIRSTNAME: 'Nombre',

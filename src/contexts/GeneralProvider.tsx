@@ -9,6 +9,10 @@ export const GeneralProvider = ({ children }) => {
     const [isOpenInvitation, setIsOpenInvitation] = useState(false);
     const [invitationSelected, setInvitationSelected] = useState<Invitation>(null);
     const [homeSelected, setHomeSelected] = useState(null);
+    const [codeInvite, setCodeInvite] = useState('');
+    const [userRegisterSubmit, setUserRegisterSubmit] = useState(false);
+    const [residentRegisterSubmit, setResidentRegisterSubmit] = useState(false);
+
     const data = {
         showSidebar, setShowSidebar,
         isLoading, setIsLoading,
@@ -16,6 +20,9 @@ export const GeneralProvider = ({ children }) => {
         isOpenInvitation, setIsOpenInvitation,
         invitationSelected, setInvitationSelected,
         homeSelected, setHomeSelected,
+        codeInvite, setCodeInvite,
+        userRegisterSubmit, setUserRegisterSubmit,
+        residentRegisterSubmit, setResidentRegisterSubmit,
     }
 
     return (

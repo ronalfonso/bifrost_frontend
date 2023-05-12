@@ -4,7 +4,7 @@ import {useAppSelector} from '../../store';
 import {useTranslation} from "react-i18next";
 import {Alert, IconButton, Snackbar, Tooltip} from '@mui/material';
 import {LoginOutlined, PersonAddAlt1Outlined} from '@mui/icons-material';
-import {RegisterComponent} from '../components/RegisterComponent';
+import {RegisterComponent} from '../components/resident/RegisterComponent';
 
 type positionHorizontal = "right" | "center" | "left";
 type positionVertical = "top" | "bottom";
