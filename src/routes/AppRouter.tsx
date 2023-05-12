@@ -15,6 +15,7 @@ import {TransitionProps} from '@mui/material/transitions';
 import {Invitation} from '../core/models/invitations/Invitation';
 import moment from 'moment/moment';
 import styles from '../styles/style.module.scss';
+import {useTranslation} from "react-i18next";
 
 const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -29,6 +30,7 @@ export const AppRouter = () => {
     // @ts-ignore
     const {isOpenInvitation, setIsOpenInvitation, invitationSelected, setInvitationSelected} = useContext(GeneralContext);
     const [invitation, setInvitation] = useState<Invitation>(new Invitation());
+    const {t} = useTranslation();
 
     const handleClose = () => {
         setInvitationSelected(null)
@@ -101,7 +103,7 @@ export const AppRouter = () => {
                         <Box>
                             <label>
                                 <Typography sx={{color: styles.blackSecondary, fontSize: 12}}>
-                                    Rango horario:
+                                    {t('INVITATIONS_FORM.TIME_RANGE')}:
                                 </Typography>
                             </label>
                             <span>
@@ -114,7 +116,7 @@ export const AppRouter = () => {
                         <Box sx={{mt: 1}}>
                             <label>
                                 <Typography sx={{color: styles.blackSecondary, fontSize: 12}}>
-                                    Invitación a:
+                                    {t('INVITATIONS_FORM.INVITATION_TO')}:
                                 </Typography>
                             </label>
                             <span>
@@ -127,7 +129,7 @@ export const AppRouter = () => {
                         <Box sx={{mt: 1}}>
                             <label>
                                 <Typography sx={{color: styles.blackSecondary, fontSize: 12}}>
-                                    Teléfono:
+                                    {t('INVITATIONS_FORM.PHONE_NUMBER')}:
                                 </Typography>
                             </label>
                             <span>
@@ -140,7 +142,7 @@ export const AppRouter = () => {
                         <Box sx={{mt: 1}}>
                             <label>
                                 <Typography sx={{color: styles.blackSecondary, fontSize: 12}}>
-                                    Vehiculo:
+                                    {t('INVITATIONS_FORM.VEHICLE')}:
                                 </Typography>
                             </label>
                             <span>
@@ -153,7 +155,7 @@ export const AppRouter = () => {
                         <Box sx={{mt: 1}}>
                             <label>
                                 <Typography sx={{color: styles.blackSecondary, fontSize: 12}}>
-                                    Color vehiculo:
+                                    {t('INVITATIONS_FORM.VEHICLE_COLOR')}:
                                 </Typography>
                             </label>
                             <span>
@@ -166,7 +168,7 @@ export const AppRouter = () => {
                         <Box sx={{mt: 1}}>
                             <label>
                                 <Typography sx={{color: styles.blackSecondary, fontSize: 12}}>
-                                    Placa vehiculo:
+                                    {t('INVITATIONS_FORM.VEHICLE_ID')}:
                                 </Typography>
                             </label>
                             <span>
@@ -178,8 +180,8 @@ export const AppRouter = () => {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Close</Button>
-                    <Button onClick={handleClose}>Compartir</Button>
+                    <Button onClick={handleClose}>{t('DICTIONARY.CLOSE')}</Button>
+                    <Button onClick={handleClose}>{t('DICTIONARY.SHARE')}</Button>
                 </DialogActions>
             </Dialog>
         </>
