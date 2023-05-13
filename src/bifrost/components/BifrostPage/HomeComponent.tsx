@@ -10,7 +10,7 @@ import {capitalizeLabel} from '../../../core/utils/handle-lables';
 
 export const HomeComponent = ({home}: {home: Home}) => {
     // @ts-ignore
-    const {setHomeSelected,} = useContext(GeneralContext);
+    const {setHomeSelected,} = useContext<any>(GeneralContext);
     const navigate = useNavigate();
     const condo: Condo = home.condo;
     const { actives } = useAppSelector((state) => state.invitation);

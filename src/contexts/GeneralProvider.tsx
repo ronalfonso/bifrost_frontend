@@ -1,6 +1,7 @@
 import {GeneralContext} from './GeneralContext';
 import {useState} from 'react';
 import {Invitation} from '../core/models/invitations/Invitation';
+import {Home} from '../core/models/homes/Home';
 
 export const GeneralProvider = ({ children }) => {
     const [showSidebar, setShowSidebar] = useState<boolean>(false);
@@ -12,6 +13,10 @@ export const GeneralProvider = ({ children }) => {
     const [codeInvite, setCodeInvite] = useState('');
     const [userRegisterSubmit, setUserRegisterSubmit] = useState(false);
     const [residentRegisterSubmit, setResidentRegisterSubmit] = useState(false);
+    const [userIdRegister, setUserIdRegister] = useState('');
+    const [homeListRegister, setHomeListRegister] = useState<Home[]>([]);
+    const [showRegister, setShowRegister] = useState(false);
+    const [typeRegister, setTypeRegister] = useState('');
 
     const data = {
         showSidebar, setShowSidebar,
@@ -23,6 +28,10 @@ export const GeneralProvider = ({ children }) => {
         codeInvite, setCodeInvite,
         userRegisterSubmit, setUserRegisterSubmit,
         residentRegisterSubmit, setResidentRegisterSubmit,
+        userIdRegister, setUserIdRegister,
+        homeListRegister, setHomeListRegister,
+        showRegister, setShowRegister,
+        typeRegister, setTypeRegister,
     }
 
     return (

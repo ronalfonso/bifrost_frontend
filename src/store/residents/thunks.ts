@@ -3,7 +3,7 @@ import { startLogout } from '../auth';
 import {active, inactive} from '../invitations/invitationSlice';
 import {getCondoList} from './api/condos.services';
 import {Home} from '../../core/models/homes/Home';
-import {getResident} from './api/residents.service';
+import {createResident, getResident} from './api/residents.service';
 import {capitalizeLabel} from '../../core/utils/handle-lables';
 
 export const startGetResidentHome = (userId) => {
@@ -45,6 +45,16 @@ export const startGetResident = (userId) => {
             .catch(err => {
                 console.log(err);
             })
+    }
+}
+
+export const startCreateResident = (data) => {
+    return async (dispatch) => {
+        return await createResident(data).then(resp => {
+            if (resp.status === 201) {
+                return resp.data;
+            }
+        })
     }
 }
 

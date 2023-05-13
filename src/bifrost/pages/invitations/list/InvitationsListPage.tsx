@@ -20,7 +20,7 @@ import {useNavigate} from 'react-router-dom';
 
 export const InvitationsListPage = () => {
     // @ts-ignore
-    const {isLoading, homeSelected,} = useContext(GeneralContext);
+    const {isLoading, homeSelected,} = useContext<any>(GeneralContext);
     const navigate = useNavigate();
     const {actives, inactives} = useAppSelector((state) => state.invitation);
     const theme = useTheme();

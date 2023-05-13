@@ -10,7 +10,7 @@ import {FilterAlt} from '@mui/icons-material';
 
 export const HeaderComponent = () => {
     // @ts-ignore
-    const { setShowSidebar } = useContext(GeneralContext);
+    const { setShowSidebar } = useContext<any>(GeneralContext);
     const navigate = useNavigate();
     const { user } = useAppSelector((state) => state.auth)
     const { t } = useTranslation();

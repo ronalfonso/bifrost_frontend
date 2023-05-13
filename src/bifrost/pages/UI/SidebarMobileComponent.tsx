@@ -17,7 +17,7 @@ import {
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 export const SidebarMobileComponent = () => {
     // @ts-ignore
-    const {showSidebar, setShowSidebar} = useContext(GeneralContext);
+    const {showSidebar, setShowSidebar} = useContext<any>(GeneralContext);
     const dispatch = useAppDispatch();
     const [expanded, setExpanded] = useState<string | false>(false);
     const {t} = useTranslation();

@@ -10,7 +10,7 @@ import styles from '../../../styles/style.module.scss';
 
 export const InvitationCardComponent = ({invitation}: { invitation: Invitation }) => {
     // @ts-ignore
-    const {setIsOpenInvitation, setInvitationSelected} = useContext(GeneralContext);
+    const {setIsOpenInvitation, setInvitationSelected} = useContext<any>(GeneralContext);
     const {
         firstName,
         lastName,

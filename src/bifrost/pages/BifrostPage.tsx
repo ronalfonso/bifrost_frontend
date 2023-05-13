@@ -17,7 +17,7 @@ import {Home} from '../../core/models/homes/Home';
 
 export const BifrostPage = () => {
     // @ts-ignore
-    const {isLoading, setIsLoading,} = useContext(GeneralContext);
+    const {isLoading, setIsLoading,} = useContext<any>(GeneralContext);
     const {  homes } = useAppSelector((state) => state.resident);
     const dispatch = useAppDispatch();
     const theme = useTheme();

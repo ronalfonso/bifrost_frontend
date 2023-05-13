@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Card, Divider, FormControl, InputLabel, MenuItem} from '@mui/material';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
@@ -6,10 +6,12 @@ import logo from '../../../assets/img/bifrost_color.png';
 import Box from '@mui/material/Box';
 import {CondoRegisterComponent} from '../CondoRegisterComponent';
 import {ResidentRegisterComponent} from './ResidentRegisterComponent';
+import {GeneralContext} from '../../../contexts/GeneralContext';
 
 export const RegisterComponent = () => {
+    const {typeRegister, setTypeRegister} = useContext<any>(GeneralContext);
     const {t} = useTranslation();
-    const [typeRegister, setTypeRegister] = useState('');
+
 
     const handleChange = (event: SelectChangeEvent) => {
         setTypeRegister(event.target.value);

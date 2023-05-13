@@ -1,16 +1,17 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {LoginComponent} from '../components/LoginComponent';
 import {useAppSelector} from '../../store';
 import {useTranslation} from "react-i18next";
 import {Alert, IconButton, Snackbar, Tooltip} from '@mui/material';
 import {LoginOutlined, PersonAddAlt1Outlined} from '@mui/icons-material';
 import {RegisterComponent} from '../components/resident/RegisterComponent';
+import {GeneralContext} from '../../contexts/GeneralContext';
 
 type positionHorizontal = "right" | "center" | "left";
 type positionVertical = "top" | "bottom";
 
 export const LoginPage = () => {
-    const [showRegister, setShowRegister] = useState(false);
+    const {showRegister, setShowRegister} = useContext<any>(GeneralContext);
     const [alert, setAlert] = useState({
         open: false,
         vertical: 'top' as positionVertical,

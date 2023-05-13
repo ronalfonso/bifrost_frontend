@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import {useContext} from 'react';
 import {Field, Form, Formik} from 'formik';
 import {object, ref, string} from 'yup';
 import {Box, Button, FormControl} from '@mui/material';
@@ -6,12 +6,28 @@ import {TextField} from 'formik-mui';
 import {useTranslation} from 'react-i18next';
 import {useAppDispatch} from '../../store';
 import {GeneralContext} from '../../contexts/GeneralContext';
+import {startCreateUser} from '../../store/auth';
+import {UserCreateResponse} from '../../store/auth/models/UserCreateResponse';
 
 export const UserRegisterComponent = () => {
-    // @ts-ignore
-    const {setUserRegisterSubmit} = useContext(GeneralContext);
+    const {setUserRegisterSubmit, codeInvite, setUserIdRegister, setIsLoading, typeRegister} = useContext<any>(GeneralContext);
     const dispatch = useAppDispatch();
     const {t} = useTranslation();
+
+    const createUser = (data) => {
+        data.code = codeInvite;
+        data.type = typeRegister === 1 ? 'CONDO' : 'RESIDENT'
+        delete data.passwordConfirm;
+        setIsLoading(true);
+        dispatch(startCreateUser(data)).then((resp: UserCreateResponse) => {
+            setUserIdRegister(resp.id);
+            setIsLoading(false);
+            setUserRegisterSubmit(true);
+        }, err => {
+            console.error(err);
+            setIsLoading(false);
+        })
+    }
 
 
     return (
@@ -20,17 +36,19 @@ export const UserRegisterComponent = () => {
                 initialValues={{
                     username: '',
                     password: '',
+                    email: '',
                     passwordConfirm: '',
                 }}
                 onSubmit={(values) => {
-                    // dispatch(starLogin(values))
-                    console.log(values);
-                    setUserRegisterSubmit(true);
+                    createUser(values);
                 }}
                 validationSchema={object({
                     username: string()
                         .min(4, 'Debe tener al menos 4 caracteres')
-                        .required(t('OUT.LOGIN.USERNAME_OR_EMAIL_IS_REQUIRED')),
+                        .required(t('OUT.LOGIN.USERNAME_IS_REQUIRED')),
+                    email: string()
+                        .email('OUT.LOGIN.NO_IS_EMAIL')
+                        .required(t('OUT.LOGIN.EMAIL_REQUIRED')),
                     password: string()
                         .min(4, 'Debe tener al menos 4 caracteres')
                         .required(t('OUT.LOGIN.PASSWORD_REQUIRED')),
@@ -45,14 +63,24 @@ export const UserRegisterComponent = () => {
                 }>
                 {
                     (formik) => (
-                        <Form className={'form_register'} >
+                        <Form className={'form_register'}>
                             <div className="">
                                 <Box marginTop={2}>
                                     <Field
                                         component={TextField}
                                         type="text"
-                                        label={t('OUT.LOGIN.USERNAME_EMAIL')}
+                                        label={t('OUT.LOGIN.USERNAME')}
                                         name={'username'}
+                                        size="small"
+                                        sx={{width: '100%', maxHeight: '60px'}}
+                                    />
+                                </Box>
+                                <Box marginTop={2}>
+                                    <Field
+                                        component={TextField}
+                                        type="text"
+                                        label={t('OUT.LOGIN.EMAIL')}
+                                        name={'email'}
                                         size="small"
                                         sx={{width: '100%', maxHeight: '60px'}}
                                     />

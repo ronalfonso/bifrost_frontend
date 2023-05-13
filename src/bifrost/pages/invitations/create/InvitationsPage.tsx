@@ -30,7 +30,7 @@ import {Invitation} from '../../../../core/models/invitations/Invitation';
 
 export const InvitationsPage = () => {
     // @ts-ignore
-    const {homeSelected, setInvitationSelected, setIsOpenInvitation} = useContext(GeneralContext);
+    const {homeSelected, setInvitationSelected, setIsOpenInvitation} = useContext<any>(GeneralContext);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [openDialog, setOpenDialog] = useState(false);

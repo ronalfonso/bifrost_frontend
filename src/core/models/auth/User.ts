@@ -1,4 +1,4 @@
-import {Role} from './Role';
+import {Role} from '../../../store/auth/models/Role';
 
 export class User {
     createdAt: string;

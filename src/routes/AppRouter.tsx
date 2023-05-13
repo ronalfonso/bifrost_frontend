@@ -27,7 +27,7 @@ const Transition = forwardRef(function Transition(
 
 export const AppRouter = () => {
     // @ts-ignore
-    const {isOpenInvitation, setIsOpenInvitation, invitationSelected, setInvitationSelected} = useContext(GeneralContext);
+    const {isOpenInvitation, setIsOpenInvitation, invitationSelected, setInvitationSelected} = useContext<any>(GeneralContext);
     const [invitation, setInvitation] = useState<Invitation>(new Invitation());
 
     const handleClose = () => {

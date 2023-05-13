@@ -93,6 +93,7 @@ export const es = {
         LOGIN: {
             WELCOME: "Bienvenido",
             EMAIL: "Correo electrónico",
+            USERNAME: 'Nombre de usuario',
             USERNAME_EMAIL: "Username o Correo electrónico",
             EMAIL_REQUIRED: "El correo electrónico es obligatorio",
             PASSWORD: "Contraseña",
@@ -103,9 +104,11 @@ export const es = {
             NOT_A_MEMBER: "¿Crear una nueva cuenta?",
             SIGN_UP_NOW: "Regístrate",
             USERNAME_OR_EMAIL_IS_REQUIRED: "El username o correo es obligatorio",
+            USERNAME_IS_REQUIRED: "El username es obligatorio",
             USERNAME_OR_PASSWORD_IS_WRONG: "Usuario o contraseña incorrectos",
             UNAUTHORIZED: 'No tiene autorizacion',
             PASSWORD_SAME: 'Las contraseñas deben ser iguales',
+            NO_IS_EMAIL: 'Debe ser correo electronico',
         },
         REGISTER: {
             CREATE_ACCOUNT: 'Crear cuenta',

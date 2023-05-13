@@ -16,11 +16,26 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {GeneralContext} from '../../../contexts/GeneralContext';
 import {UserRegisterComponent} from '../UserRegisterComponent';
 import {ResidentFormComponent} from './ResidentFormComponent';
+import {LoadingComponent} from '../../../core/shared/ui/components/LoadingComponent';
+import {useAppDispatch} from '../../../store';
+import {startGetHomesByCode} from '../../../store/homes';
+import success from '../../../assets/img/success.jpg'
 
 
-export const ResidentRegisterComponent = ({type}: {type: string}) => {
-    // @ts-ignore
-    const {codeInvite, setCodeInvite, userRegisterSubmit, setUserRegisterSubmit,} = useContext(GeneralContext);
+export const ResidentRegisterComponent = ({type}: { type: string }) => {
+    const {
+        codeInvite,
+        setCodeInvite,
+        userRegisterSubmit,
+        setUserRegisterSubmit,
+        isLoading,
+        setIsLoading,
+        setHomeListRegister,
+        setShowRegister,
+        residentRegisterSubmit,
+        setResidentRegisterSubmit,
+    } = useContext<any>(GeneralContext);
+    const dispatch = useAppDispatch();
     const {t} = useTranslation();
     const [activeStep, setActiveStep] = useState(0);
     const [completed, setCompleted] = useState<{
@@ -30,6 +45,14 @@ export const ResidentRegisterComponent = ({type}: {type: string}) => {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleConfirm = () => {
+        dispatch(startGetHomesByCode(codeInvite)).then((homes) => {
+            setHomeListRegister([...homes]);
+            setIsLoading(false);
+            setOpen(false);
+        });
     };
 
     const steps = [`${t('OUT.REGISTER.USER_DATA')}`, `${t('OUT.REGISTER.RESIDENT_DATA')}`];
@@ -67,6 +90,7 @@ export const ResidentRegisterComponent = ({type}: {type: string}) => {
     };
 
     const handleReset = () => {
+        setShowRegister(false);
         setActiveStep(0);
         setCompleted({});
     };
@@ -78,17 +102,17 @@ export const ResidentRegisterComponent = ({type}: {type: string}) => {
     }, [type]);
 
     useEffect(() => {
-        if (userRegisterSubmit) {
+        if (userRegisterSubmit || residentRegisterSubmit) {
             setUserRegisterSubmit(false);
+            setResidentRegisterSubmit(false);
             handleComplete();
         }
-    }, [userRegisterSubmit]);
-
+    }, [userRegisterSubmit, residentRegisterSubmit]);
 
 
     return (
         <>
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{width: '100%'}}>
                 <Stepper nonLinear activeStep={activeStep} alternativeLabel>
                     {steps.map((label, index) => (
                         <Step key={label} completed={completed[index]}>
@@ -101,27 +125,35 @@ export const ResidentRegisterComponent = ({type}: {type: string}) => {
                 <div>
                     {allStepsCompleted() ? (
                         <>
-                            <Typography sx={{ mt: 2, mb: 1 }}>
-                                All steps completed - you&apos;re finished
-                            </Typography>
-                            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                <Box sx={{ flex: '1 1 auto' }} />
-                                <Button onClick={handleReset}>Reset</Button>
+                            <div>
+                                <img src={success} alt='success'/>
+                            </div>
+                            <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
+                                <Box sx={{flex: '1 1 auto'}}/>
+                                <Button onClick={handleReset}>Ir a iniciar sesion</Button>
                             </Box>
                         </>
                     ) : (
                         <div className={'card_container'}>
                             {
-                                activeStep === 0
-                                    ?
-                                    <div className={'formUser_container'}>
-                                        <UserRegisterComponent />
-                                    </div>
+                                isLoading ?
+                                    <LoadingComponent/>
                                     :
-                                    <div className={'formResident_container'}>
-                                        <ResidentFormComponent />
-                                    </div>
+                                    <>
+                                        {
+                                            activeStep === 0
+                                                ?
+                                                <div className={'formUser_container'}>
+                                                    <UserRegisterComponent/>
+                                                </div>
+                                                :
+                                                <div className={'formResident_container'}>
+                                                    <ResidentFormComponent/>
+                                                </div>
+                                        }
+                                    </>
                             }
+
                             {/*<Typography sx={{ mt: 2, mb: 1, py: 1 }}>*/}
                             {/*    Step {activeStep + 1} segundo*/}
                             {/*</Typography>*/}
@@ -130,14 +162,14 @@ export const ResidentRegisterComponent = ({type}: {type: string}) => {
                     )}
                 </div>
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                <Box sx={{ flex: '1 1 auto' }} />
+            <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
+                <Box sx={{flex: '1 1 auto'}}/>
                 {
                     activeStep === steps.length &&
                     // (completed[activeStep] ? (
-                        <Typography variant="caption" sx={{ display: 'inline-block' }}>
-                            Step {activeStep + 1} already completed
-                        </Typography>
+                    <Typography variant="caption" sx={{display: 'inline-block'}}>
+                        Completo su registro de forma exitosa
+                    </Typography>
                     // ) : (
                     //     <Button onClick={handleComplete}>
                     //         {completedSteps() === totalSteps() - 1
@@ -158,20 +190,22 @@ export const ResidentRegisterComponent = ({type}: {type: string}) => {
                     {t('OUT.REGISTER.TITLE_DIALOG')}
                 </DialogTitle>
                 <DialogContent>
-                   <Box marginTop={2}>
-                       <TextField
-                           inputProps={{ maxLength: 24 }}
-                           size="small"
-                           id="outlined-error"
-                           value={codeInvite}
-                           onChange={(e) => { setCodeInvite(e.target.value) } }
-                           label={t('OUT.REGISTER.CODE')}
-                       />
-                   </Box>
+                    <Box marginTop={2}>
+                        <TextField
+                            inputProps={{maxLength: 24}}
+                            size="small"
+                            id="outlined-error"
+                            value={codeInvite}
+                            onChange={(e) => {
+                                setCodeInvite(e.target.value)
+                            }}
+                            label={t('OUT.REGISTER.CODE')}
+                        />
+                    </Box>
                 </DialogContent>
                 <DialogActions>
                     <Button color={'error'} onClick={handleClose}>{t('GENERAL.CANCEL')}</Button>
-                    <Button onClick={handleClose} autoFocus>
+                    <Button onClick={handleConfirm} disabled={codeInvite.length == 0} autoFocus>
                         {t('GENERAL.CONFIRM')}
                     </Button>
                 </DialogActions>

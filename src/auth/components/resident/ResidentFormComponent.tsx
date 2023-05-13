@@ -1,16 +1,28 @@
 import {useContext} from 'react';
 import {number, object, string} from 'yup';
 import {Field, Form, Formik} from 'formik';
-import {Box, Button, FormControl} from '@mui/material';
-import {TextField} from 'formik-mui';
+import {Box, Button, FormControl, MenuItem} from '@mui/material';
+import {Select, TextField} from 'formik-mui';
 import {GeneralContext} from '../../../contexts/GeneralContext';
 import {useTranslation} from 'react-i18next';
+import {Home} from '../../../core/models/homes/Home';
+import {useAppDispatch} from '../../../store';
+import {startCreateResident} from '../../../store/residents';
 
 export const ResidentFormComponent = () => {
-    // @ts-ignore
-    const {setResidentRegisterSubmit} = useContext(GeneralContext);
+    const {setResidentRegisterSubmit, codeInvite, setIsLoading, homeListRegister, userIdRegister} = useContext<any>(GeneralContext);
+    const dispatch = useAppDispatch();
     const {t} = useTranslation();
 
+    const createResident = (data) => {
+        setIsLoading(true);
+        data.code = codeInvite;
+        data.userId = userIdRegister;
+        dispatch(startCreateResident(data)).then(() => {
+            setResidentRegisterSubmit(true);
+            setIsLoading(false);
+        })
+    }
 
     return (
         <>
@@ -22,9 +34,7 @@ export const ResidentFormComponent = () => {
                     homeId: 0
                 }}
                 onSubmit={(values) => {
-                    // dispatch(starLogin(values))
-                    console.log(values);
-                    setResidentRegisterSubmit(true);
+                    createResident(values);
                 }}
                 validationSchema={object({
                     firstName: string()
@@ -71,6 +81,25 @@ export const ResidentFormComponent = () => {
                                         size="small"
                                         sx={{width: '100%', maxHeight: '60px'}}
                                     />
+                                </Box>
+
+                                <Box marginTop={2}>
+                                    <FormControl sx={{width: '100%'}}>
+                                        <Field
+                                            component={Select}
+                                            size={'small'}
+                                            type="text"
+                                            label={t('DICTIONARY.HOUSE')}
+                                            name={'homeId'}
+                                        >
+                                            {
+                                                homeListRegister.map((home: Home) => (
+                                                    <MenuItem key={home.numberHouse}
+                                                              value={home.id}>{home.numberHouse} {home.description}</MenuItem>
+                                                ))
+                                            }
+                                        </Field>
+                                    </FormControl>
                                 </Box>
 
                             </div>

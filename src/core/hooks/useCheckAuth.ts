@@ -7,7 +7,7 @@ import {startGetResident} from '../../store/residents';
 
 export const UseCheckAuth = () => {
     // @ts-ignore
-    const { setIsLoading } = useContext(GeneralContext);
+    const { setIsLoading } = useContext<any>(GeneralContext);
     const dispatch = useAppDispatch();
     const {user, status, access_token} = useAppSelector((state) => state.auth);
     const isAuthenticated = useMemo(() => status === 'authenticated', [status]);

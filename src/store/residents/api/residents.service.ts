@@ -11,6 +11,15 @@ export const getResident = async (userId) => {
         return resp;
     })
         .catch(err => console.log(err));
+}
 
-
+export const createResident = async (data) => {
+    const url = `${URL_COMPONENT}`;
+    try {
+        return await helpHttp().post(url, {data})
+            .then(resp => resp);
+    } catch (err) {
+        const {data} = err.response;
+        return data;
+    }
 }

@@ -2,6 +2,9 @@ import {checkingCredentials, login, logout} from './authSlice';
 import {loginUser} from './api/auth.service';
 import {db} from '../../core/database/db';
 import {initResident} from '../residents/residentSlice';
+import {CreateUserDto} from './dtos/create-user.dto';
+import {createUser} from './api/users.service';
+import {UserCreateResponse} from './models/UserCreateResponse';
 
 export const starLogin = ({username, password}) => {
     return async (dispatch) => {
@@ -31,6 +34,20 @@ export const startLogout = (message = '') => {
         } catch (e) {
 
         }
+    }
+}
+
+export const startCreateUser = (user: CreateUserDto) => {
+    return async (dispatch) => {
+        return await createUser(user).then((resp) => {
+            console.log(resp);
+            if (resp.status === 201) {
+                const user: UserCreateResponse = resp.data;
+                return user;
+            }
+        }, err => {
+            console.error(err);
+        })
     }
 }
 
