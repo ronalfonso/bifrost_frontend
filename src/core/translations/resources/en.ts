@@ -170,11 +170,13 @@ export const en = {
         APARTMENTS: 'Apartments',
         TOWNHOUSE: 'Townhouse',
         CONDO: 'Condominium',
-        HOMES: 'Hogares',
+        HOMES: 'Households',
         ORDER_BY: 'Order by',
         DATES: 'Dates',
         RESIDENT: 'Resident',
-        MOBILE: 'Mobile',
+        FILTER_BY: 'Filter by',
+        CLOSE: 'Close',
+        SHARE: 'Share',
     },
     INVITATIONS_FORM: {
         FIRSTNAME: 'Firstname',
@@ -194,5 +196,15 @@ export const en = {
         FREQUENT_GUEST: 'Frequent guest',
         INVITATION_CONFIRMATION: 'Invitation confirmation',
         CREATE_INVITATION: 'Create invitation',
-    }
+        TIME_RANGE: 'Time range',
+        INVITATION_TO: 'Invitation to',
+        VEHICLE: 'Vehicle',
+    },
+    WARNING: {
+        COMING_SOON: 'Coming soon!!',
+        RECORD: {
+            NO_RECORDS: 'No records',
+            NO_HOUSEHOLDS_REGISTERED: 'There are no households registered',
+        },
+    },
 }

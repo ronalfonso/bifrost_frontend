@@ -116,14 +116,6 @@ export const es = {
             USER_DATA: 'Datos del usuario',
             CONDO_DATA: 'Datos del condominio',
             RESIDENT_DATA: 'Datos del residente',
-            TITLE_DIALOG: 'Introduzca codigo de invitación',
-            CODE: 'Codigo',
-            ENTER_CODE: 'Introduzca codigo',
-            NEXT: 'Siguiente',
-            FINISH: 'Finalizar',
-            FIRSTNAME_REQUIRED: 'El nombre es requerido',
-            LASTNAME_REQUIRED: 'El apellido es requerido',
-            HOME_REQUIRED: 'El hogar es requerido',
         },
         REQUEST_CHANGE_PASSWORD: {
             DONT_WORRY_WE_SEND_YOU_A_NEW_EMAIL: "No te preocupes. Te enviaremos un correo electrónico con un enlace para que introduzcas una nueva contraseña",
@@ -174,7 +166,9 @@ export const es = {
         ORDER_BY: 'Ordenado por',
         DATES: 'Fechas',
         RESIDENT: 'Residente',
-        MOBILE: 'Celular',
+        FILTER_BY: 'Filtrar por',
+        CLOSE: 'Cerrar',
+        SHARE: 'Compartir',
     },
     INVITATIONS_FORM: {
         FIRSTNAME: 'Nombre',
@@ -194,5 +188,15 @@ export const es = {
         FREQUENT_GUEST: 'Invitado frecuente',
         INVITATION_CONFIRMATION: 'Confirmación de la invitación',
         CREATE_INVITATION: 'Crear invitación',
-    }
+        TIME_RANGE: 'Rango horario',
+        INVITATION_TO: 'Invitación a',
+        VEHICLE: 'Vehículo',
+    },
+    WARNING: {
+        COMING_SOON: 'Muy pronto!!',
+        RECORD: {
+            NO_RECORDS: 'No existen registros',
+            NO_HOUSEHOLDS_REGISTERED: 'No existen hogares registrados',
+        },
+    },
 }

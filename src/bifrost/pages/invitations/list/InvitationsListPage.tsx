@@ -112,7 +112,7 @@ export const InvitationsListPage = () => {
                                                     )
                                                 })
                                                 :
-                                                <span>No existen registros</span>
+                                                <span>{t('WARNING.RECORD.NO_RECORDS')}</span>
                                         }
                                     </div>
                             }
@@ -134,7 +134,7 @@ export const InvitationsListPage = () => {
                                                     )
                                                 })
                                                 :
-                                                <span>No existen registros</span>
+                                                <span>{t('WARNING.RECORD.NO_RECORDS')}</span>
                                         }
                                     </div>
                             }
