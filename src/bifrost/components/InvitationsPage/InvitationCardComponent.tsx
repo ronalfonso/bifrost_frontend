@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import {Invitation} from '../../../core/models/invitations/Invitation';
 import moment from 'moment';
 import styles from '../../../styles/style.module.scss';
+import {useTranslation} from "react-i18next";
 
 
 export const InvitationCardComponent = ({invitation}: { invitation: Invitation }) => {
@@ -25,6 +26,7 @@ export const InvitationCardComponent = ({invitation}: { invitation: Invitation }
         setInvitationSelected({...invitation})
         setIsOpenInvitation(true)
     }
+    const {t} = useTranslation();
 
     return (
         <>
@@ -55,7 +57,7 @@ export const InvitationCardComponent = ({invitation}: { invitation: Invitation }
                     <Box>
                         <label>
                             <Typography sx={{color: styles.blackSecondary, fontSize: 12}}>
-                                Rango horario:
+                                {t('INVITATIONS_FORM.TIME_RANGE')}:
                             </Typography>
                         </label>
                         <span>
@@ -68,7 +70,7 @@ export const InvitationCardComponent = ({invitation}: { invitation: Invitation }
                     <Box>
                         <label>
                             <Typography sx={{color: styles.blackSecondary, fontSize: 12}}>
-                                Invitación a:
+                                {t('INVITATIONS_FORM.INVITATION_TO')}:
                             </Typography>
                         </label>
                         <span>

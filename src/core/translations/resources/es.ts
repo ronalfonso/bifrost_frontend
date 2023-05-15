@@ -163,6 +163,7 @@ export const es = {
         DATES: 'Fechas',
         RESIDENT: 'Residente',
         FILTER_BY: 'Filter by',
+        INVITATION: 'Invitación',
     },
     INVITATIONS_FORM: {
         FIRSTNAME: 'Nombre',
@@ -182,6 +183,9 @@ export const es = {
         FREQUENT_GUEST: 'Invitado frecuente',
         INVITATION_CONFIRMATION: 'Confirmación de la invitación',
         CREATE_INVITATION: 'Crear invitación',
+        TIME_RANGE: 'Rango horario',
+        INVITATION_TO: 'Invitación a',
+        VEHICLE: 'Vehículo',
     },
     WARNING: {
         COMING_SOON: 'Muy pronto!!',
