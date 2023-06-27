@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import {Add, Ballot, HowToVote} from '@mui/icons-material';
 import {TabPanelComponent} from '../../../components/BifrostPage/TabPanelComponent';
-import {GeneralContext} from '../../../../contexts/GeneralContext';
+import {GeneralContext} from '../../../../contexts/general/GeneralContext';
 import SwipeableViews from 'react-swipeable-views';
 import {useTranslation} from 'react-i18next';
 import {LoadingComponent} from '../../../../core/shared/ui/components/LoadingComponent';
@@ -17,10 +17,11 @@ import {useAppSelector} from '../../../../store';
 import {InvitationCardComponent} from '../../../components/InvitationsPage/InvitationCardComponent';
 import {Invitation} from '../../../../core/models/invitations/Invitation';
 import {useNavigate} from 'react-router-dom';
+import {FiltersContext} from "../../../../contexts/filters/FiltersContext";
 
 export const InvitationsListPage = () => {
-    // @ts-ignore
     const {isLoading, homeSelected,} = useContext<any>(GeneralContext);
+    const {condoSelected } = useContext<any>(FiltersContext);
     const navigate = useNavigate();
     const {actives, inactives} = useAppSelector((state) => state.invitation);
     const theme = useTheme();
@@ -48,6 +49,11 @@ export const InvitationsListPage = () => {
         navigate('../create-invitation')
     }
 
+    const setInvitationList = (activeFilter: any[], inactiveFilter: any[]) => {
+        setActiveList([...activeFilter]);
+        setInactiveList([...inactiveFilter]);
+    }
+
     useEffect(() => {
         setActiveList([...actives]);
         setInactiveList([...inactives]);
@@ -58,10 +64,21 @@ export const InvitationsListPage = () => {
         if (homeSelected !== null) {
             const activeFilter = actives.filter(active => active.homeId === homeSelected.id);
             const inactiveFilter = inactives.filter(inactive => inactive.homeId === homeSelected.id);
-            setActiveList([...activeFilter]);
-            setInactiveList([...inactiveFilter]);
+            setInvitationList(activeFilter, inactiveFilter);
         }
     }, [homeSelected]);
+
+    useEffect(() => {
+       if (condoSelected.length > 0) {
+           condoSelected.forEach(condoEle => {
+               if (condoEle.checked === true) {
+                   const activeFilter = actives.filter( active => active.condoId === condoEle.id);
+                   const inactiveFilter = inactives.filter( inactive => inactive.condoId === condoEle.id);
+                   setInvitationList(activeFilter, inactiveFilter);
+               }
+           })
+       }
+    },[condoSelected]);
 
 
     return (
@@ -95,7 +112,7 @@ export const InvitationsListPage = () => {
                         onChangeIndex={handleChangeIndex}
 
                     >
-                        <TabPanelComponent value={tabValue} index={0} dir={theme.direction}>
+                        <TabPanelComponent value={tabValue} index={0} dir={theme.direction} height={'calc(100vh - 124px)'}>
                             {
                                 isLoading ?
                                     <LoadingComponent/>
@@ -117,7 +134,7 @@ export const InvitationsListPage = () => {
                                     </div>
                             }
                         </TabPanelComponent>
-                        <TabPanelComponent value={tabValue} index={1} dir={theme.direction}>
+                        <TabPanelComponent value={tabValue} index={1} dir={theme.direction} height={'calc(100vh - 124px)'}>
                             {
                                 isLoading ?
                                     <LoadingComponent/>

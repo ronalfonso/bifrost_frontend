@@ -37,6 +37,7 @@ export const helpHttp = () => {
 
         return axios(request)
             .then(resp => {
+                console.log({resp});
                 return resp.status >= 200 && resp.status < 300 ? resp : Promise.reject({
                     error: true,
                     status: resp.status || '00',

@@ -12,6 +12,6 @@
 .add-button {
   position: absolute;
   z-index: 10;
-  bottom: 65px;
+  top: calc(100vh - 300px);
   right: 0;
 }

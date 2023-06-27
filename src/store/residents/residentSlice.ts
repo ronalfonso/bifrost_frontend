@@ -53,9 +53,9 @@ const initHomesState: Home[] = [
 ]
 
 const initialState = {
-    resident: initResidentState,
+    infoResident: initResidentState,
     condos: initCondosState,
-    homes: initHomesState
+    homes: initHomesState,
 }
 
 export const residentSlice = createSlice({
@@ -63,7 +63,7 @@ export const residentSlice = createSlice({
     initialState,
     reducers: {
         initResident: (state, {payload}) => {
-            state.resident = payload;
+            state.infoResident = payload;
         },
         initCondos: (state, {payload}) => {
             state.condos = payload;

@@ -12,10 +12,12 @@ import {ErrorMessage, Field, Form, Formik} from 'formik';
 import {object, string} from 'yup';
 import {TextField} from 'formik-mui';
 import logo from '../../assets/img/bifrost_delimited.png';
+import {menu} from "../../routes/routes";
 
 
 export const LoginComponent = () => {
     const dispatch = useAppDispatch();
+
     const {t} = useTranslation();
     const status = useAppSelector((state) => state.auth.status);
     const isCheckingAuth = useMemo(() => status === 'checking', [status]);
@@ -33,7 +35,7 @@ export const LoginComponent = () => {
             </div>
             <div className="name_section">
                 <div className="title">
-                    <h3>{t('OUT.REGISTER.CREATE_ACCOUNT')}</h3>
+                    <h3>{t('OUT.REGISTER.WELCOME_BACK')}</h3>
                 </div>
             </div>
             <Formik
@@ -89,7 +91,7 @@ export const LoginComponent = () => {
                                     >{t('OUT.LOGIN.LOGIN')}</Button>
                                 </FormControl>
                                 <FormControl className={'forget'} size="small" fullWidth sx={{mt: 1}} variant="outlined">
-                                    <a href="/auth/login">{t('OUT.LOGIN.FORGOT_PASSWORD')}</a>
+                                    <a href={`/${menu.login.path}`}>{t('OUT.LOGIN.FORGOT_PASSWORD')}</a>
                                 </FormControl>
                             </div>
                         </Form>

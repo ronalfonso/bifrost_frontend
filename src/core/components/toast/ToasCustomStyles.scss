@@ -1,0 +1,46 @@
+
+.toast_custom {
+  position: absolute;
+  z-index: 100;
+  right: 5px;
+  top: 10px;
+  width: 280px;
+  height: 60px;
+  background: white;
+  border-radius: $border-radius;
+  @include box-shadow-tridementional;
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .icon {
+      width: 20%;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .message {
+      width: 60%;
+      padding: .6rem;
+    }
+
+    .close {
+      padding: .6rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      div {
+        border-left: 1px solid $border;
+        height: 100%;
+      }
+
+    }
+  }
+}
+
+.toast-none {
+  display: none;
+}

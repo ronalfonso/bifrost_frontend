@@ -1,17 +1,20 @@
-import {useContext, useEffect, useState} from 'react';
+import React, {SyntheticEvent, useContext, useEffect, useMemo, useState} from 'react';
 import {LoginComponent} from '../components/LoginComponent';
 import {useAppSelector} from '../../store';
 import {useTranslation} from "react-i18next";
-import {Alert, IconButton, Snackbar, Tooltip} from '@mui/material';
+import {Alert, CircularProgress, IconButton, Snackbar, Tooltip} from '@mui/material';
 import {LoginOutlined, PersonAddAlt1Outlined} from '@mui/icons-material';
-import {RegisterComponent} from '../components/resident/RegisterComponent';
-import {GeneralContext} from '../../contexts/GeneralContext';
+import {RegisterComponent} from '../components/RegisterComponent';
+import {RegisterContext} from "../../contexts/register/RegisterContext";
+import {UseCheckAuth} from "../../core/hooks";
 
 type positionHorizontal = "right" | "center" | "left";
 type positionVertical = "top" | "bottom";
 
 export const LoginPage = () => {
-    const {showRegister, setShowRegister} = useContext<any>(GeneralContext);
+    const {status} = UseCheckAuth();
+    const isAuthenticated = useMemo(() => status === 'authenticated', [status]);
+    const {showRegister, setShowRegister} = useContext<any>(RegisterContext);
     const [alert, setAlert] = useState({
         open: false,
         vertical: 'top' as positionVertical,
@@ -26,7 +29,7 @@ export const LoginPage = () => {
         setAlert({...alert, open: true, message});
     }
 
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }
@@ -42,6 +45,18 @@ export const LoginPage = () => {
 
     return (
         <>
+            {
+                isAuthenticated &&
+                <div className={'loading-login'}>
+                    <CircularProgress
+                        color="primary"
+                        size="md"
+                        value={25}
+                        title={'Loading...'}
+                    />
+                </div>
+            }
+
             <div className="main__loginPage">
                 <div className={`section_login ${!showRegister ? '' : "hideLogin"}`}>
                     <div className={`showLoginComponent ${!showRegister ? '' : "hideLoginComponent"}`}>
@@ -66,7 +81,7 @@ export const LoginPage = () => {
                 </div>
                 <div className={`section_register ${showRegister ? 'showRegister' : ""}`}>
                     <div className={`showRegisterComponent ${showRegister ? '' : "hideRegisterComponent"}`}>
-                        <RegisterComponent />
+                        <RegisterComponent/>
                     </div>
 
                 </div>
@@ -86,3 +101,5 @@ export const LoginPage = () => {
         </>
     )
 }
+
+export default LoginPage;

@@ -1,5 +1,16 @@
 @import "../../assets/styles/mixins";
 
+.loading-login {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,255,255, 1);
+}
+
 .header_login {
   height: 165px;
   display: flex;
@@ -35,10 +46,14 @@
 }
 
 .name_section {
-  margin-bottom: 1rem;
+  max-width: 350px;
+  margin: 0 auto;
+  @include tablet {
+    margin: 4rem auto 0;
+  }
   .title {
     width: 60px;
-    line-height: 1.2rem;
+    line-height: 1.6rem;
     letter-spacing: 1.5px;
     h3 {
       font-size: 3vh;
@@ -54,15 +69,11 @@
   border-radius: $border-radius;
   max-height: 230px;
   overflow-y: auto;
-
-  @include tablet {
-    margin: 4rem auto 0;
-  }
 }
 
 
 .footer_login {
-  margin: 1.5rem auto 0;
+  margin: 0 auto;
   max-width: 350px;
   display: flex;
   flex-direction: column;

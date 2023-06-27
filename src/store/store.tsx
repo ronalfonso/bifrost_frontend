@@ -3,12 +3,14 @@ import {configureStore} from '@reduxjs/toolkit'
 import { authSlice } from './auth';
 import {residentSlice} from './residents/residentSlice';
 import {invitationSlice} from './invitations/invitationSlice';
+import {condoSlice} from './condos/condoSlice';
 
 export const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
         resident: residentSlice.reducer,
         invitation: invitationSlice.reducer,
+        condo: condoSlice.reducer,
     }
 })
 

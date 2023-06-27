@@ -1,25 +1,16 @@
 import { environment } from '../../../environment';
-import { helpHttp } from '../../../core/helpers/helpHttp';
+import {create, getListByUserId} from '../../thunks-utils';
 
 
 const BASE_URL = environment.BASE_URL;
 const URL_COMPONENT = `${BASE_URL}/residents`
 
-export const getResident = async (userId) => {
-    const url = `${URL_COMPONENT}/${userId}/by-user`;
-    return helpHttp().get(url).then(resp => {
-        return resp;
-    })
-        .catch(err => console.log(err));
+export const getResident = async () => {
+    const url = `${URL_COMPONENT}/find/resident-by-user`;
+    return await getListByUserId(url);
 }
 
 export const createResident = async (data) => {
     const url = `${URL_COMPONENT}`;
-    try {
-        return await helpHttp().post(url, {data})
-            .then(resp => resp);
-    } catch (err) {
-        const {data} = err.response;
-        return data;
-    }
+    return await create(data, url);
 }

@@ -1,7 +1,5 @@
 import {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useAppDispatch, useAppSelector} from '../../../../store';
-import {ErrorMessage, Field, Form, Formik} from 'formik';
 import PageWrapper from '../../../../layout/PageWrapper/PageWrapper';
 import {
     Box,
@@ -9,91 +7,80 @@ import {
     Card,
     CardActions,
     CardContent,
-    CardHeader, Dialog, DialogActions, DialogContent, DialogTitle,
-    FormControl, FormControlLabel,
-    FormGroup,
-    MenuItem, Switch, Typography
+    CardHeader,Step, StepLabel, Stepper, Typography
 } from '@mui/material';
-import {Select, TextField} from 'formik-mui';
-import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
-import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import styles from '../../../../styles/style.module.scss';
-import {Condo} from '../../../../core/models/condos/Condo';
-import moment, {Moment} from 'moment';
-import {Home} from '../../../../core/models/homes/Home';
-import {startCreateInvitation} from '../../../../store/invitations';
-import {useNavigate} from 'react-router-dom';
-import {GeneralContext} from '../../../../contexts/GeneralContext';
-import {Invitation} from '../../../../core/models/invitations/Invitation';
+import {GeneralContext} from '../../../../contexts/general/GeneralContext';
+import success from "../../../../assets/img/success.jpg";
+import {PersonalDataComponent} from "../../../components/InvitationsPage/PersonalDataComponent";
+import {VehicleDataComponent} from "../../../components/InvitationsPage/VehicleDataComponent";
+import {InvitationDataComponent} from "../../../components/InvitationsPage/InvitationDataComponent";
 
 export const InvitationsPage = () => {
-    // @ts-ignore
-    const {homeSelected, setInvitationSelected, setIsOpenInvitation} = useContext<any>(GeneralContext);
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const [openDialog, setOpenDialog] = useState(false);
+    const { prevStep, setPrevStep, stepInv} = useContext<any>(GeneralContext);
     const {t} = useTranslation();
-    const {condos, homes, resident} = useAppSelector((state) => state.resident);
-    const [dateFrom, setDateFrom] = useState<Moment | null>(moment());
-    const [dateTo, setDateTo] = useState<Moment | null>(moment().add(4, 'hours'));
-    const [condoIdSelected, setCondoIdSelected] = useState('');
-    const [data, setData] = useState({
-        firstName: '',
-        lastName: '',
-        houseNumber: null,
-        phoneNumber: '',
-        vehicleModel: '',
-        vehicleId: '',
-        vehicleColor: '',
-        toDate: null,
-        fromDate: null,
-        qrCode: '',
-        date: null,
-        residentsId: '',
-        homeId: '',
-        condo: '',
-    });
+    const [activeStep, setActiveStep] = useState(0);
+    const [completed, setCompleted] = useState<{
+        [k: number]: boolean;
+    }>({});
+    // Stepper
+    const steps = [`${t('INVITATIONS_FORM.PERSONAL_INFORMATION')}`,
+        `${t('INVITATIONS_FORM.VEHICLE_DATA')}`, `${t('INVITATIONS_FORM.INVITATION_DETAILS')}`];
 
-    const handleClickOpen = () => {
-        setOpenDialog(true)
-    }
+    const totalSteps = () => {
+        return steps.length;
+    };
 
-    const handleClickClose = () => {
-        setOpenDialog(false)
-    }
+    const completedSteps = () => {
+        return Object.keys(completed).length;
+    };
 
-    const handleSave = () => {
-        create();
-    }
+    const isLastStep = () => {
+        return activeStep === totalSteps() - 1;
+    };
 
-    const create = () => {
-        delete data.condo;
-        dispatch(startCreateInvitation(data)).then((resp) => {
-            setOpenDialog(false)
-            if (resp.status === 201) {
-                const invitation = new Invitation();
-                for (let invitationKey in invitation) {
-                    invitation[invitationKey] = resp.data[invitationKey]
-                }
-                setInvitationSelected(invitation)
-                navigate('../login');
-                setTimeout(() => {
-                    setIsOpenInvitation(true);
-                },500)
-                setOpenDialog(false)
-            }
-        })
-    }
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        setPrevStep(false);
+    };
+
+    const allStepsCompleted = () => {
+        return completedSteps() === totalSteps();
+    };
+
+    const handleNext = () => {
+        const newActiveStep =
+            isLastStep() && !allStepsCompleted()
+                ?
+                steps.findIndex((step, i) => !(i in completed))
+                : activeStep + 1;
+        setActiveStep(newActiveStep);
+    };
+
+    const handleComplete = () => {
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        handleNext();
+    };
+
+    const handleReset = () => {
+        setActiveStep(0);
+        setCompleted({});
+    };
+    // Fin stepper
 
     useEffect(() => {
-        if (homeSelected !== null) {
-            setCondoIdSelected(homeSelected.condo.id);
+        if (stepInv.personalData === true ||
+            stepInv.vehicleData === true ||
+            stepInv.invData === true) {
+            handleComplete();
         }
-    }, [homeSelected]);
+    }, [stepInv]);
 
-
+    useEffect(() => {
+        if (prevStep === true) handleBack();
+    }, [prevStep]);
 
     return (
         <PageWrapper title={'Invitations'}>
@@ -107,205 +94,64 @@ export const InvitationsPage = () => {
                 >
 
                 </CardHeader>
-                <CardContent className={'invitations_cardContainer'} sx={{pt: 1, pl: 0, pr: 0}}>
-                    <Formik
-                        enableReinitialize={true}
-                        initialValues={{
-                            firstName: '',
-                            lastName: '',
-                            nroId: '',
-                            houseNumber: null,
-                            phoneNumber: '',
-                            vehicleModel: '',
-                            vehicleId: '',
-                            vehicleColor: '',
-                            toDate: null,
-                            fromDate: null,
-                            qrCode: '',
-                            date: null,
-                            residentsId: '',
-                            homeId: null,
-                            condo: condoIdSelected,
-                        }}
-                        onSubmit={(values) => {
-                            const home = homes.find((home: Home) => home.condo.id === values.condo);
+                <CardContent className={'invitations_cardContainer'} sx={{pt: 1, pl: 0, pr: 0, height: 'calc(75vh - 124px)'}}>
+                    <Box sx={{width: '100%'}}>
+                        <Stepper nonLinear activeStep={activeStep} alternativeLabel >
+                            {steps.map((label, index) => (
+                                <Step key={label} completed={completed[index]}>
+                                    <StepLabel sx={{margin: 0}}>
+                                        {label}
+                                    </StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
+                        <div>
+                            {allStepsCompleted() ? (
+                                <>
+                                    <div>
+                                        <img src={success} alt='success'/>
+                                    </div>
+                                    <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
+                                        <Box sx={{flex: '1 1 auto'}}/>
+                                        <Button onClick={handleReset}>{t('OUT.REGISTER.GO_TO_LOGIN')}</Button>
+                                    </Box>
+                                </>
+                            ) : (
+                                <div className={'card_container'}>
 
-                            setData({
-                                ...values,
-                                fromDate: dateFrom.format(),
-                                toDate: dateTo.format(),
-                                residentsId: resident.id,
-                                homeId: home.id.toString(),
-                                houseNumber: home.numberHouse,
-                                date: dateFrom.valueOf(),
-                            })
+                                    {
+                                        (activeStep === 0) &&
+                                        <PersonalDataComponent />
+                                    }
+                                    {
+                                        (activeStep === 1) &&
+                                        <VehicleDataComponent />
+                                    }
 
-                        }}
-                    >
+                                    {
+                                        (activeStep === 2) &&
+                                        <InvitationDataComponent />
+                                    }
+
+                                </div>
+                            )}
+                        </div>
+                    </Box>
+                    <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
+                        <Box sx={{flex: '1 1 auto'}}/>
                         {
-                            (formik) => (
-                                <Form>
+                            activeStep === steps.length &&
+                            <Typography variant="caption" sx={{display: 'inline-block'}}>
+                                {t('OUT.REGISTER.COMPLETE_REGISTRATION_SUCCESSFULLY')}
+                            </Typography>
 
-                                    <Box marginTop={2}>
-                                        <FormControl sx={{width: '100%'}}>
-                                            <Field
-                                                component={Select}
-                                                size={'small'}
-                                                type="text"
-                                                label={t('DICTIONARY.CONDO')}
-                                                name={'condo'}
-                                            >
-                                                {
-                                                    condos.map((condo: Condo) => (
-                                                        <MenuItem key={condo.idCondo}
-                                                                  value={condo.id}>{condo.name.toUpperCase()}</MenuItem>
-                                                    ))
-                                                }
-                                            </Field>
-                                        </FormControl>
-                                    </Box>
-                                    <Box marginTop={2}>
-                                        <Field
-                                            component={TextField}
-                                            type="text"
-                                            label={t('INVITATIONS_FORM.FIRSTNAME')}
-                                            name={'firstName'}
-                                            size="small"
-                                            sx={{width: '100%', maxHeight: '60px'}}
-                                        />
-                                        <ErrorMessage name={'firstName'}/>
-                                    </Box>
-                                    <Box marginTop={2}>
-                                        <Field
-                                            component={TextField}
-                                            type="text"
-                                            label={t('INVITATIONS_FORM.LASTNAME')}
-                                            name={'lastName'}
-                                            size="small"
-                                            sx={{width: '100%', maxHeight: '60px'}}
-                                        />
-                                        <ErrorMessage name={'lastName'}/>
-                                    </Box>
-                                    <Box marginTop={2}>
-                                        <Field
-                                            component={TextField}
-                                            type="text"
-                                            label={t('INVITATIONS_FORM.NROID')}
-                                            name={'nroId'}
-                                            size="small"
-                                            sx={{width: '100%', maxHeight: '60px'}}
-                                        />
-                                        <ErrorMessage name={'nroId'}/>
-                                    </Box>
-                                    <Box marginTop={2}>
-                                        <Field
-                                            component={TextField}
-                                            type="text"
-                                            label={t('INVITATIONS_FORM.PHONE_NUMBER')}
-                                            name={'phoneNumber'}
-                                            size="small"
-                                            sx={{width: '100%', maxHeight: '60px'}}
-                                        />
-                                        <ErrorMessage name={'phoneNumber'}/>
-                                    </Box>
-                                    <Box marginTop={2}>
-                                        <Field
-                                            component={TextField}
-                                            type="text"
-                                            label={t('INVITATIONS_FORM.VEHICLE_MODEL')}
-                                            name={'vehicleModel'}
-                                            size="small"
-                                            sx={{width: '100%', maxHeight: '60px'}}
-                                        />
-                                        <ErrorMessage name={'vehicleModel'}/>
-                                    </Box>
-                                    <Box marginTop={2}>
-                                        <Field
-                                            component={TextField}
-                                            type="text"
-                                            label={t('INVITATIONS_FORM.VEHICLE_ID')}
-                                            name={'vehicleId'}
-                                            size="small"
-                                            sx={{width: '100%', maxHeight: '60px'}}
-                                        />
-                                        <ErrorMessage name={'vehicleId'}/>
-                                    </Box>
-                                    <Box marginTop={2}>
-                                        <Field
-                                            component={TextField}
-                                            type="text"
-                                            label={t('INVITATIONS_FORM.VEHICLE_COLOR')}
-                                            name={'vehicleColor'}
-                                            size="small"
-                                            sx={{width: '100%', maxHeight: '60px'}}
-                                        />
-                                        <ErrorMessage name={'vehicleColor'}/>
-                                    </Box>
-
-                                    <Box marginTop={2} sx={{display: 'flex', justifyContent: 'space-between'}}>
-                                        <FormGroup>
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch size={'small'} color={'primary'} defaultChecked/>
-                                                }
-                                                label={
-                                                    <Typography style={{fontSize: '.75rem'}}>
-                                                        {t('INVITATIONS_FORM.FREQUENT_GUEST')}
-                                                    </Typography>
-                                                }/>
-                                        </FormGroup>
-                                        <Button type={'submit'}
-                                                variant={'contained'}
-                                                disabled={!formik.isValid || !formik.dirty}
-                                                size="small"
-                                                onClick={handleClickOpen}
-                                        >{t('INVITATIONS_FORM.INVITE')}</Button>
-                                    </Box>
-                                </Form>
-                            )
                         }
-
-                    </Formik>
+                    </Box>
                 </CardContent>
                 <CardActions sx={{display: 'flex', justifyContent: 'flex-end'}}>
 
                 </CardActions>
             </Card>
-            <Dialog
-                open={openDialog}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">
-                    {t('INVITATIONS_FORM.CREATE_INVITATION')}
-                </DialogTitle>
-                <DialogContent>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
-                            <Box marginTop={2}>
-                                <DateTimePicker
-                                    label={t('INVITATIONS_FORM.FROM_DATE')}
-                                    value={dateFrom}
-                                    onChange={(newValue) => setDateFrom(newValue)}
-                                />
-                            </Box>
-                            <Box marginTop={2}>
-                                <DateTimePicker
-                                    label={t('INVITATIONS_FORM.TO_DATE')}
-                                    value={dateTo}
-                                    onChange={(newValue) => setDateTo(newValue)}
-                                />
-                            </Box>
-                        </DemoContainer>
-                    </LocalizationProvider>
-                </DialogContent>
-                <DialogActions>
-                    <Button color={'secondary'} onClick={handleClickClose}>{t('GENERAL.CANCEL')}</Button>
-                    <Button onClick={handleSave} autoFocus>
-                        {t('GENERAL.CONFIRM')}
-                    </Button>
-                </DialogActions>
-            </Dialog>
         </PageWrapper>
 
     )

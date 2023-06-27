@@ -6,6 +6,7 @@ export const en = {
         GUEST: 'Guest',
         ACTIVES_INV:  'ACTIVES',
         INACTIVES_INV:  'INACTIVES',
+        LOADING: 'Buscando...',
     },
     FOOTER_BAR: {
         HOME: 'Home',
@@ -112,6 +113,7 @@ export const en = {
         },
         REGISTER: {
             CREATE_ACCOUNT: 'Create account',
+            WELCOME_BACK: 'Welcome back',
             TYPE_ACCOUNT: 'Type account',
             USER_DATA: 'User data',
             CONDO_DATA: 'Condominium data',
@@ -120,10 +122,25 @@ export const en = {
             CODE: 'Code',
             ENTER_CODE: 'Enter code',
             NEXT: 'Next',
+            BACK: 'Back',
             FINISH: 'Finish',
             FIRSTNAME_REQUIRED: 'Firstname required',
             LASTNAME_REQUIRED: 'Lastname required',
             HOME_REQUIRED: 'Home required',
+            NAME_REQUIRED: 'Name required',
+            CONDO_NAME: 'Condominium name',
+            CONDO_NAME_REQUIRED: 'Condominium name required',
+            CONDO_ID: 'Condominium id',
+            CONDO_ID_REQUIRED: 'Condominium id required',
+            CONDO_PHONE: 'Condominium phone',
+            CONDO_PHONE_REQUIRED: 'Condominium phone required',
+            CONDO_ADDRESS: 'Condominium address',
+            CONDO_ADDRESS_REQUIRED: 'Condominium address required',
+            CONDO_TYPES: 'Condominium types',
+            CONDO_TYPES_REQUIRED: 'Condominium types required',
+            QUANTITY_HOMES: 'Number of households',
+            GO_TO_LOGIN: 'Go to login',
+            COMPLETE_REGISTRATION_SUCCESSFULLY: 'Complete your registration successfully',
         },
         REQUEST_CHANGE_PASSWORD: {
             DONT_WORRY_WE_SEND_YOU_A_NEW_EMAIL: "Don't worry. We will send you an email with a link to enter a new password",
@@ -164,7 +181,7 @@ export const en = {
     },
     DICTIONARY:  {
         HOUSE: 'Home',
-        HOUSES: 'Homes',
+        HOUSES: 'Houses',
         APT: 'Apt.',
         APARTMENT: 'Apartment',
         APARTMENTS: 'Apartments',
@@ -177,8 +194,16 @@ export const en = {
         FILTER_BY: 'Filter by',
         CLOSE: 'Close',
         SHARE: 'Share',
+        MOBILE: 'Mobile',
+        INVITATION: 'Invitation',
+        DETAILS: 'Details',
+        ACCOUNT: 'Account',
+        WATCHMEN: 'Watchmen'
     },
     INVITATIONS_FORM: {
+        PERSONAL_INFORMATION: 'personal information',
+        VEHICLE_DATA: 'Vehicle data',
+        INVITATION_DETAILS: 'Invitation details',
         FIRSTNAME: 'Firstname',
         LASTNAME: 'Lastname',
         NROID: 'Id',
@@ -199,6 +224,10 @@ export const en = {
         TIME_RANGE: 'Time range',
         INVITATION_TO: 'Invitation to',
         VEHICLE: 'Vehicle',
+        NO_INFORMATION: 'No information',
+        PLEASE_SELECT_HOME: 'Please select the home',
+        TITLE_DIALOG_CREATE_CODE: 'Enter the number of uses of the code',
+        SELECT_TO_OPTION: 'Select an option'
     },
     WARNING: {
         COMING_SOON: 'Coming soon!!',
@@ -207,4 +236,14 @@ export const en = {
             NO_HOUSEHOLDS_REGISTERED: 'There are no households registered',
         },
     },
+    SURVEILLANCE: {
+        SCAN_QR: 'Scan code',
+        SCAN_STOP: 'Stop scan',
+        REGISTER_NEW: 'Register new',
+        CLEAN: 'Clean',
+        APPROVED: 'Approved',
+        rejected: 'Rejected',
+        VALID_INVITATION: 'Valid invitation',
+        INVALID_INVITATION: 'Invalid invitation',
+    }
 }

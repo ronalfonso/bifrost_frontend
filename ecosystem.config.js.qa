@@ -1,0 +1,13 @@
+module.exports = {
+  apps: [
+    {
+      name: 'QAApp',
+      exec_mode: 'cluster',
+      watch: true,
+      instances: 'max', // Or a number of instances
+      script: 'npm',
+      args: 'run start',
+      env: {}
+    }
+  ]
+}

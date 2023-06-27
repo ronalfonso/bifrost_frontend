@@ -2,14 +2,11 @@ import React, {
     useLayoutEffect,
     forwardRef,
     ReactElement,
-    useEffect,
 } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import {ISubHeaderProps} from "../SubHeader/SubHeader";
 import {IPageProps} from "../Page/Page";
-import {useNavigate} from "react-router-dom";
-import {useAppSelector} from '../../store';
 
 interface IPageWrapperProps {
     isProtected?: boolean;
@@ -24,7 +21,7 @@ interface IPageWrapperProps {
 
 const PageWrapper = forwardRef<HTMLDivElement, IPageWrapperProps>(
     ({isProtected, title, description, className, children}, ref) => {
-        const {user} = useAppSelector((state) => state.auth);
+
         useLayoutEffect(() => {
             // @ts-ignore
             document.getElementsByTagName("TITLE")[0].text = `${
@@ -39,26 +36,13 @@ const PageWrapper = forwardRef<HTMLDivElement, IPageWrapperProps>(
                 );
         });
 
-        const navigate = useNavigate();
-
-        useEffect(() => {
-            if (isProtected && user.username === "") {
-                navigate(`../auth/login`);
-            }
-            return () => {
-            };
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, []);
-
         return (
             <div
                 ref={ref}
-                className={classNames("page-wrapper", "container-fluid", className)}
+                className={classNames("page-wrapper", "container-fluid", "animate__animated", "animate__fadeInRight", "animate__faster", className)}
                 style={{display: 'flex', flex: '1 0 auto', flexDirection: 'column'}}
             >
-                <div className="animate__animated animate__fadeInRight animate__faster">
-                    {children}
-                </div>
+                {children}
             </div>
         );
     }

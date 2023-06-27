@@ -12,7 +12,10 @@ export const ButtonFooterComponent = ({button}) => {
 
     return (
         <li className={`list ${activePage(path) ? 'li--active' : ''}`}
-            onClick={() => navigate(path)}>
+            onClick={() => {
+                window.localStorage.setItem('pathPrev', path.substring(2));
+                navigate(path)
+            }}>
             <div className={'button-nav'}>
                 <span className={'icon'}> {Component}</span>
                 <span className={'text'}>{name}</span>

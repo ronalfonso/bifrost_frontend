@@ -1,0 +1,76 @@
+
+.card_qr {
+  padding: .2rem;
+  height: 100%;
+  //border: 2px solid black;
+  //border-radius: $border-radius;
+}
+
+//#reader {
+//  height: 300px;
+//}
+
+.content_info {
+  height: 87%;
+
+  .state {
+    width: 100%;
+    height: 55px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .icon {
+      padding: .65rem;
+      width: 25%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      border-bottom-left-radius: $border-radius;
+      border-top-left-radius: $border-radius;
+    }
+
+    .message {
+      padding: .5rem;
+      border: 1px solid $border;
+      width: 75%;
+      height: 100%;
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+
+    }
+  }
+}
+
+.data_invitation {
+  padding: .5rem;
+  margin-top: .75rem;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  height: 100%;
+
+  .content {
+
+    .info {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 1rem;
+
+      .card_info {
+        padding: .3rem;
+        height: 60px;
+        font-size: 14px;
+
+        .title {
+          color: $black_secondary;
+        }
+
+        .subtitle {
+          color: $black_primary;
+        }
+      }
+    }
+  }
+
+}

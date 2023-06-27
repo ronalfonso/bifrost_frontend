@@ -3,14 +3,16 @@ import {number, object, string} from 'yup';
 import {Field, Form, Formik} from 'formik';
 import {Box, Button, FormControl, MenuItem} from '@mui/material';
 import {Select, TextField} from 'formik-mui';
-import {GeneralContext} from '../../../contexts/GeneralContext';
+import {GeneralContext} from '../../../contexts/general/GeneralContext';
 import {useTranslation} from 'react-i18next';
 import {Home} from '../../../core/models/homes/Home';
 import {useAppDispatch} from '../../../store';
 import {startCreateResident} from '../../../store/residents';
+import {RegisterContext} from "../../../contexts/register/RegisterContext";
 
 export const ResidentFormComponent = () => {
-    const {setResidentRegisterSubmit, codeInvite, setIsLoading, homeListRegister, userIdRegister} = useContext<any>(GeneralContext);
+    const {codeInvite, setIsLoading,} = useContext<any>(GeneralContext);
+    const {setResidentRegisterSubmit, homeListRegister, userIdRegister} = useContext<any>(RegisterContext);
     const dispatch = useAppDispatch();
     const {t} = useTranslation();
 
@@ -49,7 +51,7 @@ export const ResidentFormComponent = () => {
                 }>
                 {
                     (formik) => (
-                        <Form className={'form_register'} >
+                        <Form className={'form_register'}>
                             <div className="">
                                 <Box marginTop={2}>
                                     <Field

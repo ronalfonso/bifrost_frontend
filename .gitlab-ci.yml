@@ -1,0 +1,55 @@
+variables:
+  # $QA_PRIVATE_KEY
+  QA_SERVER_REMOTE_USER: deploy
+  QA_SERVER_REMOTE_HOST: 34.86.220.215
+  QA_SERVER_REMOTE_PORT: 22
+  QA_SERVER_REMOTE_DIR: /app/qa/web
+
+build_qa:
+  image: node:16.18.0
+  stage: build
+  #before_script:
+  script:
+    - npm i --legacy-peer-deps --progress=false
+    #- npm run build
+  only:
+    - dev
+
+deploy_qa:
+  image: php:7.3
+  stage: deploy
+  before_script:
+      - apt-get update -yqq
+      - apt-get install -yqq rsync openssh-client
+      # Install SSH Agent for tranfers
+      - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+      - mkdir -p ~/.ssh
+      # Prepare SSH Conection
+      - echo "$QA_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+      - chmod 600 ~/.ssh/id_rsa
+      - eval $(ssh-agent -s)
+      - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+      - ssh-keyscan -p ${QA_SERVER_REMOTE_PORT} -H "${QA_SERVER_REMOTE_HOST}" >> ~/.ssh/known_hosts
+  script:
+    # Tranfer New Version
+    - rsync -hrz --exclude=readme.md --exclude=.git* --exclude=vendor --exclude=docs -e "ssh -p ${QA_SERVER_REMOTE_PORT}" --rsync-path="sudo rsync" --recursive --links --safe-links * ${QA_SERVER_REMOTE_USER}@${QA_SERVER_REMOTE_HOST}:${QA_SERVER_REMOTE_DIR}
+
+    # Copy Files
+    - ssh -p${QA_SERVER_REMOTE_PORT} ${QA_SERVER_REMOTE_USER}@${QA_SERVER_REMOTE_HOST} "sudo cp ${QA_SERVER_REMOTE_DIR}/env.qa ${QA_SERVER_REMOTE_DIR}/.env"
+    - ssh -p${QA_SERVER_REMOTE_PORT} ${QA_SERVER_REMOTE_USER}@${QA_SERVER_REMOTE_HOST} "sudo cp ${QA_SERVER_REMOTE_DIR}/ecosystem.config.js.qa ${QA_SERVER_REMOTE_DIR}/ecosystem.config.js"
+
+    # Set permission
+    - ssh -p${QA_SERVER_REMOTE_PORT} ${QA_SERVER_REMOTE_USER}@${QA_SERVER_REMOTE_HOST} "sudo chown -R ${QA_SERVER_REMOTE_USER}. ${QA_SERVER_REMOTE_DIR}"
+
+    # Compile
+    - ssh -p${QA_SERVER_REMOTE_PORT} ${QA_SERVER_REMOTE_USER}@${QA_SERVER_REMOTE_HOST} "source ~/.nvm/nvm.sh && cd ${QA_SERVER_REMOTE_DIR} && nvm use 16.18.0"
+    - ssh -p${QA_SERVER_REMOTE_PORT} ${QA_SERVER_REMOTE_USER}@${QA_SERVER_REMOTE_HOST} "source ~/.nvm/nvm.sh && cd ${QA_SERVER_REMOTE_DIR} && npm i --legacy-peer-deps --progress=false"
+    - ssh -p${QA_SERVER_REMOTE_PORT} ${QA_SERVER_REMOTE_USER}@${QA_SERVER_REMOTE_HOST} "source ~/.nvm/nvm.sh && cd ${QA_SERVER_REMOTE_DIR} && npm run build"
+
+    # PM2 Restart
+    # El owner de pm2 es deploy
+    - ssh -p${QA_SERVER_REMOTE_PORT} ${QA_SERVER_REMOTE_USER}@${QA_SERVER_REMOTE_HOST} "cd ${QA_SERVER_REMOTE_DIR} && pm2 restart QAApp"
+
+    - echo "deploy qa"
+  only:
+    - dev

@@ -2,11 +2,12 @@ import {useContext, useEffect, useMemo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store';
 import {db} from '../database/db';
 import {login} from '../../store/auth';
-import {GeneralContext} from '../../contexts/GeneralContext';
+import {GeneralContext} from '../../contexts/general/GeneralContext';
 import {startGetResident} from '../../store/residents';
+import {RoleEnum} from "../../store/auth/enum/role.enum";
+import {startGetCondo} from "../../store/condos";
 
 export const UseCheckAuth = () => {
-    // @ts-ignore
     const { setIsLoading } = useContext<any>(GeneralContext);
     const dispatch = useAppDispatch();
     const {user, status, access_token} = useAppSelector((state) => state.auth);
@@ -22,7 +23,12 @@ export const UseCheckAuth = () => {
                 resp[0].user = JSON.parse(resp[0].user);
                 const authInfo = resp[0];
                 dispatch(login(authInfo));
-                dispatch(startGetResident(authInfo.uuid))
+                if (authInfo.user['role'].name === RoleEnum.RESIDENT) {
+                    dispatch(startGetResident())
+                }
+                if (authInfo.user['role'].name === RoleEnum.CONDO) {
+                    dispatch(startGetCondo())
+                }
                 setIsLoading(false)
             }
         } catch (e) {

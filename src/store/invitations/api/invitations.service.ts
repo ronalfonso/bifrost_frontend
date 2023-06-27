@@ -12,3 +12,18 @@ export const createInvitation = async (data: any) => {
     })
         .catch(err => console.log(err));
 }
+
+export const validateInvitation = async (invitationId: any) => {
+    const url = `${URL_COMPONENT}/validate/${invitationId}`;
+    return helpHttp().get(url).then((resp) => {
+        return resp;
+    })
+        .catch(err => console.log(err));
+}
+
+export const confirmInvitation = async (data: any) => {
+    const url = `${URL_COMPONENT}/confirm-invitation`;
+    return helpHttp().put(url, {data}).then((resp) => {
+        return resp;
+    })
+}

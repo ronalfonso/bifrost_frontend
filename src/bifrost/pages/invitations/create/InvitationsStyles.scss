@@ -4,11 +4,18 @@
   width: 100%;
   @include box-shadow-tridementional;
   padding: .75rem;
-  max-height: 72vh;
+  max-height: 75vh;
   overflow-y: auto;
 
   .invitations_cardContainer {
     overflow-y: auto;
-    max-height: 60vh;
+    max-height: 62vh;
   }
+}
+
+.footer_stepper {
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

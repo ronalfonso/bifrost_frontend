@@ -1,31 +1,48 @@
-import {useContext} from 'react';
-import { useAppSelector } from '../../../store';
+import {useContext, useEffect, useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../../store';
 import logo from '../../../assets/img/bifrost_delimited.png'
 import {SidebarMobileComponent} from './SidebarMobileComponent';
-import {GeneralContext} from '../../../contexts/GeneralContext';
+import {GeneralContext} from '../../../contexts/general/GeneralContext';
 import {useTranslation} from "react-i18next";
 import {useNavigate} from 'react-router-dom';
 import {IconButton} from '@mui/material';
-import {FilterAlt} from '@mui/icons-material';
+import {FilterAlt, Logout} from '@mui/icons-material';
+import {capitalizeLabel} from '../../../core/utils/handle-lables';
+import {RoleEnum} from '../../../store/auth/enum/role.enum';
+import {menu} from "../../../routes/routes";
+import {startLogout} from "../../../store/auth";
 
 export const HeaderComponent = () => {
-    // @ts-ignore
-    const { setShowSidebar } = useContext<any>(GeneralContext);
+    const {setShowSidebar} = useContext<any>(GeneralContext);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { user } = useAppSelector((state) => state.auth)
-    const { t } = useTranslation();
-    let name = '';
-    if (user) {
-        name = user.username.substring(0, 1).toUpperCase() + user.username.substring(1, user.username.length)
-    }
+    const {user} = useAppSelector((state) => state.auth)
+    const {role} = useAppSelector((state) => state.auth.user);
+    const {infoResident} = useAppSelector((state) => state.resident)
+    const {t} = useTranslation();
+    const [name, setName] = useState('');
 
     const handleGoHome = () => {
-        navigate('./home')
+        navigate(`../${menu.home.path}`)
     }
 
+    const handleLogout = () => {
+        dispatch(startLogout()).then(() => {
+            navigate(`../${menu.login.path}`)
+        });
+    }
+
+    useEffect(() => {
+        if (user.role.name === RoleEnum.CONDO) {
+            setName(capitalizeLabel(user['condo'].name));
+        } else if (user.role.name === RoleEnum.RESIDENT) {
+            setName(capitalizeLabel(infoResident.firstName) + ' ' + capitalizeLabel(infoResident.lastName))
+        }
+    }, [user]);
+
     return (
-        <div className={'header_container'}>
-            <SidebarMobileComponent />
+        <>
+            <SidebarMobileComponent/>
             <div className={'left'}>
                 <div className="content_img" onClick={handleGoHome}>
                     <img src={logo} alt={'logo'}/>
@@ -40,12 +57,23 @@ export const HeaderComponent = () => {
             <div className="right">
                 <div className="menu">
                     <div className={`button_content `}>
-                        <IconButton onClick={() => setShowSidebar(true)} aria-label="delete">
-                            <FilterAlt />
-                        </IconButton>
+                        {
+                            role.name === RoleEnum.VIGILANT &&
+                            <IconButton onClick={() => handleLogout()} aria-label="delete">
+                                <Logout/>
+                            </IconButton>
+                        }
+                        {
+                            role.name !== RoleEnum.VIGILANT &&
+                            <IconButton onClick={() => setShowSidebar(true)} aria-label="delete">
+                                <FilterAlt/>
+                            </IconButton>
+                        }
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
+
+export default HeaderComponent;

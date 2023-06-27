@@ -13,28 +13,32 @@ import {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import {GeneralContext} from '../../../contexts/GeneralContext';
+import {GeneralContext} from '../../../contexts/general/GeneralContext';
 import {UserRegisterComponent} from '../UserRegisterComponent';
 import {ResidentFormComponent} from './ResidentFormComponent';
 import {LoadingComponent} from '../../../core/shared/ui/components/LoadingComponent';
 import {useAppDispatch} from '../../../store';
 import {startGetHomesByCode} from '../../../store/homes';
 import success from '../../../assets/img/success.jpg'
+import {RegisterContext} from "../../../contexts/register/RegisterContext";
 
 
 export const ResidentRegisterComponent = ({type}: { type: string }) => {
     const {
         codeInvite,
         setCodeInvite,
-        userRegisterSubmit,
-        setUserRegisterSubmit,
         isLoading,
         setIsLoading,
+    } = useContext<any>(GeneralContext);
+    const {
+        userRegisterSubmit,
+        setUserRegisterSubmit,
         setHomeListRegister,
         setShowRegister,
         residentRegisterSubmit,
         setResidentRegisterSubmit,
-    } = useContext<any>(GeneralContext);
+        typeRegister,
+    } = useContext<any>(RegisterContext);
     const dispatch = useAppDispatch();
     const {t} = useTranslation();
     const [activeStep, setActiveStep] = useState(0);
@@ -102,12 +106,12 @@ export const ResidentRegisterComponent = ({type}: { type: string }) => {
     }, [type]);
 
     useEffect(() => {
-        if (userRegisterSubmit || residentRegisterSubmit) {
+        if ((typeRegister === 2) && (userRegisterSubmit || residentRegisterSubmit)) {
             setUserRegisterSubmit(false);
             setResidentRegisterSubmit(false);
             handleComplete();
         }
-    }, [userRegisterSubmit, residentRegisterSubmit]);
+    }, [userRegisterSubmit, residentRegisterSubmit, typeRegister]);
 
 
     return (
@@ -130,7 +134,7 @@ export const ResidentRegisterComponent = ({type}: { type: string }) => {
                             </div>
                             <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
                                 <Box sx={{flex: '1 1 auto'}}/>
-                                <Button onClick={handleReset}>Ir a iniciar sesion</Button>
+                                <Button onClick={handleReset}>{t('OUT.REGISTER.GO_TO_LOGIN')}</Button>
                             </Box>
                         </>
                     ) : (
@@ -168,7 +172,7 @@ export const ResidentRegisterComponent = ({type}: { type: string }) => {
                     activeStep === steps.length &&
                     // (completed[activeStep] ? (
                     <Typography variant="caption" sx={{display: 'inline-block'}}>
-                        Completo su registro de forma exitosa
+                        {t('OUT.REGISTER.COMPLETE_REGISTRATION_SUCCESSFULLY')}
                     </Typography>
                     // ) : (
                     //     <Button onClick={handleComplete}>
